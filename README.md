@@ -13,7 +13,7 @@ Cache helper for the [Illuminate Cache](https://github.com/illuminate/cache) pac
 
 <p align="center">
 <a href='https://packagist.org/packages/andrey-helldar/cache'><img src='https://img.shields.io/librariesio/github/andrey-helldar/cache.svg?style=flat-square' alt="Dependency Status" /></a>
-<a href="https://styleci.io/repos/119022335"><img src="https://styleci.io/repos/119022335/shield" alt="StyleCI" /></a>
+<a href="https://styleci.io/repos/119809288"><img src="https://styleci.io/repos/119809288/shield" alt="StyleCI" /></a>
 </p>
 
 ## Installation
