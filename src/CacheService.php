@@ -35,7 +35,7 @@ class CacheService
      */
     public function remember($callback)
     {
-        if (config('cache.default') === 'array') {
+        if (config('cache.default', 'file') === 'array') {
             return $callback();
         }
 
