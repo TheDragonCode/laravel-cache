@@ -37,7 +37,6 @@ class CacheService
         }
 
         if ($this->tags->isNotEmpty()) {
-
             return app('cache')->tags($this->tags->toArray())
                 ->remember($this->getKey(), $this->minutes, $callback);
         }
@@ -91,8 +90,8 @@ class CacheService
         $this->clearKey();
 
         array_map(function ($key) {
-            if(is_array($key)) {
-                array_map(function($key, $value) {
+            if (is_array($key)) {
+                array_map(function ($key, $value) {
                     $this->key->push($key);
                     $this->key->push($value);
                 }, array_keys($key), array_values($key));
