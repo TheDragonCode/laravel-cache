@@ -1,0 +1,41 @@
+{
+    "name": "andrey-helldar/cache",
+    "description": "Cache helper for the Illuminate Cache package.",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "laravel",
+        "cache",
+        "helper"
+    ],
+    "authors": [
+        {
+            "name": "Andrey Helldar",
+            "email": "helldar@ai-rus.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/andrey-helldar/cache/issues",
+        "source": "https://github.com/andrey-helldar/cache"
+    },
+    "require": {
+        "php": "~5.6|^7.0",
+        "illuminate/cache": "^5.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Helldar\\Cache\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "minimum-stability": "dev",
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Helldar\\Cache\\ServiceProvider"
+            ]
+        }
+    }
+}
