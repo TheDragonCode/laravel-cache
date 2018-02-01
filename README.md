@@ -40,7 +40,7 @@ Once installed, you need to register the `Helldar\Cache\ServiceProvider::class` 
 ## How to use
 
 ```php
-return cache()
+return cache_mod()
     ->key('it', 'is', 'a', 'key')
     ->minutes(60)
     ->tags('it', 'is', 'a', 'tags')
