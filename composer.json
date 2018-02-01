@@ -1,6 +1,6 @@
 {
     "name": "andrey-helldar/cache",
-    "description": "Cache helper for the Illuminate Cache package.",
+    "description": "Cache Modification helper for the Illuminate Cache package.",
     "type": "library",
     "license": "MIT",
     "keywords": [
