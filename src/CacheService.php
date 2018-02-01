@@ -20,16 +20,19 @@ class CacheService
     protected $minutes;
 
     /**
-     * @var bool
+     * CacheService constructor.
      */
-    protected $to_log = false;
-
     public function __construct()
     {
         $this->clear();
         $this->minutes(1440);
     }
 
+    /**
+     * @param $callback
+     *
+     * @return mixed
+     */
     public function remember($callback)
     {
         if (config('cache.default') === 'array') {
@@ -37,7 +40,8 @@ class CacheService
         }
 
         if ($this->tags->isNotEmpty()) {
-            return app('cache')->tags($this->tags->toArray())
+            return app('cache')
+                ->tags($this->tags->toArray())
                 ->remember($this->getKey(), $this->minutes, $callback);
         }
 
