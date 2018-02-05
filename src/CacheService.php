@@ -96,17 +96,24 @@ class CacheService
         array_map(function ($key) {
             if (is_array($key)) {
                 array_map(function ($key, $value) {
-                    $this->key->push($key);
-                    $this->key->push($value);
+                    $this->pushKeyIfNotEmpty($key);
+                    $this->pushKeyIfNotEmpty($value);
                 }, array_keys($key), array_values($key));
 
                 return;
             }
 
-            $this->key->push($key);
+            $this->pushKeyIfNotEmpty($key);
         }, $keys);
 
         return $this;
+    }
+
+    private function pushKeyIfNotEmpty($value)
+    {
+    	if(!$value) {
+    		$this->key->push($value);
+    	}
     }
 
     /**
