@@ -111,9 +111,9 @@ class CacheService
 
     private function pushKeyIfNotEmpty($value)
     {
-    	if(!$value) {
-    		$this->key->push($value);
-    	}
+        if (!$value) {
+            $this->key->push($value);
+        }
     }
 
     /**
