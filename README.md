@@ -58,13 +58,10 @@ return cache_mod()
 To disable the caching, you need to set the `CACHE_DRIVER=array` in `.env`.
 
 
-## Support Package
-
-You can donate via [Yandex Money](https://money.yandex.ru/quickpay/shop-widget?account=410012608840929&quickpay=shop&payment-type-choice=on&mobile-payment-type-choice=on&writer=seller&targets=Andrey+Helldar%3A+Open+Source+Projects&targets-hint=&default-sum=&button-text=04&mail=on&successURL=).
-
 ## Copyright and License
 
 Cache Modification for [Illuminate Cache](https://github.com/illuminate/cache) package was written by Andrey Helldar for the Laravel framework 5.4 or above, and is released under the MIT License. See the [LICENSE](LICENSE) file for details.
+
 
 ## Translation
 
