@@ -1,5 +1,9 @@
 ## Cache Modification helper
 
+### IMPORTANT!
+#### The package is no longer supported. To implement caching, use the [GeneaLabs/laravel-model-caching](https://github.com/GeneaLabs/laravel-model-caching) package.
+
+
 Cache helper for the [Illuminate Cache](https://github.com/illuminate/cache) package.
 
 
