@@ -6,7 +6,7 @@
 
 Cache helper for the [Illuminate Cache](https://github.com/illuminate/cache) package.
 
-![cache](https://user-images.githubusercontent.com/10347617/40197417-1209115a-5a1c-11e8-83b3-02bad51c6e88.png)
+![cache](https://user-images.githubusercontent.com/10347617/40197724-f1f729be-5a1c-11e8-9854-11f1031938b7.png)
 
 <p align="center">
     <a href="https://styleci.io/repos/119809288"><img src="https://styleci.io/repos/119809288/shield" alt="StyleCI" /></a>
