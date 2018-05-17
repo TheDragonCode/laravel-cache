@@ -6,19 +6,16 @@
 
 Cache helper for the [Illuminate Cache](https://github.com/illuminate/cache) package.
 
+![cache](https://user-images.githubusercontent.com/10347617/40197417-1209115a-5a1c-11e8-83b3-02bad51c6e88.png)
 
 <p align="center">
-<a href="https://packagist.org/packages/andrey-helldar/cache"><img src="https://img.shields.io/packagist/dt/andrey-helldar/cache.svg?style=flat-square" alt="Total Downloads" /></a>
-<a href="https://packagist.org/packages/andrey-helldar/cache"><img src="https://poser.pugx.org/andrey-helldar/cache/v/stable?format=flat-square" alt="Latest Stable Version" /></a>
-<a href="https://packagist.org/packages/andrey-helldar/cache"><img src="https://poser.pugx.org/andrey-helldar/cache/v/unstable?format=flat-square" alt="Latest Unstable Version" /></a>
-<a href="https://github.com/andrey-helldar/cache"><img src="https://poser.pugx.org/andrey-helldar/cache/license?format=flat-square" alt="License" /></a>
+    <a href="https://styleci.io/repos/119809288"><img src="https://styleci.io/repos/119809288/shield" alt="StyleCI" /></a>
+    <a href="https://packagist.org/packages/andrey-helldar/cache"><img src="https://img.shields.io/packagist/dt/andrey-helldar/cache.svg?style=flat-square" alt="Total Downloads" /></a>
+    <a href="https://packagist.org/packages/andrey-helldar/cache"><img src="https://poser.pugx.org/andrey-helldar/cache/v/stable?format=flat-square" alt="Latest Stable Version" /></a>
+    <a href="https://packagist.org/packages/andrey-helldar/cache"><img src="https://poser.pugx.org/andrey-helldar/cache/v/unstable?format=flat-square" alt="Latest Unstable Version" /></a>
+    <a href="LICENSE"><img src="https://poser.pugx.org/andrey-helldar/cache/license?format=flat-square" alt="License" /></a>
 </p>
 
-
-<p align="center">
-<a href='https://packagist.org/packages/andrey-helldar/cache'><img src='https://img.shields.io/librariesio/github/andrey-helldar/cache.svg?style=flat-square' alt="Dependency Status" /></a>
-<a href="https://styleci.io/repos/119809288"><img src="https://styleci.io/repos/119809288/shield" alt="StyleCI" /></a>
-</p>
 
 ## Installation
 
