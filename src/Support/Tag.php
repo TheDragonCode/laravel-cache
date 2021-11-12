@@ -11,7 +11,7 @@ class Tag
     public function get(array $tags): array
     {
         return array_map(static function (string $tag) {
-            return Str::of($tag)->trim()->slug();
+            return (string) Str::of($tag)->trim()->slug();
         }, $tags);
     }
 }
