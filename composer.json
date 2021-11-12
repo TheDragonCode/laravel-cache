@@ -1,5 +1,5 @@
 {
-    "name": "dragon-code/cache",
+    "name": "dragon-code/pretty-cache",
     "description": "Cache Modification helper for the Illuminate Cache package.",
     "type": "library",
     "license": "MIT",
