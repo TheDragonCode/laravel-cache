@@ -26,6 +26,8 @@
     </coverage>
     <php>
         <env name="APP_KEY" value="AckfSECXIvnK5r28GVIWUAxmbBSjTsmF"/>
+        <env name="REDIS_HOST" value="redis"/>
+        <env name="REDIS_PORT" value="6379"/>
     </php>
     <testsuites>
         <testsuite name="Test Suite">
