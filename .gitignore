@@ -1,3 +1,10 @@
-/vendor
-.vscode
-/.idea
+.idea/
+
+vendor/
+
+*.bak
+*.cache
+*.clover
+*.orig
+
+*.lock
