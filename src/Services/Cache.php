@@ -7,6 +7,7 @@ namespace DragonCode\Cache\Services;
 use DragonCode\Cache\Facades\Support\CacheManager;
 use DragonCode\Cache\Facades\Support\Key;
 use DragonCode\Cache\Facades\Support\Tag;
+use DragonCode\Cache\Support\CacheManager as Manager;
 use DragonCode\Support\Concerns\Makeable;
 
 /**
@@ -47,7 +48,7 @@ class Cache
 
     public function key(...$values): Cache
     {
-        $this->key = Key::get('::', $values);
+        $this->key = Key::get(':', $values);
 
         return $this;
     }
@@ -55,7 +56,7 @@ class Cache
     public function has(): bool
     {
         if ($this->when) {
-            return CacheManager::has($this->key);
+            return $this->manager()->has($this->key);
         }
 
         return false;
@@ -67,6 +68,11 @@ class Cache
             return $callback();
         }
 
-        return CacheManager::tags($this->tags)->put($this->key, $callback, $this->ttl);
+        return $this->manager()->put($this->key, $callback, $this->ttl);
+    }
+
+    protected function manager(): Manager
+    {
+        return CacheManager::tags($this->tags);
     }
 }

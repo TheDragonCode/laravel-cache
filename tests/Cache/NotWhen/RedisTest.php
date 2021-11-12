@@ -26,5 +26,8 @@ class RedisTest extends BaseTest
         });
 
         $this->assertFalse($this->cache()->has());
+        $this->assertFalse($this->cache(['pretty'])->has());
+        $this->assertFalse($this->cache(['cache'])->has());
+        $this->assertFalse($this->cache(['qwerty'])->has());
     }
 }
