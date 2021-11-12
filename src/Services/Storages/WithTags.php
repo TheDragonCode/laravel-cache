@@ -17,8 +17,8 @@ class WithTags extends Store
         return $this;
     }
 
-    public function put(string $key, $value, int $seconds)
+    public function put(string $key, callable $callback, int $seconds)
     {
-        return Cache::tags($this->tags)->put($key, $value, $seconds);
+        return Cache::tags($this->tags)->remember($key, $seconds, $callback);
     }
 }

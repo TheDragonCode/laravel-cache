@@ -6,7 +6,7 @@ namespace DragonCode\Cache\Support;
 
 class Key
 {
-    public function make(string $separator, ...$values): string
+    public function get(string $separator, array $values): string
     {
         $hashed = $this->hash($values);
 

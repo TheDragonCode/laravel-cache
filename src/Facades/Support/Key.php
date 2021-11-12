@@ -8,7 +8,7 @@ use DragonCode\Cache\Support\Key as Support;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static string get(string $separator, ...$values)
+ * @method static string get(string $separator, array $values)
  */
 class Key extends Facade
 {

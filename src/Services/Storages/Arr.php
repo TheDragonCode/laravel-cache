@@ -6,18 +6,23 @@ namespace DragonCode\Cache\Services\Storages;
 
 class Arr extends Store
 {
-    public function get(string $key, $default = null)
+    public function get(string $key, callable $default = null)
     {
-        return $default;
+        return $default();
     }
 
-    public function put(string $key, $value, int $seconds)
+    public function put(string $key, callable $callback, int $seconds)
     {
-        return $value;
+        return $this->get($key, $callback);
     }
 
     public function forget(string $key): void
     {
         //
+    }
+
+    public function has(string $key): bool
+    {
+        return false;
     }
 }

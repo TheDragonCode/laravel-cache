@@ -8,8 +8,8 @@ use Illuminate\Support\Facades\Cache;
 
 class WithoutTags extends Store
 {
-    public function put(string $key, $value, int $seconds)
+    public function put(string $key, callable $callback, int $seconds)
     {
-        return Cache::put($key, $value, $seconds);
+        return Cache::remember($key, $seconds, $callback);
     }
 }

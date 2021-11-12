@@ -52,12 +52,21 @@ class Cache
         return $this;
     }
 
+    public function has(): bool
+    {
+        if ($this->when) {
+            return CacheManager::has($this->key);
+        }
+
+        return false;
+    }
+
     public function remember(callable $callback)
     {
         if (! $this->when) {
             return $callback();
         }
 
-        return CacheManager::tags($this->tags)->put($this->key, $callback(), $this->ttl);
+        return CacheManager::tags($this->tags)->put($this->key, $callback, $this->ttl);
     }
 }
