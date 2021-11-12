@@ -8,7 +8,7 @@ use DragonCode\Cache\Services\Storages\Arr;
 use DragonCode\Cache\Services\Storages\WithoutTags;
 use DragonCode\Cache\Services\Storages\WithTags;
 use DragonCode\Contracts\Cache\Store;
-use Illuminate\Contracts\Cache\Repository;
+use Illuminate\Support\Facades\Cache;
 
 class CacheManager implements Store
 {
@@ -62,6 +62,6 @@ class CacheManager implements Store
 
     protected function allowTags(): bool
     {
-        return ! empty($this->tags) && method_exists(app(Repository::class), 'tags');
+        return ! empty($this->tags) && Cache::supportsTags();
     }
 }
