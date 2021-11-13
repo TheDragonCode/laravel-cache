@@ -7,8 +7,9 @@
         "laravel",
         "cache",
         "helper",
-        "pretty",
-        "pretty-cache"
+        "dragon-code",
+        "dragon",
+        "andrey-helldar"
     ],
     "authors": [
         {
@@ -17,8 +18,8 @@
         }
     ],
     "support": {
-        "issues": "https://github.com/TheDragonCode/pretty-cache/issues",
-        "source": "https://github.com/TheDragonCode/pretty-cache"
+        "issues": "https://github.com/TheDragonCode/laravel-cache/issues",
+        "source": "https://github.com/TheDragonCode/laravel-cache"
     },
     "require": {
         "php": "^7.3|^8.0",
