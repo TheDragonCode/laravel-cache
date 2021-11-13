@@ -8,7 +8,7 @@ class Arr extends Store
 {
     public function get(string $key, callable $default = null)
     {
-        return $default();
+        return $this->call($default);
     }
 
     public function put(string $key, callable $callback, int $seconds)

@@ -24,7 +24,7 @@ class WithTags extends Store
             return $this->cache()->get($key);
         }
 
-        return $default();
+        return $this->call($default);
     }
 
     public function put(string $key, callable $callback, int $seconds)

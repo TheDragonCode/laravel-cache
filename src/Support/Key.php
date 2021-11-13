@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace DragonCode\Cache\Support;
 
+use DragonCode\Support\Facades\Helpers\Ables\Arrayable;
+
 class Key
 {
     public function get(string $separator, array $values): string
@@ -15,9 +17,11 @@ class Key
 
     protected function hash(array $values): array
     {
-        return array_map(static function ($value) {
-            return md5($value);
-        }, $values);
+        return Arrayable::of($values)
+            ->flatten()
+            ->map(static function ($value) {
+                return md5($value);
+            })->get();
     }
 
     protected function compile(array $values, string $separator): string

@@ -4,14 +4,22 @@ declare(strict_types=1);
 
 namespace DragonCode\Cache\Support;
 
-use Illuminate\Support\Str;
+use DragonCode\Support\Facades\Helpers\Ables\Arrayable;
+use DragonCode\Support\Facades\Helpers\Ables\Stringable;
 
 class Tag
 {
     public function get(array $tags): array
     {
-        return array_map(static function (string $tag) {
-            return (string) Str::of($tag)->trim()->slug();
-        }, $tags);
+        return Arrayable::of($tags)
+            ->flatten()
+            ->map(function (string $tag) {
+                return $this->sluggable($tag);
+            })->get();
+    }
+
+    protected function sluggable(string $tag): string
+    {
+        return (string) Stringable::of($tag)->trim()->slug();
     }
 }

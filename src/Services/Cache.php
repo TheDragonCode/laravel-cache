@@ -53,6 +53,31 @@ class Cache
         return $this;
     }
 
+    public function get()
+    {
+        if ($this->when) {
+            return $this->manager()->get($this->key);
+        }
+
+        return null;
+    }
+
+    public function put(callable $callback)
+    {
+        if ($this->when) {
+            return $this->manager()->put($this->key, $callback, $this->ttl);
+        }
+
+        return $callback();
+    }
+
+    public function forget(): void
+    {
+        if ($this->when) {
+            $this->manager()->forget($this->key);
+        }
+    }
+
     public function has(): bool
     {
         if ($this->when) {
@@ -60,15 +85,6 @@ class Cache
         }
 
         return false;
-    }
-
-    public function remember(callable $callback)
-    {
-        if (! $this->when) {
-            return $callback();
-        }
-
-        return $this->manager()->put($this->key, $callback, $this->ttl);
     }
 
     protected function manager(): Manager

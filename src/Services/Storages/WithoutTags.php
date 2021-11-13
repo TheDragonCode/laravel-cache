@@ -14,7 +14,7 @@ class WithoutTags extends Store
             return Cache::get($key);
         }
 
-        return $default();
+        return $this->call($default);
     }
 
     public function put(string $key, callable $callback, int $seconds)
