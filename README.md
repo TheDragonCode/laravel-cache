@@ -1,69 +1,140 @@
-## Cache Modification helper
+## Laravel Cache
 
-### IMPORTANT!
-#### The package is no longer supported. To implement caching, use the [GeneaLabs/laravel-model-caching](https://github.com/GeneaLabs/laravel-model-caching) package.
+<img src="https://preview.dragon-code.pro/TheDragonCode/laravel-cache.svg?brand=laravel" alt="Laravel Cache"/>
 
-
-Cache helper for the [Illuminate Cache](https://github.com/illuminate/cache) package.
-
-![cache](https://user-images.githubusercontent.com/10347617/40197724-f1f729be-5a1c-11e8-9854-11f1031938b7.png)
-
-<p align="center">
-    <a href="https://styleci.io/repos/119809288"><img src="https://styleci.io/repos/119809288/shield" alt="StyleCI" /></a>
-    <a href="https://packagist.org/packages/andrey-helldar/cache"><img src="https://img.shields.io/packagist/dt/andrey-helldar/cache.svg?style=flat-square" alt="Total Downloads" /></a>
-    <a href="https://packagist.org/packages/andrey-helldar/cache"><img src="https://poser.pugx.org/andrey-helldar/cache/v/stable?format=flat-square" alt="Latest Stable Version" /></a>
-    <a href="https://packagist.org/packages/andrey-helldar/cache"><img src="https://poser.pugx.org/andrey-helldar/cache/v/unstable?format=flat-square" alt="Latest Unstable Version" /></a>
-    <a href="LICENSE"><img src="https://poser.pugx.org/andrey-helldar/cache/license?format=flat-square" alt="License" /></a>
-</p>
-
+[![Stable Version][badge_stable]][link_packagist]
+[![Unstable Version][badge_unstable]][link_packagist]
+[![Total Downloads][badge_downloads]][link_packagist]
+[![License][badge_license]][link_license]
 
 ## Installation
 
-To get the latest version of Cache Modification, simply require the project using [Composer](https://getcomposer.org/):
+To get the latest version of `Laravel Cache`, simply require the project using [Composer](https://getcomposer.org):
 
 ```bash
-$ composer require andrey-helldar/cache
+$ composer require dragon-code/laravel-cache
 ```
 
-Instead, you may of course manually update your require block and run `composer update` if you so choose:
+Or manually update `require` block of `composer.json` and run `composer update`.
 
 ```json
 {
     "require": {
-        "andrey-helldar/cache": "^1.0"
+        "dragon-code/laravel-cache": "^2.0"
     }
 }
 ```
 
-Once installed, you need to register the `Helldar\Cache\ServiceProvider::class` service provider in your `config/app.php`, or if you're using Laravel 5.5, this can be done via the automatic package discovery.
+## Using
 
+### When True
 
-## How to use
+#### Basic
+
+By default, the cache will be written for 1 day.
 
 ```php
-return cache_mod()
-    ->key('it', 'is', 'a', 'key')
-    ->minutes(60)
-    ->tags('it', 'is', 'a', 'tags')
-    ->remember(function() {
-        return 'my value';
-    });
+use DragonCode\Cache\Services\Cache;
 
-return cache_mod()
-    ->key('it', 'is', 'a', 'key')
-    ->remember(function() {
-        return 'my value';
-    });
+$cache = Cache::make()->key('foo', 'bar', ['baz', 'baq']);
+
+$cache->put(static fn() => 'Some value');
+// Contains cached `Some value`
+
+$cache->get();
+// Returns cached `Some value`
+
+$cache->has();
+// Returns `true`
+
+$cache->forget();
+// Will remove the key from the cache.
 ```
 
-To disable the caching, you need to set the `CACHE_DRIVER=array` in `.env`.
+#### Custom TTL
+
+The cache will be written for the specified number of minutes.
+
+```php
+use DragonCode\Cache\Services\Cache;
+
+$cache = Cache::make()
+    ->ttl($minutes)
+    ->key('foo', 'bar', ['baz', 'baq']);
+
+$cache->put(static fn() => 'Some value');
+// Contains cached `Some value`
+
+$cache->get();
+// Returns cached `Some value`
+
+$cache->has();
+// Returns `true`
+
+$cache->forget();
+// Will remove the key from the cache.
+```
+
+#### Tagged
+
+For repositories that support tagging, the keys will be saved separated by tags.
+
+```php
+use DragonCode\Cache\Services\Cache;
+
+$cache = Cache::make()
+    ->tags('actor', 'author')
+    ->key('foo', 'bar', ['baz', 'baq']);
+
+$cache->put(static fn() => 'Some value');
+// Contains cached `Some value`
+
+$cache->get();
+// Returns cached `Some value`
+
+$cache->has();
+// Returns `true`
+
+$cache->forget();
+// Will remove the key from the cache.
+```
+
+To retrieve a tagged cache item, pass the same ordered list of tags to the tags method and then call the get method with the key you wish to retrieve:
+
+```php
+use DragonCode\Cache\Services\Cache;
+
+$cache = Cache::make()
+    ->key('foo', 'bar');
+
+$cache->tags('actor', 'author')->put(static fn() => 'Some value');
+// Contains cached `Some value`
+
+$cache->tags('actor', 'author')->get();
+// Returns cached `Some value`
+
+$cache->tags('actor')->get();
+// Returns `null`
+
+$cache->tags('author')->get();
+// Returns `null`
+```
+
+> See the official Laravel [documentation](https://laravel.com/docs/cache#accessing-tagged-cache-items).
+
+## License
+
+This package's licensed under the [MIT License](LICENSE).
 
 
-## Copyright and License
+[badge_downloads]:  https://img.shields.io/packagist/dt/dragon-code/laravel-cache.svg?style=flat-square
 
-Cache Modification for [Illuminate Cache](https://github.com/illuminate/cache) package was written by Andrey Helldar for the Laravel framework 5.4 or above, and is released under the MIT License. See the [LICENSE](LICENSE) file for details.
+[badge_license]:    https://img.shields.io/packagist/l/dragon-code/laravel-cache.svg?style=flat-square
 
+[badge_stable]:     https://img.shields.io/github/v/release/dragon-code/laravel-cache?label=stable&style=flat-square
 
-## Translation
+[badge_unstable]:   https://img.shields.io/badge/unstable-dev--main-orange?style=flat-square
 
-Translations of text and comment by Google Translate. Help with translation +1 in karma :)
+[link_license]:     LICENSE
+
+[link_packagist]:   https://packagist.org/packages/dragon-code/laravel-cache

@@ -1,12 +1,15 @@
 {
     "name": "dragon-code/laravel-cache",
-    "description": "Cache Modification helper for the Illuminate Cache package.",
+    "description": "An improved interface for working with cache",
     "type": "library",
     "license": "MIT",
     "keywords": [
         "laravel",
         "cache",
-        "helper"
+        "helper",
+        "dragon-code",
+        "dragon",
+        "andrey-helldar"
     ],
     "authors": [
         {
@@ -15,27 +18,33 @@
         }
     ],
     "support": {
-        "issues": "https://github.com/andrey-helldar/cache/issues",
-        "source": "https://github.com/andrey-helldar/cache"
+        "issues": "https://github.com/TheDragonCode/laravel-cache/issues",
+        "source": "https://github.com/TheDragonCode/laravel-cache"
     },
     "require": {
-        "php": "~5.6|^7.0",
-        "illuminate/cache": "^5.4"
+        "php": "^7.3|^8.0",
+        "dragon-code/contracts": "^2.3.5",
+        "dragon-code/support": "^5.0",
+        "illuminate/support": "^6.0|^7.0|^8.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^4.0|^5.0|^6.0",
+        "phpunit/phpunit": "^8.5|^9.0"
     },
     "autoload": {
         "psr-4": {
-            "Helldar\\Cache\\": "src/"
-        },
-        "files": [
-            "src/helpers.php"
-        ]
-    },
-    "minimum-stability": "dev",
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Helldar\\Cache\\ServiceProvider"
-            ]
+            "DragonCode\\Cache\\": "src"
         }
-    }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests"
+        }
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
 }
