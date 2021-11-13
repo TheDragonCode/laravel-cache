@@ -1,5 +1,5 @@
 {
-    "name": "dragon-code/pretty-cache",
+    "name": "dragon-code/laravel-cache",
     "description": "An improved interface for working with cache",
     "type": "library",
     "license": "MIT",
