@@ -1,5 +1,5 @@
 {
-    "name": "dragon-code/pretty-cache",
+    "name": "dragon-code/laravel-cache",
     "description": "Cache Modification helper for the Illuminate Cache package.",
     "type": "library",
     "license": "MIT",
