@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace DragonCode\Cache\Support;
 
-use DragonCode\Cache\Services\Storages\ArrayStore;
 use DragonCode\Cache\Services\Storages\MainStore;
 use DragonCode\Cache\Services\Storages\TaggedStore;
 use DragonCode\Contracts\Cache\Store;
@@ -43,21 +42,9 @@ class CacheManager implements Store
 
     protected function instance(): Store
     {
-        switch (true) {
-            case $this->isArray():
-                return ArrayStore::make();
-
-            case $this->allowTags():
-                return TaggedStore::make()->tags($this->tags);
-
-            default:
-                return MainStore::make();
-        }
-    }
-
-    protected function isArray(): bool
-    {
-        return config('cache.default', 'file') === 'array';
+        return $this->allowTags()
+            ? TaggedStore::make()->tags($this->tags)
+            : MainStore::make();
     }
 
     protected function allowTags(): bool
