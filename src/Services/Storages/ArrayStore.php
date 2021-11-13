@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace DragonCode\Cache\Services\Storages;
 
-class Arr extends Store
+class ArrayStore extends Store
 {
     public function get(string $key, callable $default = null)
     {

@@ -7,7 +7,7 @@ namespace DragonCode\Cache\Services\Storages;
 use Illuminate\Cache\TaggedCache;
 use Illuminate\Support\Facades\Cache;
 
-class WithTags extends Store
+class TaggedStore extends Store
 {
     protected $tags = [];
 

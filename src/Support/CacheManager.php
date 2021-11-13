@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace DragonCode\Cache\Support;
 
-use DragonCode\Cache\Services\Storages\Arr;
-use DragonCode\Cache\Services\Storages\WithoutTags;
-use DragonCode\Cache\Services\Storages\WithTags;
+use DragonCode\Cache\Services\Storages\ArrayStore;
+use DragonCode\Cache\Services\Storages\MainStore;
+use DragonCode\Cache\Services\Storages\TaggedStore;
 use DragonCode\Contracts\Cache\Store;
 use Illuminate\Support\Facades\Cache;
 
@@ -45,13 +45,13 @@ class CacheManager implements Store
     {
         switch (true) {
             case $this->isArray():
-                return Arr::make();
+                return ArrayStore::make();
 
             case $this->allowTags():
-                return WithTags::make()->tags($this->tags);
+                return TaggedStore::make()->tags($this->tags);
 
             default:
-                return WithoutTags::make();
+                return MainStore::make();
         }
     }
 

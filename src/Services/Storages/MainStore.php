@@ -6,7 +6,7 @@ namespace DragonCode\Cache\Services\Storages;
 
 use Illuminate\Support\Facades\Cache;
 
-class WithoutTags extends Store
+class MainStore extends Store
 {
     public function get(string $key, callable $default = null)
     {
