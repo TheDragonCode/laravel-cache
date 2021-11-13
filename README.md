@@ -27,11 +27,116 @@ Or manually update `require` block of `composer.json` and run `composer update`.
 
 ## Using
 
-Coming soon
+### When True
+
+#### Basic
+
+By default, the cache will be written for 1 day.
+
+```php
+use DragonCode\Cache\Services\Cache;
+
+$cache = Cache::make()->key('foo', 'bar', ['baz', 'baq']);
+
+$cache->put(static fn() => 'Some value');
+// Contains cached `Some value`
+
+$cache->get();
+// Returns cached `Some value`
+
+$cache->has();
+// Returns `true`
+
+$cache->forget();
+// Will remove the key from the cache.
+```
+
+#### Custom TTL
+
+The cache will be written for the specified number of minutes.
+
+```php
+use DragonCode\Cache\Services\Cache;
+
+$cache = Cache::make()
+    ->ttl($minutes)
+    ->key('foo', 'bar', ['baz', 'baq']);
+
+$cache->put(static fn() => 'Some value');
+// Contains cached `Some value`
+
+$cache->get();
+// Returns cached `Some value`
+
+$cache->has();
+// Returns `true`
+
+$cache->forget();
+// Will remove the key from the cache.
+```
+
+#### Tagged
+
+For repositories that support tagging, the keys will be saved separated by tags.
+
+```php
+use DragonCode\Cache\Services\Cache;
+
+$cache = Cache::make()
+    ->tags('actor', 'author')
+    ->key('foo', 'bar', ['baz', 'baq']);
+
+$cache->put(static fn() => 'Some value');
+// Contains cached `Some value`
+
+$cache->get();
+// Returns cached `Some value`
+
+$cache->has();
+// Returns `true`
+
+$cache->forget();
+// Will remove the key from the cache.
+```
+
+Please note that to get the key by tag, you must explicitly pass them.
+
+This is a feature of working with tags.
+
+For example:
+
+```php
+use DragonCode\Cache\Services\Cache;
+
+$cache = Cache::make()
+    ->key('foo', 'bar', ['baz', 'baq']);
+
+$cache->tags('actor', 'author')
+    ->put(static fn() => 'Some value');
+// Contains cached `Some value`
+
+$cache->tags('actor', 'author')->has()
+// Returns `true`
+
+$cache->tags('actor', 'author')->get()
+// Returns `Some value`
+
+$cache->tags('actor')->has()
+// Returns `false`
+
+$cache->tags('actor')->get()
+// Returns `null`
+
+$cache->tags('author')->has()
+// Returns `false`
+
+$cache->tags('author')->get()
+// Returns `null`
+```
 
 ## License
 
-This package is licensed under the [MIT License](LICENSE).
+This package's licensed under the [MIT License](LICENSE).
 
 
 [badge_downloads]:  https://img.shields.io/packagist/dt/dragon-code/laravel-cache.svg?style=flat-square
