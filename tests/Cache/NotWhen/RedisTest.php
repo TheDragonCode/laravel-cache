@@ -17,6 +17,10 @@ class RedisTest extends BaseTest
         });
 
         $this->assertNull($this->cache()->get());
+        $this->assertNull($this->cache(['qwerty', 'cache'])->get());
+
+        $this->assertNull($this->cache(['qwerty'])->get());
+        $this->assertNull($this->cache(['cache'])->get());
     }
 
     public function testPut()
@@ -26,6 +30,10 @@ class RedisTest extends BaseTest
         }));
 
         $this->assertNull($this->cache()->get());
+        $this->assertNull($this->cache(['qwerty', 'cache'])->get());
+
+        $this->assertNull($this->cache(['qwerty'])->get());
+        $this->assertNull($this->cache(['cache'])->get());
     }
 
     public function testForget()
@@ -39,6 +47,10 @@ class RedisTest extends BaseTest
         $this->cache()->forget();
 
         $this->assertNull($this->cache()->get());
+        $this->assertNull($this->cache(['qwerty', 'cache'])->get());
+
+        $this->assertNull($this->cache(['qwerty'])->get());
+        $this->assertNull($this->cache(['cache'])->get());
     }
 
     public function testHas()
@@ -50,5 +62,9 @@ class RedisTest extends BaseTest
         });
 
         $this->assertFalse($this->cache()->has());
+        $this->assertFalse($this->cache(['qwerty', 'cache'])->has());
+
+        $this->assertFalse($this->cache(['qwerty'])->has());
+        $this->assertFalse($this->cache(['cache'])->has());
     }
 }

@@ -18,7 +18,7 @@ abstract class TestCase extends BaseTestCase
 
     protected $when;
 
-    protected $tags = ['pretty', 'cache'];
+    protected $tags = ['qwerty', 'cache'];
 
     protected $keys = ['Foo', 'Bar', 'Baz'];
 
@@ -37,12 +37,14 @@ abstract class TestCase extends BaseTestCase
         $config->set('cache.default', $this->cache);
     }
 
-    protected function cache(): Cache
+    protected function cache(array $tags = null): Cache
     {
+        $tags = $tags ?: $this->tags;
+
         return Cache::make()
             ->when($this->when)
             ->ttl($this->ttl)
             ->key(...$this->keys)
-            ->tags(...$this->tags);
+            ->tags(...$tags);
     }
 }
