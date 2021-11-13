@@ -104,8 +104,7 @@ To retrieve a tagged cache item, pass the same ordered list of tags to the tags 
 ```php
 use DragonCode\Cache\Services\Cache;
 
-$cache = Cache::make()
-    ->key('foo', 'bar');
+$cache = Cache::make()->key('foo', 'bar');
 
 $cache->tags('actor', 'author')->put(static fn() => 'Some value');
 // Contains cached `Some value`
