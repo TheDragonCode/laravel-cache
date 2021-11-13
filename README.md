@@ -99,6 +99,27 @@ $cache->forget();
 // Will remove the key from the cache.
 ```
 
+Pay attention to the peculiarity of working with tags:
+
+```php
+use DragonCode\Cache\Services\Cache;
+
+$cache = Cache::make()
+    ->key('foo', 'bar');
+
+$cache->tags('actor', 'author')->put(static fn() => 'Some value');
+// Contains cached `Some value`
+
+$cache->tags('actor', 'author')->get();
+// Returns cached `Some value`
+
+$cache->tags('actor')->get();
+// Returns `null`
+
+$cache->tags('author')->get();
+// Returns `null`
+```
+
 ## License
 
 This package's licensed under the [MIT License](LICENSE).

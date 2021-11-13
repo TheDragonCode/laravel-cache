@@ -49,8 +49,6 @@ class CacheManager implements Store
 
     protected function allowTags(): bool
     {
-        return ! empty($this->tags)
-            && method_exists(Cache::class, 'supportsTags')
-            && Cache::supportsTags();
+        return ! empty($this->tags) && method_exists(Cache::getStore(), 'tags');
     }
 }
