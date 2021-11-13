@@ -99,7 +99,7 @@ $cache->forget();
 // Will remove the key from the cache.
 ```
 
-Pay attention to the peculiarity of working with tags:
+To retrieve a tagged cache item, pass the same ordered list of tags to the tags method and then call the get method with the key you wish to retrieve:
 
 ```php
 use DragonCode\Cache\Services\Cache;
@@ -119,6 +119,8 @@ $cache->tags('actor')->get();
 $cache->tags('author')->get();
 // Returns `null`
 ```
+
+> See the official Laravel [documentation](https://laravel.com/docs/cache#accessing-tagged-cache-items).
 
 ## License
 
