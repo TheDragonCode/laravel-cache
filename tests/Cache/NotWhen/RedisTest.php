@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Tests\Cache\When;
+namespace Tests\Cache\NotWhen;
 
-class ArrayTest extends BaseTest
+class RedisTest extends BaseTest
 {
-    protected $cache = 'array';
+    protected $cache = 'redis';
 
     public function testGet()
     {
@@ -16,7 +16,7 @@ class ArrayTest extends BaseTest
             return $this->value;
         });
 
-        $this->assertSame($this->value, $this->cache()->get());
+        $this->assertNull($this->cache()->get());
     }
 
     public function testPut()
@@ -25,7 +25,7 @@ class ArrayTest extends BaseTest
             return $this->value;
         }));
 
-        $this->assertSame($this->value, $this->cache()->get());
+        $this->assertNull($this->cache()->get());
     }
 
     public function testForget()
@@ -49,6 +49,6 @@ class ArrayTest extends BaseTest
             return $this->value;
         });
 
-        $this->assertTrue($this->cache()->has());
+        $this->assertFalse($this->cache()->has());
     }
 }
