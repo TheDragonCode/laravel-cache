@@ -99,41 +99,6 @@ $cache->forget();
 // Will remove the key from the cache.
 ```
 
-Please note that to get the key by tag, you must explicitly pass them.
-
-This is a feature of working with tags.
-
-For example:
-
-```php
-use DragonCode\Cache\Services\Cache;
-
-$cache = Cache::make()
-    ->key('foo', 'bar', ['baz', 'baq']);
-
-$cache->tags('actor', 'author')
-    ->put(static fn() => 'Some value');
-// Contains cached `Some value`
-
-$cache->tags('actor', 'author')->has()
-// Returns `true`
-
-$cache->tags('actor', 'author')->get()
-// Returns `Some value`
-
-$cache->tags('actor')->has()
-// Returns `false`
-
-$cache->tags('actor')->get()
-// Returns `null`
-
-$cache->tags('author')->has()
-// Returns `false`
-
-$cache->tags('author')->get()
-// Returns `null`
-```
-
 ## License
 
 This package's licensed under the [MIT License](LICENSE).
