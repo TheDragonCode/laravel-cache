@@ -2,28 +2,26 @@
 
 declare(strict_types=1);
 
-namespace Tests\Cache\NotWhen;
+namespace Tests\Cache\NotWhen\Simple;
 
-class ArrayTest extends BaseTest
+use Tests\Cache\NotWhen\BaseTest;
+
+class FileTest extends BaseTest
 {
-    protected $cache = 'array';
+    protected $cache = 'file';
 
     public function testGet()
     {
         $this->assertNull($this->cache()->get());
 
-        $this->cache()->put(function () {
-            return $this->value;
-        });
+        $this->cache()->put($this->value);
 
         $this->assertNull($this->cache()->get());
     }
 
     public function testPut()
     {
-        $this->assertSame($this->value, $this->cache()->put(function () {
-            return $this->value;
-        }));
+        $this->assertSame($this->value, $this->cache()->put($this->value));
 
         $this->assertNull($this->cache()->get());
     }
@@ -32,9 +30,7 @@ class ArrayTest extends BaseTest
     {
         $this->assertNull($this->cache()->get());
 
-        $this->cache()->put(function () {
-            return $this->value;
-        });
+        $this->cache()->put($this->value);
 
         $this->cache()->forget();
 
@@ -45,9 +41,7 @@ class ArrayTest extends BaseTest
     {
         $this->assertFalse($this->cache()->has());
 
-        $this->cache()->put(function () {
-            return $this->value;
-        });
+        $this->cache()->put($this->value);
 
         $this->assertFalse($this->cache()->has());
     }

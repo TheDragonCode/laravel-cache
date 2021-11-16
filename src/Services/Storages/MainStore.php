@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Cache;
 
 class MainStore extends Store
 {
-    public function get(string $key, callable $default = null)
+    public function get(string $key, $default = null)
     {
         if ($this->has($key)) {
             return Cache::get($key);
@@ -17,9 +17,11 @@ class MainStore extends Store
         return $this->call($default);
     }
 
-    public function put(string $key, callable $callback, int $seconds)
+    public function put(string $key, $value, int $seconds)
     {
-        return Cache::remember($key, $seconds, $callback);
+        $value = $this->makeCallable($value);
+
+        return Cache::remember($key, $seconds, $value);
     }
 
     public function forget(string $key): void

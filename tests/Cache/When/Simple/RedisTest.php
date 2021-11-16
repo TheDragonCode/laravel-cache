@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\Cache\NotWhen;
+namespace Tests\Cache\When\Simple;
+
+use Tests\Cache\When\BaseTest;
 
 class RedisTest extends BaseTest
 {
@@ -12,12 +14,10 @@ class RedisTest extends BaseTest
     {
         $this->assertNull($this->cache()->get());
 
-        $this->cache()->put(function () {
-            return $this->value;
-        });
+        $this->cache()->put($this->value);
 
-        $this->assertNull($this->cache()->get());
-        $this->assertNull($this->cache(['qwerty', 'cache'])->get());
+        $this->assertSame($this->value, $this->cache()->get());
+        $this->assertSame($this->value, $this->cache(['qwerty', 'cache'])->get());
 
         $this->assertNull($this->cache(['qwerty'])->get());
         $this->assertNull($this->cache(['cache'])->get());
@@ -25,12 +25,10 @@ class RedisTest extends BaseTest
 
     public function testPut()
     {
-        $this->assertSame($this->value, $this->cache()->put(function () {
-            return $this->value;
-        }));
+        $this->assertSame($this->value, $this->cache()->put($this->value));
 
-        $this->assertNull($this->cache()->get());
-        $this->assertNull($this->cache(['qwerty', 'cache'])->get());
+        $this->assertSame($this->value, $this->cache()->get());
+        $this->assertSame($this->value, $this->cache(['qwerty', 'cache'])->get());
 
         $this->assertNull($this->cache(['qwerty'])->get());
         $this->assertNull($this->cache(['cache'])->get());
@@ -40,15 +38,12 @@ class RedisTest extends BaseTest
     {
         $this->assertNull($this->cache()->get());
 
-        $this->cache()->put(function () {
-            return $this->value;
-        });
+        $this->cache()->put($this->value);
 
         $this->cache()->forget();
 
         $this->assertNull($this->cache()->get());
         $this->assertNull($this->cache(['qwerty', 'cache'])->get());
-
         $this->assertNull($this->cache(['qwerty'])->get());
         $this->assertNull($this->cache(['cache'])->get());
     }
@@ -57,12 +52,10 @@ class RedisTest extends BaseTest
     {
         $this->assertFalse($this->cache()->has());
 
-        $this->cache()->put(function () {
-            return $this->value;
-        });
+        $this->cache()->put($this->value);
 
-        $this->assertFalse($this->cache()->has());
-        $this->assertFalse($this->cache(['qwerty', 'cache'])->has());
+        $this->assertTrue($this->cache()->has());
+        $this->assertTrue($this->cache(['qwerty', 'cache'])->has());
 
         $this->assertFalse($this->cache(['qwerty'])->has());
         $this->assertFalse($this->cache(['cache'])->has());

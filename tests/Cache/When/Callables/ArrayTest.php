@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Tests\Cache\When;
+namespace Tests\Cache\When\Callables;
 
-class FileTest extends BaseTest
+use Tests\Cache\When\BaseTest;
+
+class ArrayTest extends BaseTest
 {
-    protected $cache = 'file';
-
     public function testGet()
     {
         $this->assertNull($this->cache()->get());
