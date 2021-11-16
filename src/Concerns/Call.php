@@ -13,17 +13,22 @@ trait Call
      */
     protected function call($callback = null)
     {
-        return is_callable($callback) ? $callback() : $callback;
+        return $this->isCallable($callback) ? $callback() : $callback;
     }
 
     protected function makeCallable($value): callable
     {
-        if (! is_callable($value)) {
-            return function () use ($value) {
-                return $value;
-            };
+        if ($this->isCallable($value)) {
+            return $value;
         }
 
-        return $value;
+        return function () use ($value) {
+            return $value;
+        };
+    }
+    
+    protected isCallable($value): bool
+    {
+        return is_callable($value);
     }
 }
