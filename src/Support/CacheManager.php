@@ -7,10 +7,16 @@ namespace DragonCode\Cache\Support;
 use DragonCode\Cache\Services\Storages\MainStore;
 use DragonCode\Cache\Services\Storages\TaggedStore;
 use DragonCode\Contracts\Cache\Store;
+use DragonCode\Support\Concerns\Makeable;
 use Illuminate\Support\Facades\Cache;
 
+/**
+ * @method static CacheManager make()
+ */
 class CacheManager implements Store
 {
+    use Makeable;
+
     protected $tags = [];
 
     public function tags(array $tags): CacheManager
