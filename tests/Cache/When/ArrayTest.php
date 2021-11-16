@@ -6,8 +6,6 @@ namespace Tests\Cache\When;
 
 class ArrayTest extends BaseTest
 {
-    protected $cache = 'array';
-
     public function testGet()
     {
         $this->assertNull($this->cache()->get());

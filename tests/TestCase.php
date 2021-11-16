@@ -12,7 +12,7 @@ abstract class TestCase extends BaseTestCase
 {
     use RefreshCache;
 
-    protected $cache;
+    protected $cache = 'array';
 
     protected $ttl = 60;
 
