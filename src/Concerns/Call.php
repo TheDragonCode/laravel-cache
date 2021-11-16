@@ -27,7 +27,7 @@ trait Call
         };
     }
     
-    protected isCallable($value): bool
+    protected function isCallable($value): bool
     {
         return is_callable($value);
     }
