@@ -39,6 +39,8 @@ use DragonCode\Cache\Services\Cache;
 $cache = Cache::make()->key('foo', 'bar', ['baz', 'baq']);
 
 $cache->put(static fn() => 'Some value');
+// or
+$cache->put('Some value');
 // Contains cached `Some value`
 
 $cache->get();
@@ -63,6 +65,8 @@ $cache = Cache::make()
     ->key('foo', 'bar', ['baz', 'baq']);
 
 $cache->put(static fn() => 'Some value');
+// or
+$cache->put('Some value');
 // Contains cached `Some value`
 
 $cache->get();
@@ -87,6 +91,8 @@ $cache = Cache::make()
     ->key('foo', 'bar', ['baz', 'baq']);
 
 $cache->put(static fn() => 'Some value');
+// or
+$cache->put('Some value');
 // Contains cached `Some value`
 
 $cache->get();
@@ -107,6 +113,8 @@ use DragonCode\Cache\Services\Cache;
 $cache = Cache::make()->key('foo', 'bar');
 
 $cache->tags('actor', 'author')->put(static fn() => 'Some value');
+// or
+$cache->tags('actor', 'author')->put('Some value');
 // Contains cached `Some value`
 
 $cache->tags('actor', 'author')->get();

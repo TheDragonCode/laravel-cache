@@ -20,14 +20,14 @@ class CacheManager implements Store
         return $this;
     }
 
-    public function get(string $key, callable $default = null)
+    public function get(string $key, $default = null)
     {
         return $this->instance()->get($key, $default);
     }
 
-    public function put(string $key, callable $callback, int $seconds)
+    public function put(string $key, $value, int $seconds)
     {
-        return $this->instance()->put($key, $callback, $seconds);
+        return $this->instance()->put($key, $value, $seconds);
     }
 
     public function forget(string $key): void

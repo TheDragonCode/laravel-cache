@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace DragonCode\Cache\Services;
 
+use DragonCode\Cache\Concerns\Call;
 use DragonCode\Cache\Facades\Support\CacheManager;
 use DragonCode\Cache\Facades\Support\Key;
 use DragonCode\Cache\Facades\Support\Tag;
@@ -15,6 +16,7 @@ use DragonCode\Support\Concerns\Makeable;
  */
 class Cache
 {
+    use Call;
     use Makeable;
 
     protected $ttl = 86400;
@@ -62,13 +64,18 @@ class Cache
         return null;
     }
 
-    public function put(callable $callback)
+    /**
+     * @param  mixed  $value
+     *
+     * @return mixed
+     */
+    public function put($value)
     {
         if ($this->when) {
-            return $this->manager()->put($this->key, $callback, $this->ttl);
+            return $this->manager()->put($this->key, $value, $this->ttl);
         }
 
-        return $callback();
+        return $this->call($value);
     }
 
     public function forget(): void

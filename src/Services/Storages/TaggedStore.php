@@ -18,7 +18,7 @@ class TaggedStore extends Store
         return $this;
     }
 
-    public function get(string $key, callable $default = null)
+    public function get(string $key, $default = null)
     {
         if ($this->has($key)) {
             return $this->cache()->get($key);
@@ -27,9 +27,11 @@ class TaggedStore extends Store
         return $this->call($default);
     }
 
-    public function put(string $key, callable $callback, int $seconds)
+    public function put(string $key, $value, int $seconds)
     {
-        return $this->cache()->remember($key, $seconds, $callback);
+        $value = $this->makeCallable($value);
+
+        return $this->cache()->remember($key, $seconds, $value);
     }
 
     public function forget(string $key): void

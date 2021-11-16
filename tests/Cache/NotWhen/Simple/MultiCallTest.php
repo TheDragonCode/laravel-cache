@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Tests\Cache\When;
+namespace Tests\Cache\NotWhen\Simple;
 
 use DragonCode\Cache\Services\Cache;
+use Tests\Cache\NotWhen\BaseTest;
 
 class MultiCallTest extends BaseTest
 {
@@ -18,17 +19,11 @@ class MultiCallTest extends BaseTest
         $this->assertNull($value1->get());
         $this->assertNull($value2->get());
 
-        $value1->put(function () {
-            return 'Foo';
-        });
+        $value1->put('Foo');
+        $value2->put('Bar');
 
-        $value2->put(function () {
-            return 'Bar';
-        });
-
-        $this->assertSame('Foo', $value1->get());
-        $this->assertSame('Bar', $value2->get());
-        $this->assertSame('Foo', $value1->get());
+        $this->assertNull($value1->get());
+        $this->assertNull($value2->get());
     }
 
     public function testForget()
@@ -39,16 +34,11 @@ class MultiCallTest extends BaseTest
         $this->assertNull($value1->get());
         $this->assertNull($value2->get());
 
-        $value1->put(function () {
-            return 'Foo';
-        });
+        $value1->put('Foo');
+        $value2->put('Bar');
 
-        $value2->put(function () {
-            return 'Bar';
-        });
-
-        $this->assertSame('Foo', $value1->get());
-        $this->assertSame('Bar', $value2->get());
+        $this->assertNull($value1->get());
+        $this->assertNull($value2->get());
 
         $value1->forget();
         $value2->forget();
@@ -65,16 +55,11 @@ class MultiCallTest extends BaseTest
         $this->assertFalse($value1->has());
         $this->assertFalse($value2->has());
 
-        $value1->put(function () {
-            return 'Foo';
-        });
+        $value1->put('Foo');
+        $value2->put('Bar');
 
-        $value2->put(function () {
-            return 'Bar';
-        });
-
-        $this->assertTrue($value1->has());
-        $this->assertTrue($value2->has());
+        $this->assertFalse($value1->has());
+        $this->assertFalse($value2->has());
     }
 
     protected function cache(array $tags = null): Cache
