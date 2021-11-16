@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace DragonCode\Cache\Services;
 
 use DragonCode\Cache\Concerns\Call;
-use DragonCode\Cache\Facades\Support\CacheManager;
 use DragonCode\Cache\Facades\Support\Key;
 use DragonCode\Cache\Facades\Support\Tag;
-use DragonCode\Cache\Support\CacheManager as Manager;
+use DragonCode\Cache\Support\CacheManager;
 use DragonCode\Support\Concerns\Makeable;
 
 /**
@@ -94,8 +93,8 @@ class Cache
         return false;
     }
 
-    protected function manager(): Manager
+    protected function manager(): CacheManager
     {
-        return CacheManager::tags($this->tags);
+        return CacheManager::make()->tags($this->tags);
     }
 }
