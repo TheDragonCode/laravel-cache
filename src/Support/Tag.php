@@ -14,11 +14,11 @@ class Tag
         return Arrayable::of($tags)
             ->flatten()
             ->map(function (string $tag) {
-                return $this->sluggable($tag);
+                return $this->slug($tag);
             })->get();
     }
 
-    protected function sluggable(string $tag): string
+    protected function slug(string $tag): string
     {
         return (string) Stringable::of($tag)->trim()->slug();
     }
