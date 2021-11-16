@@ -128,7 +128,7 @@ This package's licensed under the [MIT License](LICENSE).
 
 [badge_downloads]:  https://img.shields.io/packagist/dt/dragon-code/laravel-cache.svg?style=flat-square
 
-[badge_license]:    https://img.shields.io/packagist/l/dragon-code/laravel-cache.svg?style=flat-square
+[badge_license]:    https://img.shields.io/github/license/TheDragonCode/laravel-cache.svg?style=flat-square
 
 [badge_stable]:     https://img.shields.io/github/v/release/TheDragonCode/laravel-cache?label=stable&style=flat-square
 
