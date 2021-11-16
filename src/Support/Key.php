@@ -20,7 +20,7 @@ class Key
         return Arrayable::of($values)
             ->flatten()
             ->map(static function ($value) {
-                return md5($value);
+                return md5((string) $value);
             })->get();
     }
 
