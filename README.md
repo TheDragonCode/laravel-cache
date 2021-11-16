@@ -129,6 +129,30 @@ $cache->tags('author')->get();
 
 > See the official Laravel [documentation](https://laravel.com/docs/cache#accessing-tagged-cache-items).
 
+### When False
+
+Passing `when = false` will not write to the cache.
+
+```php
+use DragonCode\Cache\Services\Cache;
+
+$cache = Cache::make()
+    ->when(false)
+    ->key('foo', 'bar');
+
+$cache->get();
+// Returns `null`
+
+$cache->has();
+// Returns `false`
+
+$value = $cache->put(static fn() => 'Some value');
+// or
+$value = $cache->put('Some value');
+
+// `$value` contains `Some value`, but `$cache->has() = false`
+```
+
 ## License
 
 This package's licensed under the [MIT License](LICENSE).
