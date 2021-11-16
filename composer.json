@@ -31,6 +31,9 @@
         "orchestra/testbench": "^4.0|^5.0|^6.0",
         "phpunit/phpunit": "^8.5|^9.0"
     },
+    "conflict": {
+        "andrey-helldar/cache": "*"
+    },
     "autoload": {
         "psr-4": {
             "DragonCode\\Cache\\": "src"
