@@ -27,6 +27,10 @@ class IlluminateTest extends BaseTest
         $this->cache()->put(new IlluminateArrayable());
 
         $this->assertSame($this->value, $this->cache()->get());
+        $this->assertSame($this->value, $this->cache(['qwerty', 'cache'])->get());
+
+        $this->assertNull($this->cache(['qwerty'])->get());
+        $this->assertNull($this->cache(['cache'])->get());
     }
 
     public function testPut()
@@ -34,6 +38,10 @@ class IlluminateTest extends BaseTest
         $this->assertSame($this->value, $this->cache()->put(new IlluminateArrayable()));
 
         $this->assertSame($this->value, $this->cache()->get());
+        $this->assertSame($this->value, $this->cache(['qwerty', 'cache'])->get());
+
+        $this->assertNull($this->cache(['qwerty'])->get());
+        $this->assertNull($this->cache(['cache'])->get());
     }
 
     public function testForget()
@@ -45,6 +53,9 @@ class IlluminateTest extends BaseTest
         $this->cache()->forget();
 
         $this->assertNull($this->cache()->get());
+        $this->assertNull($this->cache(['qwerty', 'cache'])->get());
+        $this->assertNull($this->cache(['qwerty'])->get());
+        $this->assertNull($this->cache(['cache'])->get());
     }
 
     public function testHas()
@@ -54,5 +65,9 @@ class IlluminateTest extends BaseTest
         $this->cache()->put(new IlluminateArrayable());
 
         $this->assertTrue($this->cache()->has());
+        $this->assertTrue($this->cache(['qwerty', 'cache'])->has());
+
+        $this->assertFalse($this->cache(['qwerty'])->has());
+        $this->assertFalse($this->cache(['cache'])->has());
     }
 }
