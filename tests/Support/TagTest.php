@@ -5,10 +5,20 @@ declare(strict_types=1);
 namespace Tests\Support;
 
 use DragonCode\Cache\Facades\Support\Tag;
+use Tests\Fixtures\Concerns\Dtoable;
+use Tests\Fixtures\Dto\CustomDto;
+use Tests\Fixtures\Dto\DtoObject;
 use Tests\TestCase;
 
 class TagTest extends TestCase
 {
+    use Dtoable;
+
+    protected $value = [
+        'foo' => 'Foo',
+        'bar' => 'Bar',
+    ];
+
     public function testString()
     {
         $tags = Tag::get(['FoO', 'Bar', 'a-aZ', ' Qwe Rt_y']);
@@ -38,5 +48,29 @@ class TagTest extends TestCase
         $expected = ['foo', 'bar', 'baz', 'kverti'];
 
         $this->assertSame($expected, $tags);
+    }
+
+    public function testArrayable()
+    {
+        $key = Tag::get($this->dto());
+
+        $expected = ['foo', 'bar'];
+
+        $this->assertSame($expected, $key);
+    }
+
+    public function testMultiObjectArrays()
+    {
+        $key = Tag::get([
+            'qwe',
+            'rty',
+            DtoObject::make(['foo' => 'Foo']),
+            DtoObject::make(['bar' => 'Bar']),
+            CustomDto::make(['wasd' => 'WASD']),
+        ]);
+
+        $expected = ['qwe', 'rty', 'foo', 'bar', 'wasd'];
+
+        $this->assertSame($expected, $key);
     }
 }

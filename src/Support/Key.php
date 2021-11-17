@@ -5,13 +5,22 @@ declare(strict_types=1);
 namespace DragonCode\Cache\Support;
 
 use DragonCode\Cache\Concerns\Arrayable;
+use DragonCode\Contracts\DataTransferObject\DataTransferObject;
 
 class Key
 {
     use Arrayable;
 
-    public function get(string $separator, array $values): string
+    /**
+     * @param  string  $separator
+     * @param  array|\DragonCode\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Arrayable|\ArrayObject|DataTransferObject  $values
+     *
+     * @return string
+     */
+    public function get(string $separator, $values): string
     {
+        $values = $this->toArray($values);
+
         $hashed = $this->hash($values);
 
         return $this->compile($hashed, $separator);

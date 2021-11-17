@@ -27,7 +27,30 @@ Or manually update `require` block of `composer.json` and run `composer update`.
 
 ## Using
 
-### Keys Handling
+### Keys And Tags
+
+In addition to passing an explicit value, you can also pass objects and arrays to the `keys` and `tags` methods.
+
+For example:
+
+```php
+use DragonCode\Cache\Services\Cache;
+use DragonCode\SimpleDataTransferObject\DataTransferObject;
+
+$arr1 = ['foo', 'bar']
+$arr2 = new ArrayObject(['foo', 'bar'])
+$arr3 = DataTransferObject::make(['foo', 'bar'])
+
+Cache::make()->key($arr1)->tags($arr1);
+Cache::make()->key($arr2)->tags($arr3);
+Cache::make()->key($arr2)->tags($arr3);
+
+Cache::make()->key([$arr1, $arr2, $arr3, 'foo', 'bar'])->tags([$arr1, $arr2, $arr3, 'foo', 'bar']);
+Cache::make()->key([$arr1, $arr2, $arr3, 'foo', 'bar'])->tags([$arr1, $arr2, $arr3, 'foo', 'bar']);
+Cache::make()->key([$arr1, $arr2, $arr3, 'foo', 'bar'])->tags([$arr1, $arr2, $arr3, 'foo', 'bar']);
+```
+
+#### Keys Handling
 
 Since the main problem of working with the cache's key compilation, this package solves it.
 
@@ -36,7 +59,9 @@ By passing values to the `keys` method, we get a ready-made key at the output.
 For example:
 
 ```php
-$cache = Cache::make()->key('foo', 'bar', ['baz', 'baq']);
+use DragonCode\Cache\Services\Cache;
+
+$cache = Cache::make()->key('foo', 'bar', [null, 'baz', 'baq']);
 
 // Key is `acbd18db4cc2f85cedef654fccc4a4d8:37b51d194a7513e45b56f6524f2d51f2:73feffa4b7f6bb68e44cf984c85f6e88:b47951d522316fdd8811b23fc9c2f583`
 ```
@@ -46,6 +71,8 @@ This means that when writing to the cache, the tree view will be used.
 For example:
 
 ```php
+use DragonCode\Cache\Services\Cache;
+
 Cache::make()->key('foo', 'foo')->put('foo');
 Cache::make()->key('foo', 'bar')->put('bar');
 Cache::make()->key('baz')->put('baz');
