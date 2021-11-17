@@ -27,6 +27,35 @@ Or manually update `require` block of `composer.json` and run `composer update`.
 
 ## Using
 
+### Keys Handling
+
+Since the main problem of working with the cache's key compilation, this package solves it.
+
+By passing values to the `keys` method, we get a ready-made key at the output.
+
+For example:
+
+```php
+$cache = Cache::make()->key('foo', 'bar', ['baz', 'baq']);
+
+// Key is `acbd18db4cc2f85cedef654fccc4a4d8:37b51d194a7513e45b56f6524f2d51f2:73feffa4b7f6bb68e44cf984c85f6e88:b47951d522316fdd8811b23fc9c2f583`
+```
+
+This means that when writing to the cache, the tree view will be used.
+
+For example:
+
+```php
+Cache::make()->key('foo', 'foo')->put('foo');
+Cache::make()->key('foo', 'bar')->put('bar');
+Cache::make()->key('baz')->put('baz');
+
+// acbd18db4cc2f85cedef654fccc4a4d8:
+//     acbd18db4cc2f85cedef654fccc4a4d8: foo
+//     37b51d194a7513e45b56f6524f2d51f2: bar
+// 73feffa4b7f6bb68e44cf984c85f6e88: baz
+```
+
 ### When Enabled
 
 #### Basic
