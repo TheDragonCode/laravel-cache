@@ -21,6 +21,8 @@ trait Call
      */
     protected function call($callback = null)
     {
+        $callback = $this->resolve($callback);
+
         return $this->isCallable($callback) ? $callback() : $callback;
     }
 

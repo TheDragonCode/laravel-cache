@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace DragonCode\Cache\Support;
 
+use DragonCode\Cache\Services\Storages\Disabled;
 use DragonCode\Cache\Services\Storages\MainStore;
 use DragonCode\Cache\Services\Storages\TaggedStore;
 use DragonCode\Contracts\Cache\Store;
@@ -11,13 +12,20 @@ use DragonCode\Support\Concerns\Makeable;
 use Illuminate\Support\Facades\Cache;
 
 /**
- * @method static CacheManager make()
+ * @method static CacheManager make(bool $when = true)
  */
 class CacheManager implements Store
 {
     use Makeable;
 
     protected $tags = [];
+
+    protected $when = true;
+
+    public function __construct(bool $when = true)
+    {
+        $this->when = $when;
+    }
 
     public function tags(array $tags): CacheManager
     {
@@ -48,9 +56,16 @@ class CacheManager implements Store
 
     protected function instance(): Store
     {
-        return $this->allowTags()
-            ? TaggedStore::make()->tags($this->tags)
-            : MainStore::make();
+        switch (true) {
+            case ! $this->when:
+                return Disabled::make();
+
+            case $this->allowTags():
+                return TaggedStore::make()->tags($this->tags);
+
+            default:
+                return MainStore::make();
+        }
     }
 
     protected function allowTags(): bool
