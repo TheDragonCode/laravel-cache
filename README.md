@@ -27,7 +27,7 @@ Or manually update `require` block of `composer.json` and run `composer update`.
 
 ## Using
 
-### When True
+### When Enabled
 
 #### Basic
 
@@ -129,7 +129,7 @@ $cache->tags('author')->get();
 
 > See the official Laravel [documentation](https://laravel.com/docs/cache#accessing-tagged-cache-items).
 
-### When False
+### When Disabled
 
 Passing `when = false` will not write to the cache.
 
