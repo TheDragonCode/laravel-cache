@@ -140,17 +140,16 @@ $cache = Cache::make()
     ->when(false)
     ->key('foo', 'bar');
 
+$value = $cache->put(static fn() => 'Some value');
+// or
+$value = $cache->put('Some value');
+// Returns `Some value`
+
 $cache->get();
 // Returns `null`
 
 $cache->has();
 // Returns `false`
-
-$value = $cache->put(static fn() => 'Some value');
-// or
-$value = $cache->put('Some value');
-
-// `$value` contains `Some value`, but `$cache->has() = false`
 ```
 
 ## License
