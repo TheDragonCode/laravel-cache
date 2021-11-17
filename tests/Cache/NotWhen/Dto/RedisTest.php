@@ -2,13 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Tests\Cache\When\Arrayables\Simple\Redis;
+namespace Tests\Cache\NotWhen\Dto;
 
-use Tests\Cache\When\BaseTest;
-use Tests\Fixtures\Simple\IlluminateArrayable;
+use Tests\Cache\NotWhen\BaseTest;
+use Tests\Fixtures\Concerns\Dtoable;
 
-class IlluminateTest extends BaseTest
+class RedisTest extends BaseTest
 {
+    use Dtoable;
+
     protected $cache = 'redis';
 
     protected $value = [
@@ -20,10 +22,10 @@ class IlluminateTest extends BaseTest
     {
         $this->assertNull($this->cache()->get());
 
-        $this->cache()->put(new IlluminateArrayable());
+        $this->cache()->put($this->dto());
 
-        $this->assertSame($this->value, $this->cache()->get());
-        $this->assertSame($this->value, $this->cache(['qwerty', 'cache'])->get());
+        $this->assertNull($this->cache()->get());
+        $this->assertNull($this->cache(['qwerty', 'cache'])->get());
 
         $this->assertNull($this->cache(['qwerty'])->get());
         $this->assertNull($this->cache(['cache'])->get());
@@ -31,10 +33,10 @@ class IlluminateTest extends BaseTest
 
     public function testPut()
     {
-        $this->assertSame($this->value, $this->cache()->put(new IlluminateArrayable()));
+        $this->assertSame($this->value, $this->cache()->put($this->dto()));
 
-        $this->assertSame($this->value, $this->cache()->get());
-        $this->assertSame($this->value, $this->cache(['qwerty', 'cache'])->get());
+        $this->assertNull($this->cache()->get());
+        $this->assertNull($this->cache(['qwerty', 'cache'])->get());
 
         $this->assertNull($this->cache(['qwerty'])->get());
         $this->assertNull($this->cache(['cache'])->get());
@@ -44,7 +46,7 @@ class IlluminateTest extends BaseTest
     {
         $this->assertNull($this->cache()->get());
 
-        $this->cache()->put(new IlluminateArrayable());
+        $this->cache()->put($this->dto());
 
         $this->cache()->forget();
 
@@ -58,10 +60,10 @@ class IlluminateTest extends BaseTest
     {
         $this->assertFalse($this->cache()->has());
 
-        $this->cache()->put(new IlluminateArrayable());
+        $this->cache()->put($this->dto());
 
-        $this->assertTrue($this->cache()->has());
-        $this->assertTrue($this->cache(['qwerty', 'cache'])->has());
+        $this->assertFalse($this->cache()->has());
+        $this->assertFalse($this->cache(['qwerty', 'cache'])->has());
 
         $this->assertFalse($this->cache(['qwerty'])->has());
         $this->assertFalse($this->cache(['cache'])->has());

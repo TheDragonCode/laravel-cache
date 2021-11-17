@@ -56,11 +56,7 @@ class Cache
 
     public function get()
     {
-        if ($this->when) {
-            return $this->manager()->get($this->key);
-        }
-
-        return null;
+        return $this->manager()->get($this->key);
     }
 
     /**
@@ -70,31 +66,22 @@ class Cache
      */
     public function put($value)
     {
-        if ($this->when) {
-            return $this->manager()->put($this->key, $value, $this->ttl);
-        }
-
-        return $this->call($value);
+        return $this->manager()->put($this->key, $value, $this->ttl);
     }
 
     public function forget(): void
     {
-        if ($this->when) {
-            $this->manager()->forget($this->key);
-        }
+        $this->manager()->forget($this->key);
     }
 
     public function has(): bool
     {
-        if ($this->when) {
-            return $this->manager()->has($this->key);
-        }
-
-        return false;
+        return $this->manager()->has($this->key);
     }
 
     protected function manager(): CacheManager
     {
-        return CacheManager::make()->tags($this->tags);
+        return CacheManager::make($this->when)
+            ->tags($this->tags);
     }
 }
