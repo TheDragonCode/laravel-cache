@@ -61,7 +61,7 @@ For example:
 ```php
 use DragonCode\Cache\Services\Cache;
 
-$cache = Cache::make()->key('foo', 'bar', ['baz', 'baq']);
+$cache = Cache::make()->key('foo', 'bar', [null, 'baz', 'baq']);
 
 // Key is `acbd18db4cc2f85cedef654fccc4a4d8:37b51d194a7513e45b56f6524f2d51f2:73feffa4b7f6bb68e44cf984c85f6e88:b47951d522316fdd8811b23fc9c2f583`
 ```
