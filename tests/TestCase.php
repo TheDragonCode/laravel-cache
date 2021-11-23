@@ -37,13 +37,14 @@ abstract class TestCase extends BaseTestCase
         $config->set('cache.default', $this->cache);
     }
 
-    protected function cache(array $tags = null): Cache
+    protected function cache(array $tags = null, $ttl = null): Cache
     {
         $tags = $tags ?: $this->tags;
+        $ttl  = $ttl ?: $this->ttl;
 
         return Cache::make()
             ->when($this->when)
-            ->ttl($this->ttl)
+            ->ttl($ttl)
             ->key(...$this->keys)
             ->tags(...$tags);
     }
