@@ -1,4 +1,4 @@
-name: phpunit
+name: "Laravel 6"
 on: [ push ]
 
 jobs:
@@ -9,9 +9,9 @@ jobs:
             fail-fast: true
             matrix:
                 php: [ "7.3", "7.4", "8.0" ]
-                laravel: [ "6.0", "7.0", "8.0" ]
+                laravel: [ "6.0" ]
 
-        name: PHP ${{ matrix.php }}, Laravel ${{ matrix.laravel }}
+        name: Laravel ${{ matrix.laravel }}, PHP ${{ matrix.php }}
 
         steps:
             -   name: Checkout code
