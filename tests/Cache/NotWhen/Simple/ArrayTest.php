@@ -45,4 +45,13 @@ class ArrayTest extends BaseTest
 
         $this->assertFalse($this->cache()->has());
     }
+
+    public function testDoesntHave()
+    {
+        $this->assertTrue($this->cache()->doesntHave());
+
+        $this->cache()->put($this->value);
+
+        $this->assertTrue($this->cache()->doesntHave());
+    }
 }

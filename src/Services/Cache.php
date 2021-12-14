@@ -89,6 +89,11 @@ class Cache
         return $this->manager()->has($this->key);
     }
 
+    public function doesntHave(): bool
+    {
+        return $this->manager()->doesntHave($this->key);
+    }
+
     protected function manager(): CacheManager
     {
         return CacheManager::make($this->when)

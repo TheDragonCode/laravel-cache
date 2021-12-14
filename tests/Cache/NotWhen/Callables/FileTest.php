@@ -53,4 +53,15 @@ class FileTest extends BaseTest
 
         $this->assertFalse($this->cache()->has());
     }
+
+    public function testDoesntHave()
+    {
+        $this->assertTrue($this->cache()->doesntHave());
+
+        $this->cache()->put(function () {
+            return $this->value;
+        });
+
+        $this->assertTrue($this->cache()->doesntHave());
+    }
 }

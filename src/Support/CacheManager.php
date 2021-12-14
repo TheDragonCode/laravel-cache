@@ -54,6 +54,11 @@ class CacheManager implements Store
         return $this->instance()->has($key);
     }
 
+    public function doesntHave(string $key): bool
+    {
+        return ! $this->has($key);
+    }
+
     protected function instance(): Store
     {
         switch (true) {

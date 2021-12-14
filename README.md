@@ -105,6 +105,9 @@ $cache->get();
 $cache->has();
 // Returns `true`
 
+$cache->doesntHave();
+// Returns `false`
+
 $cache->forget();
 // Will remove the key from the cache.
 ```
@@ -131,6 +134,9 @@ $cache->get();
 $cache->has();
 // Returns `true`
 
+$cache->doesntHave();
+// Returns `false`
+
 $cache->forget();
 // Will remove the key from the cache.
 ```
@@ -156,6 +162,9 @@ $cache->get();
 
 $cache->has();
 // Returns `true`
+
+$cache->doesntHave();
+// Returns `false`
 
 $cache->forget();
 // Will remove the key from the cache.
@@ -206,6 +215,9 @@ $cache->get();
 
 $cache->has();
 // Returns `false`
+
+$cache->doesntHave();
+// Returns `true`
 ```
 
 ## License

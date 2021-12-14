@@ -63,6 +63,21 @@ class MultiCallTest extends BaseTest
         $this->assertTrue($value2->has());
     }
 
+    public function testDoesntHave()
+    {
+        $value1 = $this->cache(['foo', 'bar']);
+        $value2 = $this->cache(['qwe', 'rty']);
+
+        $this->assertTrue($value1->doesntHave());
+        $this->assertTrue($value2->doesntHave());
+
+        $value1->put('Foo');
+        $value2->put('Bar');
+
+        $this->assertFalse($value1->doesntHave());
+        $this->assertFalse($value2->doesntHave());
+    }
+
     protected function cache(array $tags = null): Cache
     {
         return Cache::make()
