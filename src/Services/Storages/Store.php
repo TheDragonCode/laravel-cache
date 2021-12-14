@@ -12,4 +12,9 @@ abstract class Store implements BaseStore
 {
     use Call;
     use Makeable;
+
+    public function doesntHave(string $key): bool
+    {
+        return ! $this->has($key);
+    }
 }

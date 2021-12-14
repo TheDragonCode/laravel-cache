@@ -70,4 +70,17 @@ class DragonCodeTest extends BaseTest
         $this->assertFalse($this->cache(['qwerty'])->has());
         $this->assertFalse($this->cache(['cache'])->has());
     }
+
+    public function testDoesntHave()
+    {
+        $this->assertTrue($this->cache()->doesntHave());
+
+        $this->cache()->put(new DragonCodeArrayable());
+
+        $this->assertTrue($this->cache()->doesntHave());
+        $this->assertTrue($this->cache(['qwerty', 'cache'])->doesntHave());
+
+        $this->assertTrue($this->cache(['qwerty'])->doesntHave());
+        $this->assertTrue($this->cache(['cache'])->doesntHave());
+    }
 }
