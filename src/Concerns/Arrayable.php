@@ -23,6 +23,10 @@ trait Arrayable
                     return Arr::toArray($value);
                 }
 
+                if (is_object($value)) {
+                    return get_class($value);
+                }
+
                 return $value;
             })
             ->flatten()

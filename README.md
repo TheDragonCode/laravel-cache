@@ -36,18 +36,21 @@ For example:
 ```php
 use DragonCode\Cache\Services\Cache;
 use DragonCode\SimpleDataTransferObject\DataTransferObject;
+use Tests\Fixtures\Simple\CustomObject;
 
-$arr1 = ['foo', 'bar']
-$arr2 = new ArrayObject(['foo', 'bar'])
-$arr3 = DataTransferObject::make(['foo', 'bar'])
+$arr1 = ['foo', 'bar'];
+$arr2 = new ArrayObject(['foo', 'bar']);
+$arr3 = DataTransferObject::make(['foo', 'bar']);
+$arr4 = new CustomObject();
 
 Cache::make()->key($arr1)->tags($arr1);
 Cache::make()->key($arr2)->tags($arr3);
 Cache::make()->key($arr2)->tags($arr3);
+Cache::make()->key($arr4)->tags($arr4);
 
-Cache::make()->key([$arr1, $arr2, $arr3, 'foo', 'bar'])->tags([$arr1, $arr2, $arr3, 'foo', 'bar']);
-Cache::make()->key([$arr1, $arr2, $arr3, 'foo', 'bar'])->tags([$arr1, $arr2, $arr3, 'foo', 'bar']);
-Cache::make()->key([$arr1, $arr2, $arr3, 'foo', 'bar'])->tags([$arr1, $arr2, $arr3, 'foo', 'bar']);
+Cache::make()->key([$arr1, $arr2, $arr3, $arr4, 'foo', 'bar'])->tags([$arr1, $arr2, $arr3, $arr4, 'foo', 'bar']);
+Cache::make()->key([$arr1, $arr2, $arr3, $arr4, 'foo', 'bar'])->tags([$arr1, $arr2, $arr3, $arr4, 'foo', 'bar']);
+Cache::make()->key([$arr1, $arr2, $arr3, $arr4, 'foo', 'bar'])->tags([$arr1, $arr2, $arr3, $arr4, 'foo', 'bar']);
 ```
 
 #### Keys Handling
