@@ -8,6 +8,7 @@ use DragonCode\Cache\Facades\Support\Key;
 use Tests\Fixtures\Concerns\Dtoable;
 use Tests\Fixtures\Dto\CustomDto;
 use Tests\Fixtures\Dto\DtoObject;
+use Tests\Fixtures\Simple\CustomObject;
 use Tests\TestCase;
 
 class KeyTest extends TestCase
@@ -68,6 +69,15 @@ class KeyTest extends TestCase
         $this->assertSame($expected, $key);
     }
 
+    public function testCustomObject()
+    {
+        $key = Key::get(':', [new CustomObject()]);
+
+        $expected = 'fc96441a15209cadaa715fc615661dd7';
+
+        $this->assertSame($expected, $key);
+    }
+
     public function testMultiObjectArrays()
     {
         $key = Key::get(':', [
@@ -76,6 +86,7 @@ class KeyTest extends TestCase
             DtoObject::make(['foo' => 'Foo']),
             DtoObject::make(['bar' => 'Bar']),
             CustomDto::make(['wasd' => 'WASD']),
+            new CustomObject(),
         ]);
 
         // Before hashing, the keys look like this:
@@ -84,7 +95,7 @@ class KeyTest extends TestCase
         $expected =
             '76d80224611fc919a5d54f0ff9fba446:24113791d2218cb84c9f0462e91596ef:' .
             '1356c67d7ad1638d816bfb822dd2c25d:ddc35f88fa71b6ef142ae61f35364653:' .
-            '91412421a30e87ce15a4f10ea39f6682';
+            '91412421a30e87ce15a4f10ea39f6682:fc96441a15209cadaa715fc615661dd7';
 
         $this->assertSame($expected, $key);
     }

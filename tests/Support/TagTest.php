@@ -8,6 +8,7 @@ use DragonCode\Cache\Facades\Support\Tag;
 use Tests\Fixtures\Concerns\Dtoable;
 use Tests\Fixtures\Dto\CustomDto;
 use Tests\Fixtures\Dto\DtoObject;
+use Tests\Fixtures\Simple\CustomObject;
 use Tests\TestCase;
 
 class TagTest extends TestCase
@@ -59,6 +60,15 @@ class TagTest extends TestCase
         $this->assertSame($expected, $key);
     }
 
+    public function testCustomObject()
+    {
+        $key = Tag::get([new CustomObject()]);
+
+        $expected = ['testsfixturessimplecustomobject'];
+
+        $this->assertSame($expected, $key);
+    }
+
     public function testMultiObjectArrays()
     {
         $key = Tag::get([
@@ -67,9 +77,10 @@ class TagTest extends TestCase
             DtoObject::make(['foo' => 'Foo']),
             DtoObject::make(['bar' => 'Bar']),
             CustomDto::make(['wasd' => 'WASD']),
+            new CustomObject(),
         ]);
 
-        $expected = ['qwe', 'rty', 'foo', 'bar', 'wasd'];
+        $expected = ['qwe', 'rty', 'foo', 'bar', 'wasd', 'testsfixturessimplecustomobject'];
 
         $this->assertSame($expected, $key);
     }
