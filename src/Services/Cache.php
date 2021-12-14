@@ -4,22 +4,17 @@ declare(strict_types=1);
 
 namespace DragonCode\Cache\Services;
 
-use Carbon\Carbon;
-use Closure;
-use DateTimeInterface;
-use DragonCode\Cache\Concerns\Call;
 use DragonCode\Cache\Facades\Support\Key;
 use DragonCode\Cache\Facades\Support\Tag;
+use DragonCode\Cache\Facades\Support\Ttl;
 use DragonCode\Cache\Support\CacheManager;
 use DragonCode\Support\Concerns\Makeable;
-use DragonCode\Support\Facades\Helpers\Instance;
 
 /**
  * @method static Cache make()
  */
 class Cache
 {
-    use Call;
     use Makeable;
 
     protected $ttl = 86400;
@@ -37,15 +32,11 @@ class Cache
         return $this;
     }
 
-    public function ttl($minutes): Cache
+    public function ttl($value, bool $is_minutes = true): Cache
     {
-        if (Instance::of($minutes, [Carbon::class, DateTimeInterface::class])) {
-            $minutes = Carbon::now()->diffInMinutes($minutes);
-        } elseif (Instance::of($minutes, Closure::class)) {
-            $minutes = $this->call($minutes);
-        }
-
-        $this->ttl = abs((int) $minutes) * 60;
+        $this->ttl = $is_minutes
+            ? Ttl::fromMinutes($value)
+            : Ttl::fromSeconds($value);
 
         return $this;
     }
