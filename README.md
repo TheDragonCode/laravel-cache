@@ -114,31 +114,44 @@ $cache->forget();
 
 #### Custom TTL
 
-The cache will be written for the specified number of minutes.
+The cache will be written for the specified number of minutes, seconds or the `DateTimeInterface` instance.
+
+It does not matter in which direction the time shift will be. During processing, the value is converted to the `abs()`.
+
+##### As Minutes
 
 ```php
+use Carbon\Carbon;
+use DateTime;
 use DragonCode\Cache\Services\Cache;
 
-$cache = Cache::make()
-    ->ttl($minutes)
-    ->key('foo', 'bar', ['baz', 'baq']);
+$cache = Cache::make()->ttl(10);
 
-$cache->put(static fn() => 'Some value');
-// or
-$cache->put('Some value');
-// Contains cached `Some value`
+$cache = Cache::make()->ttl('10');
 
-$cache->get();
-// Returns cached `Some value`
+$cache = Cache::make()->ttl(fn () => 10);
 
-$cache->has();
-// Returns `true`
+$cache = Cache::make()->ttl(Carbon::now()->addDay());
 
-$cache->doesntHave();
-// Returns `false`
+$cache = Cache::make()->ttl(new DateTime('tomorrow'));
+```
 
-$cache->forget();
-// Will remove the key from the cache.
+##### As Seconds
+
+```php
+use Carbon\Carbon;
+use DateTime;
+use DragonCode\Cache\Services\Cache;
+
+$cache = Cache::make()->ttl(10, false);
+
+$cache = Cache::make()->ttl('10', false);
+
+$cache = Cache::make()->ttl(fn () => 10, false);
+
+$cache = Cache::make()->ttl(Carbon::now()->addDay(), false);
+
+$cache = Cache::make()->ttl(new DateTime('tomorrow'), false);
 ```
 
 #### Tagged
