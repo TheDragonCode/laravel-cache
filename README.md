@@ -181,6 +181,42 @@ $cache = Cache::make()->ttlBy('custom_key', false);
 
 If the value is not found, the [default value](config/cache.php) will be taken, which you can also override in the [configuration file](config/cache.php).
 
+##### With Contract
+
+Starting with version [`2.9.0`](https://github.com/TheDragonCode/laravel-cache/releases/tag/v2.9.0), we added the ability to dynamically specify TTLs in objects. To do this, you
+need to implement the Foo contract into your object and add a method that returns one of the following types of variables: `DateTimeInterface`, `Carbon\Carbon`, `string`
+or `integer`.
+
+This method will allow you to dynamically specify the TTL depending on the code being executed.
+
+For example:
+
+```php
+use DragonCode\Cache\Services\Cache;
+use DragonCode\Contracts\Cache\Ttl;
+
+class Foo implements Ttl
+{
+    protected $value;
+    
+    public function __construct(string $value)
+    {
+        $this->value = $value;
+    }
+
+    public function cacheTtl(): int
+    {
+        return $this->value === 'foo' ? 123 : 456;
+    }
+}
+
+$cache = Cache::make()->ttlBy(new Foo('foo'));
+// TTL is 123
+
+$cache = Cache::make()->ttlBy(new Foo('bar'));
+// TTL is 456
+```
+
 #### Tagged
 
 For repositories that support tagging, the keys will be saved separated by tags.
