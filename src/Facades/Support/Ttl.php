@@ -9,9 +9,9 @@ use DragonCode\Cache\Support\Ttl as Support;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static int fromDateTime(DateTimeInterface $seconds)
- * @method static int fromMinutes(DateTimeInterface|string|int|callable $minutes)
- * @method static int fromSeconds(DateTimeInterface|string|int|callable $seconds)
+ * @method static int fromDateTime(mixed|DateTimeInterface $seconds)
+ * @method static int fromMinutes(mixed|DateTimeInterface|string|int|callable $minutes)
+ * @method static int fromSeconds(mixed|DateTimeInterface|string|int|callable $seconds)
  */
 class Ttl extends Facade
 {

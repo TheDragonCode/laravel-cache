@@ -169,21 +169,21 @@ After that you can use the following construction:
 use DragonCode\Cache\Services\Cache;
 use Tests\Fixtures\Simple\CustomObject;
 
-$cache = Cache::make()->ttlBy(CustomObject::class);
-$cache = Cache::make()->ttlBy(new CustomObject());
-$cache = Cache::make()->ttlBy('custom_key');
+$cache = Cache::make()->ttl(CustomObject::class);
+$cache = Cache::make()->ttl(new CustomObject());
+$cache = Cache::make()->ttl('custom_key');
 
 // You can also specify that these values are in seconds, not minutes:
-$cache = Cache::make()->ttlBy(CustomObject::class, false);
-$cache = Cache::make()->ttlBy(new CustomObject(), false);
-$cache = Cache::make()->ttlBy('custom_key', false);
+$cache = Cache::make()->ttl(CustomObject::class, false);
+$cache = Cache::make()->ttl(new CustomObject(), false);
+$cache = Cache::make()->ttl('custom_key', false);
 ```
 
 If the value is not found, the [default value](config/cache.php) will be taken, which you can also override in the [configuration file](config/cache.php).
 
 ##### With Contract
 
-Starting with version [`2.9.0`](https://github.com/TheDragonCode/laravel-cache/releases/tag/v2.9.0), we added the ability to dynamically specify TTLs in objects. To do this, you
+Starting with version [`2.9.1`](https://github.com/TheDragonCode/laravel-cache/releases/tag/v2.9.0), we added the ability to dynamically specify TTLs in objects. To do this, you
 need to implement the Foo contract into your object and add a method that returns one of the following types of variables: `DateTimeInterface`, `Carbon\Carbon`, `string`
 or `integer`.
 
@@ -210,16 +210,16 @@ class Foo implements Ttl
     }
 }
 
-$cache = Cache::make()->ttlBy(new Foo('foo'));
+$cache = Cache::make()->ttl(new Foo('foo'));
 // TTL is 7380 seconds
 
-$cache = Cache::make()->ttlBy(new Foo('bar'));
+$cache = Cache::make()->ttl(new Foo('bar'));
 // TTL is 27360 seconds
 
-$cache = Cache::make()->ttlBy(new Foo('foo'), false);
+$cache = Cache::make()->ttl(new Foo('foo'), false);
 // TTL is 123 seconds
 
-$cache = Cache::make()->ttlBy(new Foo('bar'), false);
+$cache = Cache::make()->ttl(new Foo('bar'), false);
 // TTL is 456 seconds
 ```
 

@@ -14,26 +14,16 @@ class Ttl
     use Call;
     use Has;
 
+    protected $default = 3600;
+
     public function fromMinutes($minutes): int
     {
-        if ($this->hasDateTime($minutes)) {
-            return $this->fromDateTime($minutes);
-        } elseif ($this->hasClosure($minutes)) {
-            $minutes = $this->call($minutes);
-        }
-
-        return $this->correct($minutes) * 60;
+        return $this->get($minutes, 60);
     }
 
     public function fromSeconds($seconds): int
     {
-        if ($this->hasDateTime($seconds)) {
-            return $this->fromDateTime($seconds);
-        } elseif ($this->hasClosure($seconds)) {
-            $seconds = $this->call($seconds);
-        }
-
-        return $this->correct($seconds);
+        return $this->get($seconds);
     }
 
     public function fromDateTime(DateTimeInterface $date_time): int
@@ -43,8 +33,57 @@ class Ttl
         return $this->correct($seconds);
     }
 
-    protected function correct($value): int
+    protected function get($value, int $multiplier = 1): int
     {
-        return abs((int) $value);
+        if ($this->hasObject($value) && $this->hasContract($value)) {
+            $value = $value->cacheTtl();
+        }
+
+        if ($this->hasDateTime($value)) {
+            return $this->fromDateTime($value);
+        }
+
+        if ($config = $this->fromConfig($value)) {
+            return $this->correct($config, $multiplier);
+        }
+
+        if ($this->hasClosure($value)) {
+            $value = $this->call($value);
+        }
+
+        if ($this->hasObject($value)) {
+            $value = $this->defaultTtl();
+        }
+
+        return $this->correct($value, $multiplier);
+    }
+
+    protected function correct($value, int $multiplier = 1): int
+    {
+        $value = (int) $value ?: $this->defaultTtl();
+
+        return abs($value) * $multiplier;
+    }
+
+    protected function fromConfig($value): ?int
+    {
+        $value = $this->resolveClass($value);
+
+        return $this->configTtl($value);
+    }
+
+    protected function resolveClass($value): string
+    {
+        return $this->hasObject($value) ? get_class($value) : (string) $value;
+    }
+
+    protected function configTtl(string $value): ?int
+    {
+        return config('cache.ttl.' . $value);
+    }
+
+    protected function defaultTtl(): int
+    {
+        return config('cache.ttl_default', $this->default);
     }
 }
