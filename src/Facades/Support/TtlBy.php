@@ -8,7 +8,7 @@ use DragonCode\Cache\Support\TtlBy as Support;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static int get(object|string $value)
+ * @method static int get(object|string $value, bool $is_minutes = true)
  */
 class TtlBy extends Facade
 {

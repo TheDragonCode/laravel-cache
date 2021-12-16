@@ -170,10 +170,13 @@ use DragonCode\Cache\Services\Cache;
 use Tests\Fixtures\Simple\CustomObject;
 
 $cache = Cache::make()->ttlBy(CustomObject::class);
-
 $cache = Cache::make()->ttlBy(new CustomObject());
-
 $cache = Cache::make()->ttlBy('custom_key');
+
+// You can also specify that these values are in seconds, not minutes:
+$cache = Cache::make()->ttlBy(CustomObject::class, false);
+$cache = Cache::make()->ttlBy(new CustomObject(), false);
+$cache = Cache::make()->ttlBy('custom_key', false);
 ```
 
 If the value is not found, the [default value](config/cache.php) will be taken, which you can also override in the [configuration file](config/cache.php).
