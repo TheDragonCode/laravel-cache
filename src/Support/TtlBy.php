@@ -11,16 +11,20 @@ class TtlBy
 {
     protected $default = 3600;
 
-    public function get($value): int
+    public function get($value, bool $is_minutes = true): int
     {
         $value = $this->resolve($value);
 
-        return $this->ttl($value) ?: $this->ttlDefault();
+        $ttl = $this->ttl($value) ?: $this->ttlDefault();
+
+        return $this->correct($ttl, $is_minutes);
     }
 
-    protected function correct(int $seconds): int
+    protected function correct(int $value, bool $is_minutes): int
     {
-        return TtlSupport::fromSeconds($seconds);
+        return $is_minutes
+            ? TtlSupport::fromMinutes($value)
+            : TtlSupport::fromSeconds($value);
     }
 
     protected function ttl(string $value): ?int
