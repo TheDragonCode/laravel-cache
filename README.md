@@ -183,7 +183,7 @@ If the value is not found, the [default value](config/cache.php) will be taken, 
 
 ##### With Contract
 
-Starting with version [`2.9.1`](https://github.com/TheDragonCode/laravel-cache/releases/tag/v2.9.0), we added the ability to dynamically specify TTLs in objects. To do this, you
+Starting with version [`2.9.0`](https://github.com/TheDragonCode/laravel-cache/releases/tag/v2.9.0), we added the ability to dynamically specify TTLs in objects. To do this, you
 need to implement the `DragonCode\Contracts\Cache\Ttl` contract into your object and add a method that returns one of the following types of variables: `DateTimeInterface`, `Carbon\Carbon`, `string`
 or `integer`.
 
