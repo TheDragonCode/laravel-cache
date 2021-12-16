@@ -19,11 +19,14 @@ class TtlBy
             return $this->correct($value->cacheTtl(), $is_minutes);
         }
 
+        return $this->correct($this->fromConfig($value), $is_minutes);
+    }
+
+    protected function fromConfig($value): int
+    {
         $value = $this->resolve($value);
 
-        $ttl = $this->ttl($value) ?: $this->ttlDefault();
-
-        return $this->correct($ttl, $is_minutes);
+        return $this->ttl($value) ?: $this->ttlDefault();
     }
 
     /**
