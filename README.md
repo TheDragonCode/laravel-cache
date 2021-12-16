@@ -211,10 +211,16 @@ class Foo implements Ttl
 }
 
 $cache = Cache::make()->ttlBy(new Foo('foo'));
-// TTL is 123
+// TTL is 7380 seconds
 
 $cache = Cache::make()->ttlBy(new Foo('bar'));
-// TTL is 456
+// TTL is 27360 seconds
+
+$cache = Cache::make()->ttlBy(new Foo('foo'), false);
+// TTL is 123 seconds
+
+$cache = Cache::make()->ttlBy(new Foo('bar'), false);
+// TTL is 456 seconds
 ```
 
 #### Tagged
