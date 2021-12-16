@@ -8,6 +8,10 @@ use DragonCode\Cache\Facades\Support\TtlBy;
 use Tests\Fixtures\Simple\CustomObject;
 use Tests\Fixtures\Simple\DragonCodeArrayable;
 use Tests\Fixtures\Simple\IlluminateArrayable;
+use Tests\Fixtures\Ttl\AsCarbon;
+use Tests\Fixtures\Ttl\AsDateTime;
+use Tests\Fixtures\Ttl\AsInteger;
+use Tests\Fixtures\Ttl\AsString;
 use Tests\TestCase;
 
 class TtlByTest extends TestCase
@@ -46,5 +50,35 @@ class TtlByTest extends TestCase
         $this->assertSame(300, TtlBy::get(new CustomObject(), false));
         $this->assertSame(400, TtlBy::get(new DragonCodeArrayable(), false));
         $this->assertSame(3600, TtlBy::get(new IlluminateArrayable(), false));
+    }
+
+    public function testContractAsMinutes()
+    {
+        $this->assertSame(3600, TtlBy::get(new AsCarbon('foo')));
+        $this->assertSame(7200, TtlBy::get(new AsCarbon('bar')));
+
+        $this->assertSame(3600, TtlBy::get(new AsDateTime('foo')));
+        $this->assertSame(7200, TtlBy::get(new AsDateTime('bar')));
+
+        $this->assertSame(600, TtlBy::get(new AsInteger('foo')));
+        $this->assertSame(1200, TtlBy::get(new AsInteger('bar')));
+
+        $this->assertSame(600, TtlBy::get(new AsString('foo')));
+        $this->assertSame(1200, TtlBy::get(new AsString('bar')));
+    }
+
+    public function testContractAsSeconds()
+    {
+        $this->assertSame(3600, TtlBy::get(new AsCarbon('foo'), false));
+        $this->assertSame(7200, TtlBy::get(new AsCarbon('bar'), false));
+
+        $this->assertSame(3600, TtlBy::get(new AsDateTime('foo'), false));
+        $this->assertSame(7200, TtlBy::get(new AsDateTime('bar'), false));
+
+        $this->assertSame(10, TtlBy::get(new AsInteger('foo'), false));
+        $this->assertSame(20, TtlBy::get(new AsInteger('bar'), false));
+
+        $this->assertSame(10, TtlBy::get(new AsString('foo'), false));
+        $this->assertSame(20, TtlBy::get(new AsString('bar'), false));
     }
 }

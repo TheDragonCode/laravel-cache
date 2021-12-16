@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace DragonCode\Cache\Support;
 
 use DragonCode\Cache\Facades\Support\Ttl as TtlSupport;
+use DragonCode\Contracts\Cache\Ttl as TtlContract;
+use DragonCode\Support\Facades\Helpers\Instance;
 use DragonCode\Support\Facades\Helpers\Is;
 
 class TtlBy
@@ -13,6 +15,10 @@ class TtlBy
 
     public function get($value, bool $is_minutes = true): int
     {
+        if ($this->isObject($value) && $this->isContract($value)) {
+            return $this->correct($value->cacheTtl(), $is_minutes);
+        }
+
         $value = $this->resolve($value);
 
         $ttl = $this->ttl($value) ?: $this->ttlDefault();
@@ -20,7 +26,13 @@ class TtlBy
         return $this->correct($ttl, $is_minutes);
     }
 
-    protected function correct(int $value, bool $is_minutes): int
+    /**
+     * @param  \DateTimeInterface|string|int|callable  $value
+     * @param  bool  $is_minutes
+     *
+     * @return int
+     */
+    protected function correct($value, bool $is_minutes): int
     {
         return $is_minutes
             ? TtlSupport::fromMinutes($value)
@@ -45,5 +57,10 @@ class TtlBy
     protected function isObject($value): bool
     {
         return Is::object($value);
+    }
+
+    protected function isContract($value): bool
+    {
+        return Instance::of($value, TtlContract::class);
     }
 }
