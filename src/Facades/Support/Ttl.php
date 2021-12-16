@@ -10,8 +10,8 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @method static int fromDateTime(DateTimeInterface $seconds)
- * @method static int fromMinutes(DateTimeInterface|int $minutes)
- * @method static int fromSeconds(DateTimeInterface|int $seconds)
+ * @method static int fromMinutes(DateTimeInterface|string|int|callable $minutes)
+ * @method static int fromSeconds(DateTimeInterface|string|int|callable $seconds)
  */
 class Ttl extends Facade
 {

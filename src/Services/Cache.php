@@ -7,6 +7,7 @@ namespace DragonCode\Cache\Services;
 use DragonCode\Cache\Facades\Support\Key;
 use DragonCode\Cache\Facades\Support\Tag;
 use DragonCode\Cache\Facades\Support\Ttl;
+use DragonCode\Cache\Facades\Support\TtlBy;
 use DragonCode\Cache\Support\CacheManager;
 use DragonCode\Support\Concerns\Makeable;
 
@@ -37,6 +38,13 @@ class Cache
         $this->ttl = $is_minutes
             ? Ttl::fromMinutes($value)
             : Ttl::fromSeconds($value);
+
+        return $this;
+    }
+
+    public function ttlBy($value): Cache
+    {
+        $this->ttl = TtlBy::get($value);
 
         return $this;
     }

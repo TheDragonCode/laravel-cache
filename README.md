@@ -157,6 +157,27 @@ $cache = Cache::make()->ttl(Carbon::now()->addDay(), false);
 $cache = Cache::make()->ttl(new DateTime('tomorrow'), false);
 ```
 
+##### By Objects And Custom Strings
+
+You can also store all TTL values in one place - in the `config/cache.php` file.
+
+To do this, add a `ttl` block to the file and [`define`](config/cache.php) a TTL for the objects.
+
+After that you can use the following construction:
+
+```php
+use DragonCode\Cache\Services\Cache;
+use Tests\Fixtures\Simple\CustomObject;
+
+$cache = Cache::make()->ttlBy(CustomObject::class);
+
+$cache = Cache::make()->ttlBy(new CustomObject());
+
+$cache = Cache::make()->ttlBy('custom_key');
+```
+
+If the value is not found, the [default value](config/cache.php) will be taken, which you can also override in the [configuration file](config/cache.php).
+
 #### Tagged
 
 For repositories that support tagging, the keys will be saved separated by tags.
