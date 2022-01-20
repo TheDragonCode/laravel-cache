@@ -22,6 +22,9 @@ class ArrayTest extends BaseTest
         $this->assertSame($this->value, $this->cache()->put($this->value));
 
         $this->assertSame($this->value, $this->cache()->get());
+
+        $this->assertSame($this->value, $this->cache()->put(microtime()));
+        $this->assertSame($this->value, $this->cache()->put(microtime()));
     }
 
     public function testRemember()
@@ -29,6 +32,9 @@ class ArrayTest extends BaseTest
         $this->assertSame($this->value, $this->cache()->remember($this->value));
 
         $this->assertSame($this->value, $this->cache()->get());
+
+        $this->assertSame($this->value, $this->cache()->remember(microtime()));
+        $this->assertSame($this->value, $this->cache()->remember(microtime()));
     }
 
     public function testForget()
