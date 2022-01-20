@@ -32,6 +32,13 @@ class ArrayTest extends BaseTest
         $this->assertSame($this->value, $this->cache()->get());
     }
 
+    public function testRemember()
+    {
+        $this->assertSame($this->value, $this->cache()->remember($this->dto()));
+
+        $this->assertSame($this->value, $this->cache()->get());
+    }
+
     public function testForget()
     {
         $this->assertNull($this->cache()->get());

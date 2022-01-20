@@ -13,6 +13,11 @@ abstract class Store implements BaseStore
     use Call;
     use Makeable;
 
+    public function remember(string $key, $value, int $seconds)
+    {
+        return $this->put($key, $value, $seconds);
+    }
+
     public function doesntHave(string $key): bool
     {
         return ! $this->has($key);

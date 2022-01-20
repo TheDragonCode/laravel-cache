@@ -26,6 +26,13 @@ class FileTest extends BaseTest
         $this->assertSame($this->value, $this->cache()->get());
     }
 
+    public function testRemember()
+    {
+        $this->assertSame($this->value, $this->cache()->remember($this->value));
+
+        $this->assertSame($this->value, $this->cache()->get());
+    }
+
     public function testForget()
     {
         $this->assertNull($this->cache()->get());
