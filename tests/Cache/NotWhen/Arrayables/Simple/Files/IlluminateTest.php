@@ -32,6 +32,13 @@ class IlluminateTest extends BaseTest
         $this->assertNull($this->cache()->get());
     }
 
+    public function testRemember()
+    {
+        $this->assertSame($this->value, $this->cache()->remember(new IlluminateArrayable()));
+
+        $this->assertNull($this->cache()->get());
+    }
+
     public function testForget()
     {
         $this->assertNull($this->cache()->get());

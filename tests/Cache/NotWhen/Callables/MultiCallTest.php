@@ -23,7 +23,7 @@ class MultiCallTest extends BaseTest
             return 'Foo';
         });
 
-        $value2->put(function () {
+        $value2->remember(function () {
             return 'Bar';
         });
 
@@ -43,7 +43,7 @@ class MultiCallTest extends BaseTest
             return 'Foo';
         });
 
-        $value2->put(function () {
+        $value2->remember(function () {
             return 'Bar';
         });
 
@@ -69,7 +69,7 @@ class MultiCallTest extends BaseTest
             return 'Foo';
         });
 
-        $value2->put(function () {
+        $value2->remember(function () {
             return 'Bar';
         });
 
@@ -89,7 +89,7 @@ class MultiCallTest extends BaseTest
             return 'Foo';
         });
 
-        $value2->put(function () {
+        $value2->remember(function () {
             return 'Bar';
         });
 

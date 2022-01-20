@@ -20,7 +20,7 @@ class MultiCallTest extends BaseTest
         $this->assertNull($value2->get());
 
         $value1->put('Foo');
-        $value2->put('Bar');
+        $value2->remember('Bar');
 
         $this->assertSame('Foo', $value1->get());
         $this->assertSame('Bar', $value2->get());
@@ -36,7 +36,7 @@ class MultiCallTest extends BaseTest
         $this->assertNull($value2->get());
 
         $value1->put('Foo');
-        $value2->put('Bar');
+        $value2->remember('Bar');
 
         $this->assertSame('Foo', $value1->get());
         $this->assertSame('Bar', $value2->get());
@@ -57,7 +57,7 @@ class MultiCallTest extends BaseTest
         $this->assertFalse($value2->has());
 
         $value1->put('Foo');
-        $value2->put('Bar');
+        $value2->remember('Bar');
 
         $this->assertTrue($value1->has());
         $this->assertTrue($value2->has());
@@ -72,7 +72,7 @@ class MultiCallTest extends BaseTest
         $this->assertTrue($value2->doesntHave());
 
         $value1->put('Foo');
-        $value2->put('Bar');
+        $value2->remember('Bar');
 
         $this->assertFalse($value1->doesntHave());
         $this->assertFalse($value2->doesntHave());

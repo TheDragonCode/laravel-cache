@@ -40,6 +40,17 @@ class DragonCodeTest extends BaseTest
         $this->assertNull($this->cache(['cache'])->get());
     }
 
+    public function testRemember()
+    {
+        $this->assertSame($this->value, $this->cache()->remember(new DragonCodeArrayable()));
+
+        $this->assertNull($this->cache()->get());
+        $this->assertNull($this->cache(['qwerty', 'cache'])->get());
+
+        $this->assertNull($this->cache(['qwerty'])->get());
+        $this->assertNull($this->cache(['cache'])->get());
+    }
+
     public function testForget()
     {
         $this->assertNull($this->cache()->get());

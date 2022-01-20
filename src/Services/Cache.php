@@ -70,6 +70,11 @@ class Cache
         return $this->manager()->put($this->key, $value, $this->ttl);
     }
 
+    public function remember($value)
+    {
+        return $this->put($value);
+    }
+
     public function forget(): void
     {
         $this->manager()->forget($this->key);
