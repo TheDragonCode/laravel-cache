@@ -27,6 +27,8 @@ abstract class TestCase extends BaseTestCase
 
     protected $value = 'Foo';
 
+    protected $value_second = 'Bar';
+
     protected function getPackageProviders($app): array
     {
         return [ServiceProvider::class];
