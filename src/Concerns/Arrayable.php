@@ -30,7 +30,9 @@ trait Arrayable
                 return $value;
             })
             ->flatten()
-            ->filter()
+            ->filter(static function ($value) {
+                return ! empty($value) || is_numeric($value);
+            })
             ->map($callback)
             ->values()
             ->get();

@@ -99,4 +99,13 @@ class KeyTest extends TestCase
 
         $this->assertSame($expected, $key);
     }
+
+    public function testEmpties()
+    {
+        $key = Key::get(':', [null, '', 0, []]);
+
+        $expected = 'cfcd208495d565ef66e7dff9f98764da';
+
+        $this->assertSame($expected, $key);
+    }
 }
