@@ -8,6 +8,7 @@ use DragonCode\Cache\Facades\Support\Key;
 use Tests\Fixtures\Concerns\Dtoable;
 use Tests\Fixtures\Dto\CustomDto;
 use Tests\Fixtures\Dto\DtoObject;
+use Tests\Fixtures\Models\User;
 use Tests\Fixtures\Simple\CustomObject;
 use Tests\TestCase;
 
@@ -105,6 +106,15 @@ class KeyTest extends TestCase
         $key = Key::get(':', [null, '', 0, []]);
 
         $expected = 'cfcd208495d565ef66e7dff9f98764da';
+
+        $this->assertSame($expected, $key);
+    }
+
+    public function testModelKey()
+    {
+        $key = Key::get(':', [User::class, 'foo', 'bar']);
+
+        $expected = 'e07e8d069dbdfde3b73552938ec82f0a:acbd18db4cc2f85cedef654fccc4a4d8:37b51d194a7513e45b56f6524f2d51f2';
 
         $this->assertSame($expected, $key);
     }
