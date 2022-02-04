@@ -9,6 +9,7 @@ use DragonCode\Cache\Facades\Support\Tag;
 use DragonCode\Cache\Facades\Support\Ttl;
 use DragonCode\Cache\Support\CacheManager;
 use DragonCode\Support\Concerns\Makeable;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * @method static Cache make()
@@ -23,7 +24,11 @@ class Cache
 
     protected $key;
 
+    protected $key_hash;
+
     protected $when = true;
+
+    protected $auth;
 
     public function when(bool $when = true): Cache
     {
@@ -48,16 +53,23 @@ class Cache
         return $this;
     }
 
+    public function withAuth(): Cache
+    {
+        $this->auth = Auth::check() ? [get_class(Auth::user()), Auth::id()] : 'guest';
+
+        return $this;
+    }
+
     public function key(...$values): Cache
     {
-        $this->key = Key::get(':', $values);
+        $this->key = $values;
 
         return $this;
     }
 
     public function get()
     {
-        return $this->manager()->get($this->key);
+        return $this->manager()->get($this->getKey());
     }
 
     /**
@@ -67,7 +79,7 @@ class Cache
      */
     public function put($value)
     {
-        return $this->manager()->put($this->key, $value, $this->ttl);
+        return $this->manager()->put($this->getKey(), $value, $this->ttl);
     }
 
     public function remember($value)
@@ -77,22 +89,37 @@ class Cache
 
     public function forget(): void
     {
-        $this->manager()->forget($this->key);
+        $this->manager()->forget($this->getKey());
     }
 
     public function has(): bool
     {
-        return $this->manager()->has($this->key);
+        return $this->manager()->has($this->getKey());
     }
 
     public function doesntHave(): bool
     {
-        return $this->manager()->doesntHave($this->key);
+        return $this->manager()->doesntHave($this->getKey());
     }
 
     protected function manager(): CacheManager
     {
         return CacheManager::make($this->when)
             ->tags($this->tags);
+    }
+
+    protected function getKey(): string
+    {
+        if (! empty($this->key_hash)) {
+            return $this->key_hash;
+        }
+
+        $key = $this->key;
+
+        if ($this->auth) {
+            array_unshift($key, $this->auth);
+        }
+
+        return $this->key_hash = Key::get(':', $key);
     }
 }

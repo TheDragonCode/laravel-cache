@@ -8,12 +8,14 @@ use DragonCode\Cache\ServiceProvider;
 use DragonCode\Cache\Services\Cache;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 use Tests\Concerns\RefreshCache;
+use Tests\Concerns\Userable;
 use Tests\Fixtures\Simple\CustomObject;
 use Tests\Fixtures\Simple\DragonCodeArrayable;
 
 abstract class TestCase extends BaseTestCase
 {
     use RefreshCache;
+    use Userable;
 
     protected $cache = 'array';
 
@@ -54,14 +56,15 @@ abstract class TestCase extends BaseTestCase
         ]);
     }
 
-    protected function cache(array $tags = null): Cache
+    protected function cache(array $tags = null, array $keys = null): Cache
     {
         $tags = $tags ?: $this->tags;
+        $keys = $keys ?: $this->keys;
 
         return Cache::make()
             ->when($this->when)
             ->ttl($this->ttl)
-            ->key(...$this->keys)
+            ->key(...$keys)
             ->tags(...$tags);
     }
 }

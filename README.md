@@ -20,7 +20,7 @@ Or manually update `require` block of `composer.json` and run `composer update`.
 ```json
 {
     "require": {
-        "dragon-code/laravel-cache": "^2.0"
+        "dragon-code/laravel-cache": "^2.12"
     }
 }
 ```
@@ -35,12 +35,12 @@ For example:
 
 ```php
 use DragonCode\Cache\Services\Cache;
-use DragonCode\SimpleDataTransferObject\DataTransferObject;
+use Tests\Fixtures\Dto\DtoObject;
 use Tests\Fixtures\Simple\CustomObject;
 
 $arr1 = ['foo', 'bar'];
 $arr2 = new ArrayObject(['foo', 'bar']);
-$arr3 = DataTransferObject::make(['foo', 'bar']);
+$arr3 = DtoObject::make(['foo' => 'Foo', 'bar'=> 'Bar']);
 $arr4 = new CustomObject();
 
 Cache::make()->key($arr1)->tags($arr1);
@@ -51,6 +51,30 @@ Cache::make()->key($arr4)->tags($arr4);
 Cache::make()->key([$arr1, $arr2, $arr3, $arr4, 'foo', 'bar'])->tags([$arr1, $arr2, $arr3, $arr4, 'foo', 'bar']);
 Cache::make()->key([$arr1, $arr2, $arr3, $arr4, 'foo', 'bar'])->tags([$arr1, $arr2, $arr3, $arr4, 'foo', 'bar']);
 Cache::make()->key([$arr1, $arr2, $arr3, $arr4, 'foo', 'bar'])->tags([$arr1, $arr2, $arr3, $arr4, 'foo', 'bar']);
+```
+
+Unpacking and processing of objects occurs as follows:
+
+```php
+use DragonCode\Cache\Services\Cache;
+use Tests\Fixtures\Dto\DtoObject;
+use Tests\Fixtures\Simple\CustomObject;
+
+['Foo', 'Bar'];
+// as key: ['Foo', 'Bar']
+// as tag: ['foo', 'bar']
+
+new ArrayObject(['Foo', 'Bar']);
+// as key: ['Foo', 'Bar']
+// as tag: ['foo', 'bar']
+
+DtoObject::make(['foo' => 'Foo', 'bar'=> 'Bar']);
+// as key: ['Foo', 'Bar']
+// as tag: ['foo', 'bar']
+
+new CustomObject();
+// as key: ['Foo']
+// as tag: ['foo']
 ```
 
 #### Keys Handling
@@ -184,7 +208,8 @@ If the value is not found, the [default value](config/cache.php) will be taken, 
 ##### With Contract
 
 Starting with version [`2.9.0`](https://github.com/TheDragonCode/laravel-cache/releases/tag/v2.9.0), we added the ability to dynamically specify TTLs in objects. To do this, you
-need to implement the `DragonCode\Contracts\Cache\Ttl` contract into your object and add a method that returns one of the following types of variables: `DateTimeInterface`, `Carbon\Carbon`, `string`
+need to implement the `DragonCode\Contracts\Cache\Ttl` contract into your object and add a method that returns one of the following types of variables: `DateTimeInterface`
+, `Carbon\Carbon`, `string`
 or `integer`.
 
 This method will allow you to dynamically specify the TTL depending on the code being executed.

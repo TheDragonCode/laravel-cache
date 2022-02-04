@@ -64,7 +64,7 @@ class TagTest extends TestCase
     {
         $key = Tag::get([new CustomObject()]);
 
-        $expected = ['testsfixturessimplecustomobject'];
+        $expected = ['foo'];
 
         $this->assertSame($expected, $key);
     }
@@ -80,7 +80,7 @@ class TagTest extends TestCase
             new CustomObject(),
         ]);
 
-        $expected = ['qwe', 'rty', 'foo', 'bar', 'wasd', 'testsfixturessimplecustomobject'];
+        $expected = ['qwe', 'rty', 'foo', 'bar', 'wasd', 'foo'];
 
         $this->assertSame($expected, $key);
     }

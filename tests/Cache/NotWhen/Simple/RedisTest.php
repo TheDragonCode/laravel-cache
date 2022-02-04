@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Cache\NotWhen\Simple;
 
+use Illuminate\Support\Facades\Auth;
 use Tests\Cache\NotWhen\BaseTest;
+use Tests\Fixtures\Models\User;
 
 class RedisTest extends BaseTest
 {
@@ -84,5 +86,31 @@ class RedisTest extends BaseTest
 
         $this->assertTrue($this->cache(['qwerty'])->doesntHave());
         $this->assertTrue($this->cache(['cache'])->doesntHave());
+    }
+
+    public function testWithAuth()
+    {
+        $user = new User([
+            'id'   => 123,
+            'name' => 'John Doe',
+        ]);
+
+        Auth::setUser($user);
+
+        $this->assertTrue(Auth::check());
+
+        $this->assertTrue($this->cache()->doesntHave());
+        $this->assertTrue($this->cache()->withAuth()->doesntHave());
+
+        $this->cache()->put($this->value);
+        $this->cache()->withAuth()->put($this->value_second);
+
+        $this->assertTrue($this->cache()->doesntHave());
+        $this->assertTrue($this->cache()->withAuth()->doesntHave());
+
+        $key = [User::class, $this->user_id, 'Foo', 'Bar', 'Baz'];
+
+        $this->assertNull($this->cache()->withAuth()->get());
+        $this->assertNull($this->cache([], $key)->get());
     }
 }
