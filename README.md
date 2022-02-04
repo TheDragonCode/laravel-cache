@@ -110,6 +110,26 @@ Cache::make()->key('baz')->put('baz');
 // 73feffa4b7f6bb68e44cf984c85f6e88: baz
 ```
 
+### With Authentication
+
+In some cases, it is necessary to bind the cache to certain users. To do this, we have added the `withAuth` helper.
+
+```php
+use DragonCode\Cache\Services\Cache;
+use Illuminate\Support\Facades\Auth;
+
+// before
+return Cache::make()->key(get_class(Auth::user()), Auth::id(), 'foo', 'bar');
+
+// after
+return Cache::make()->withAuth()->key('foo', 'bar');
+```
+
+When processing requests with a call to the withAuth method, the binding will be carried out not only by identifier, but also by reference to the model class, since a project can
+have several models with the possibility of authorization.
+
+For example, `App\Models\Employee`, `App\Models\User`.
+
 ### When Enabled
 
 #### Basic
