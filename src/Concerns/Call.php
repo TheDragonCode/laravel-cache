@@ -33,7 +33,7 @@ trait Call
 
     protected function resolve($value)
     {
-        return $this->isArrayable($value) ? $this->resolveArray($value) : $value;
+        return $this->isArrayable($value) ? $this->toArray($value) : $value;
     }
 
     protected function isCallable($value): bool

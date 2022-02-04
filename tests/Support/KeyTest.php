@@ -73,7 +73,7 @@ class KeyTest extends TestCase
     {
         $key = Key::get(':', [new CustomObject()]);
 
-        $expected = 'fc96441a15209cadaa715fc615661dd7';
+        $expected = '1356c67d7ad1638d816bfb822dd2c25d';
 
         $this->assertSame($expected, $key);
     }
@@ -90,12 +90,12 @@ class KeyTest extends TestCase
         ]);
 
         // Before hashing, the keys look like this:
-        // qwe:rty:Foo:Bar:WASD
+        // qwe:rty:Foo:Bar:WASD:Foo
 
         $expected =
             '76d80224611fc919a5d54f0ff9fba446:24113791d2218cb84c9f0462e91596ef:' .
             '1356c67d7ad1638d816bfb822dd2c25d:ddc35f88fa71b6ef142ae61f35364653:' .
-            '91412421a30e87ce15a4f10ea39f6682:fc96441a15209cadaa715fc615661dd7';
+            '91412421a30e87ce15a4f10ea39f6682:1356c67d7ad1638d816bfb822dd2c25d';
 
         $this->assertSame($expected, $key);
     }
