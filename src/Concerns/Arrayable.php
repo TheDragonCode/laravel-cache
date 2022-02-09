@@ -52,9 +52,9 @@ trait Arrayable
         }
 
         if (
-            is_string($value) &&
-            method_exists($value, 'toArray') &&
-            ! Reflection::isStaticMethod($value, 'toArray')
+            is_string($value)
+            && method_exists($value, 'toArray')
+            && ! Reflection::isStaticMethod($value, 'toArray')
         ) {
             return false;
         }
@@ -72,10 +72,6 @@ trait Arrayable
             return true;
         }
 
-        if (Instance::of($value, Closure::class) && method_exists($value, 'toArray')) {
-            return true;
-        }
-
-        return false;
+        return (bool) (Instance::of($value, Closure::class) && method_exists($value, 'toArray'));
     }
 }

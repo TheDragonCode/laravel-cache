@@ -56,7 +56,7 @@ abstract class TestCase extends BaseTestCase
         ]);
     }
 
-    protected function cache(array $tags = null, array $keys = null): Cache
+    protected function cache(?array $tags = null, ?array $keys = null): Cache
     {
         $tags = $tags ?: $this->tags;
         $keys = $keys ?: $this->keys;

@@ -9,7 +9,7 @@ trait Call
     use Arrayable;
 
     /**
-     * @param  mixed  $callback
+     * @param mixed $callback
      *
      * @return mixed
      */

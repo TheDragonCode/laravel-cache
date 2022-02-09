@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace DragonCode\Cache\Support;
 
+use ArrayObject;
 use DragonCode\Cache\Concerns\Arrayable;
 use DragonCode\Contracts\DataTransferObject\DataTransferObject;
 
@@ -12,8 +13,8 @@ class Key
     use Arrayable;
 
     /**
-     * @param  string  $separator
-     * @param  array|\DragonCode\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Arrayable|\ArrayObject|DataTransferObject  $values
+     * @param string $separator
+     * @param array|\DragonCode\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Arrayable|ArrayObject|DataTransferObject $values
      *
      * @return string
      */

@@ -8,5 +8,5 @@ use DragonCode\SimpleDataTransferObject\DataTransferObject;
 
 class CustomDto extends DataTransferObject
 {
-    public $wasd = null;
+    public $wasd;
 }

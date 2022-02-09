@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace DragonCode\Cache\Support;
 
+use ArrayObject;
 use DragonCode\Cache\Concerns\Arrayable;
 use DragonCode\Contracts\DataTransferObject\DataTransferObject;
 use DragonCode\Support\Facades\Helpers\Ables\Stringable;
@@ -13,7 +14,7 @@ class Tag
     use Arrayable;
 
     /**
-     * @param  array|\DragonCode\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Arrayable|\ArrayObject|DataTransferObject  $tags
+     * @param array|\DragonCode\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Arrayable|ArrayObject|DataTransferObject $tags
      *
      * @return array
      */
