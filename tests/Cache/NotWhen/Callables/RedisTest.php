@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Cache\NotWhen\Callables;
 
 use Tests\Cache\NotWhen\BaseTest;
+use Tests\Fixtures\Models\User;
 
 class RedisTest extends BaseTest
 {
@@ -27,9 +28,11 @@ class RedisTest extends BaseTest
 
     public function testPut()
     {
-        $this->assertSame($this->value, $this->cache()->put(function () {
+        $item = function () {
             return $this->value;
-        }));
+        };
+
+        $this->assertSame($item, $this->cache()->put($item));
 
         $this->assertNull($this->cache()->get());
         $this->assertNull($this->cache(['qwerty', 'cache'])->get());
@@ -40,9 +43,11 @@ class RedisTest extends BaseTest
 
     public function testRemember()
     {
-        $this->assertSame($this->value, $this->cache()->remember(function () {
+        $item = function () {
             return $this->value;
-        }));
+        };
+
+        $this->assertSame($item, $this->cache()->remember($item));
 
         $this->assertNull($this->cache()->get());
         $this->assertNull($this->cache(['qwerty', 'cache'])->get());
@@ -96,5 +101,17 @@ class RedisTest extends BaseTest
 
         $this->assertTrue($this->cache(['qwerty'])->doesntHave());
         $this->assertTrue($this->cache(['cache'])->doesntHave());
+    }
+
+    public function testCallable()
+    {
+        $user = new User([
+            'id'   => 123,
+            'name' => 'John Doe',
+        ]);
+
+        $this->cache()->put($user);
+
+        $this->assertTrue($this->cache()->doesntHave());
     }
 }

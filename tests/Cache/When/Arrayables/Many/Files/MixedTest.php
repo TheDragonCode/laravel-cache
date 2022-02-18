@@ -28,23 +28,27 @@ class MixedTest extends BaseTest
     {
         $this->assertNull($this->cache()->get());
 
-        $this->cache()->put(new MixedArrayable());
+        $item = new MixedArrayable();
 
-        $this->assertSame($this->value, $this->cache()->get());
+        $this->cache()->put($item);
+
+        $this->assertSame(serialize($item), serialize($this->cache()->get()));
     }
 
     public function testPut()
     {
-        $this->assertSame($this->value, $this->cache()->put(new MixedArrayable()));
+        $item = new MixedArrayable();
 
-        $this->assertSame($this->value, $this->cache()->get());
+        $this->assertSame(serialize($item), serialize($this->cache()->put($item)));
+        $this->assertSame(serialize($item), serialize($this->cache()->get()));
     }
 
     public function testRemember()
     {
-        $this->assertSame($this->value, $this->cache()->remember(new MixedArrayable()));
+        $item = new MixedArrayable();
 
-        $this->assertSame($this->value, $this->cache()->get());
+        $this->assertSame(serialize($item), serialize($this->cache()->remember($item)));
+        $this->assertSame(serialize($item), serialize($this->cache()->get()));
     }
 
     public function testForget()

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Cache\When\Callables;
 
 use Tests\Cache\When\BaseTest;
+use Tests\Fixtures\Models\User;
 
 class RedisTest extends BaseTest
 {
@@ -14,9 +15,11 @@ class RedisTest extends BaseTest
     {
         $this->assertNull($this->cache()->get());
 
-        $this->cache()->put(function () {
+        $item = function () {
             return $this->value;
-        });
+        };
+
+        $this->assertSame($this->value, $this->cache()->put($item));
 
         $this->assertSame($this->value, $this->cache()->get());
         $this->assertSame($this->value, $this->cache(['qwerty', 'cache'])->get());
@@ -27,9 +30,11 @@ class RedisTest extends BaseTest
 
     public function testPut()
     {
-        $this->assertSame($this->value, $this->cache()->put(function () {
+        $item = function () {
             return $this->value;
-        }));
+        };
+
+        $this->assertSame($this->value, $this->cache()->put($item));
 
         $this->assertSame($this->value, $this->cache()->get());
         $this->assertSame($this->value, $this->cache(['qwerty', 'cache'])->get());
@@ -40,9 +45,11 @@ class RedisTest extends BaseTest
 
     public function testRemember()
     {
-        $this->assertSame($this->value, $this->cache()->remember(function () {
+        $item = function () {
             return $this->value;
-        }));
+        };
+
+        $this->assertSame($this->value, $this->cache()->remember($item));
 
         $this->assertSame($this->value, $this->cache()->get());
         $this->assertSame($this->value, $this->cache(['qwerty', 'cache'])->get());
@@ -95,5 +102,24 @@ class RedisTest extends BaseTest
 
         $this->assertTrue($this->cache(['qwerty'])->doesntHave());
         $this->assertTrue($this->cache(['cache'])->doesntHave());
+    }
+
+    public function testCallable()
+    {
+        $user = new User([
+            'id'   => 123,
+            'name' => 'John Doe',
+        ]);
+
+        $this->cache()->put($user);
+
+        $this->assertTrue($this->cache()->has());
+
+        $item = $this->cache()->get();
+
+        $this->assertInstanceOf(User::class, $item);
+
+        $this->assertSame(123, $item->id);
+        $this->assertSame('John Doe', $item->name);
     }
 }

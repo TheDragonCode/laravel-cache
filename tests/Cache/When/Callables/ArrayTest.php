@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Cache\When\Callables;
 
 use Tests\Cache\When\BaseTest;
+use Tests\Fixtures\Models\User;
 
 class ArrayTest extends BaseTest
 {
@@ -12,28 +13,31 @@ class ArrayTest extends BaseTest
     {
         $this->assertNull($this->cache()->get());
 
-        $this->cache()->put(function () {
+        $item = function () {
             return $this->value;
-        });
+        };
 
+        $this->assertSame($this->value, $this->cache()->put($item));
         $this->assertSame($this->value, $this->cache()->get());
     }
 
     public function testPut()
     {
-        $this->assertSame($this->value, $this->cache()->put(function () {
+        $item = function () {
             return $this->value;
-        }));
+        };
 
+        $this->assertSame($this->value, $this->cache()->put($item));
         $this->assertSame($this->value, $this->cache()->get());
     }
 
     public function testRemember()
     {
-        $this->assertSame($this->value, $this->cache()->remember(function () {
+        $item = function () {
             return $this->value;
-        }));
+        };
 
+        $this->assertSame($this->value, $this->cache()->remember($item));
         $this->assertSame($this->value, $this->cache()->get());
     }
 
@@ -70,5 +74,24 @@ class ArrayTest extends BaseTest
         });
 
         $this->assertFalse($this->cache()->doesntHave());
+    }
+
+    public function testCallable()
+    {
+        $user = new User([
+            'id'   => 123,
+            'name' => 'John Doe',
+        ]);
+
+        $this->cache()->put($user);
+
+        $this->assertTrue($this->cache()->has());
+
+        $item = $this->cache()->get();
+
+        $this->assertInstanceOf(User::class, $item);
+
+        $this->assertSame(123, $item->id);
+        $this->assertSame('John Doe', $item->name);
     }
 }

@@ -6,6 +6,7 @@ namespace Tests\Cache\NotWhen\Callables;
 
 use DragonCode\Cache\Services\Cache;
 use Tests\Cache\NotWhen\BaseTest;
+use Tests\Fixtures\Models\User;
 
 class MultiCallTest extends BaseTest
 {
@@ -97,7 +98,19 @@ class MultiCallTest extends BaseTest
         $this->assertTrue($value2->doesntHave());
     }
 
-    protected function cache(?array $tags = null, ?array $keys = null): Cache
+    public function testCallable()
+    {
+        $user = new User([
+            'id'   => 123,
+            'name' => 'John Doe',
+        ]);
+
+        $this->cache()->put($user);
+
+        $this->assertTrue($this->cache()->doesntHave());
+    }
+
+    protected function cache(array $tags = [], ?array $keys = null): Cache
     {
         return Cache::make()
             ->when($this->when)

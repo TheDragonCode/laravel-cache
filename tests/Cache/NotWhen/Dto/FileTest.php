@@ -29,14 +29,18 @@ class FileTest extends BaseTest
 
     public function testPut()
     {
-        $this->assertSame($this->value, $this->cache()->put($this->dto()));
+        $item = $this->dto();
+
+        $this->assertSame($item, $this->cache()->put($item));
 
         $this->assertNull($this->cache()->get());
     }
 
     public function testRemember()
     {
-        $this->assertSame($this->value, $this->cache()->remember($this->dto()));
+        $item = $this->dto();
+
+        $this->assertSame($item, $this->cache()->remember($item));
 
         $this->assertNull($this->cache()->get());
     }

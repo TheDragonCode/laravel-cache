@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Cache\NotWhen\Callables;
 
 use Tests\Cache\NotWhen\BaseTest;
+use Tests\Fixtures\Models\User;
 
 class FileTest extends BaseTest
 {
@@ -23,18 +24,22 @@ class FileTest extends BaseTest
 
     public function testPut()
     {
-        $this->assertSame($this->value, $this->cache()->put(function () {
+        $item = function () {
             return $this->value;
-        }));
+        };
+
+        $this->assertSame($item, $this->cache()->put($item));
 
         $this->assertNull($this->cache()->get());
     }
 
     public function testRemember()
     {
-        $this->assertSame($this->value, $this->cache()->remember(function () {
+        $item = function () {
             return $this->value;
-        }));
+        };
+
+        $this->assertSame($item, $this->cache()->remember($item));
 
         $this->assertNull($this->cache()->get());
     }
@@ -70,6 +75,18 @@ class FileTest extends BaseTest
         $this->cache()->put(function () {
             return $this->value;
         });
+
+        $this->assertTrue($this->cache()->doesntHave());
+    }
+
+    public function testCallable()
+    {
+        $user = new User([
+            'id'   => 123,
+            'name' => 'John Doe',
+        ]);
+
+        $this->cache()->put($user);
 
         $this->assertTrue($this->cache()->doesntHave());
     }

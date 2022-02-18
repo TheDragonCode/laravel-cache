@@ -24,7 +24,7 @@ class TaggedStore extends Store
             return $this->cache()->get($key);
         }
 
-        return $this->call($default);
+        return $default;
     }
 
     public function put(string $key, $value, int $seconds)
