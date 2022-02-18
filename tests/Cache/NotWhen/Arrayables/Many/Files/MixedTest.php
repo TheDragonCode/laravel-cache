@@ -35,14 +35,18 @@ class MixedTest extends BaseTest
 
     public function testPut()
     {
-        $this->assertSame($this->value, $this->cache()->put(new MixedArrayable()));
+        $item = new MixedArrayable();
+
+        $this->assertSame($item, $this->cache()->put($item));
 
         $this->assertNull($this->cache()->get());
     }
 
     public function testRemember()
     {
-        $this->assertSame($this->value, $this->cache()->remember(new MixedArrayable()));
+        $item = new MixedArrayable();
+
+        $this->assertSame($item, $this->cache()->remember($item));
 
         $this->assertNull($this->cache()->get());
     }

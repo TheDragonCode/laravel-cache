@@ -25,14 +25,18 @@ class DragonCodeTest extends BaseTest
 
     public function testPut()
     {
-        $this->assertSame($this->value, $this->cache()->put(new DragonCodeArrayable()));
+        $item = new DragonCodeArrayable();
+
+        $this->assertSame($item, $this->cache()->put($item));
 
         $this->assertNull($this->cache()->get());
     }
 
     public function testRemember()
     {
-        $this->assertSame($this->value, $this->cache()->remember(new DragonCodeArrayable()));
+        $item = new DragonCodeArrayable();
+
+        $this->assertSame($item, $this->cache()->remember($item));
 
         $this->assertNull($this->cache()->get());
     }

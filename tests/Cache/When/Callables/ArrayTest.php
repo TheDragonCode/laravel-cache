@@ -12,28 +12,31 @@ class ArrayTest extends BaseTest
     {
         $this->assertNull($this->cache()->get());
 
-        $this->cache()->put(function () {
+        $item = function () {
             return $this->value;
-        });
+        };
 
+        $this->assertSame($this->value, $this->cache()->put($item));
         $this->assertSame($this->value, $this->cache()->get());
     }
 
     public function testPut()
     {
-        $this->assertSame($this->value, $this->cache()->put(function () {
+        $item = function () {
             return $this->value;
-        }));
+        };
 
+        $this->assertSame($this->value, $this->cache()->put($item));
         $this->assertSame($this->value, $this->cache()->get());
     }
 
     public function testRemember()
     {
-        $this->assertSame($this->value, $this->cache()->remember(function () {
+        $item = function () {
             return $this->value;
-        }));
+        };
 
+        $this->assertSame($this->value, $this->cache()->remember($item));
         $this->assertSame($this->value, $this->cache()->get());
     }
 
@@ -70,5 +73,16 @@ class ArrayTest extends BaseTest
         });
 
         $this->assertFalse($this->cache()->doesntHave());
+    }
+
+    public function testCallable()
+    {
+        $user = $this->createUser();
+
+        $this->assertSame($user, $this->cache()->put($user));
+
+        $this->assertTrue($this->cache()->has());
+
+        $this->assertSame($user, $this->cache()->get());
     }
 }

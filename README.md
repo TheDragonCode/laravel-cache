@@ -134,8 +134,6 @@ For example, `App\Models\Employee`, `App\Models\User`.
 
 #### Basic
 
-By default, the cache will be written for 1 day.
-
 ```php
 use DragonCode\Cache\Services\Cache;
 
@@ -159,7 +157,35 @@ $cache->forget();
 // Will remove the key from the cache.
 ```
 
+```php
+use DragonCode\Cache\Services\Cache;
+use App\Models\User;
+
+$user = User::first();
+
+$cache = Cache::make()->key('foo');
+
+$cache->put(static fn() => $user);
+// or
+$cache->put($user);
+// Contains cached `$user`
+
+$cache->get();
+// Returns User model
+
+$cache->has();
+// Returns `true`
+
+$cache->doesntHave();
+// Returns `false`
+
+$cache->forget();
+// Will remove the key from the cache.
+```
+
 #### Custom TTL
+
+By default, the cache will be written for 1 day.
 
 The cache will be written for the specified number of minutes, seconds or the `DateTimeInterface` instance.
 
@@ -243,7 +269,7 @@ use DragonCode\Contracts\Cache\Ttl;
 class Foo implements Ttl
 {
     protected $value;
-    
+
     public function __construct(string $value)
     {
         $this->value = $value;

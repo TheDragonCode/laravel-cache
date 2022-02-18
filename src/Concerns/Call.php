@@ -23,11 +23,11 @@ trait Call
     protected function makeCallable($value): callable
     {
         if ($this->isCallable($value)) {
-            return $this->resolve($value);
+            return $value;
         }
 
         return function () use ($value) {
-            return $this->resolve($value);
+            return $value;
         };
     }
 

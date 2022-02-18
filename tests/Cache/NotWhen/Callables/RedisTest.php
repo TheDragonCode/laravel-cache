@@ -27,9 +27,11 @@ class RedisTest extends BaseTest
 
     public function testPut()
     {
-        $this->assertSame($this->value, $this->cache()->put(function () {
+        $item = function () {
             return $this->value;
-        }));
+        };
+
+        $this->assertSame($item, $this->cache()->put($item));
 
         $this->assertNull($this->cache()->get());
         $this->assertNull($this->cache(['qwerty', 'cache'])->get());
@@ -40,9 +42,11 @@ class RedisTest extends BaseTest
 
     public function testRemember()
     {
-        $this->assertSame($this->value, $this->cache()->remember(function () {
+        $item = function () {
             return $this->value;
-        }));
+        };
+
+        $this->assertSame($item, $this->cache()->remember($item));
 
         $this->assertNull($this->cache()->get());
         $this->assertNull($this->cache(['qwerty', 'cache'])->get());
@@ -96,5 +100,14 @@ class RedisTest extends BaseTest
 
         $this->assertTrue($this->cache(['qwerty'])->doesntHave());
         $this->assertTrue($this->cache(['cache'])->doesntHave());
+    }
+
+    public function testCallable()
+    {
+        $user = $this->createUser();
+
+        $this->assertSame($user, $this->cache()->put($user));
+
+        $this->assertTrue($this->cache()->doesntHave());
     }
 }

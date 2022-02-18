@@ -97,7 +97,16 @@ class MultiCallTest extends BaseTest
         $this->assertTrue($value2->doesntHave());
     }
 
-    protected function cache(?array $tags = null, ?array $keys = null): Cache
+    public function testCallable()
+    {
+        $user = $this->createUser();
+
+        $this->assertSame($user, $this->cache()->put($user));
+
+        $this->assertTrue($this->cache()->doesntHave());
+    }
+
+    protected function cache(array $tags = [], ?array $keys = null): Cache
     {
         return Cache::make()
             ->when($this->when)

@@ -77,7 +77,7 @@ class MultiCallTest extends BaseTest
         $this->assertTrue($value2->doesntHave());
     }
 
-    protected function cache(?array $tags = null, ?array $keys = null): Cache
+    protected function cache(array $tags = [], ?array $keys = null): Cache
     {
         return Cache::make()
             ->when($this->when)

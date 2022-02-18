@@ -14,7 +14,7 @@ class MainStore extends Store
             return Cache::get($key);
         }
 
-        return $this->call($default);
+        return $default;
     }
 
     public function put(string $key, $value, int $seconds)
