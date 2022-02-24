@@ -144,6 +144,11 @@ $cache->put(static fn() => 'Some value');
 $cache->put('Some value');
 // Contains cached `Some value`
 
+$cache->remember(static fn() => 'Some value');
+// or
+$cache->remember('Some value');
+// Contains cached `Some value`
+
 $cache->get();
 // Returns cached `Some value`
 
@@ -168,6 +173,11 @@ $cache = Cache::make()->key('foo');
 $cache->put(static fn() => $user);
 // or
 $cache->put($user);
+// Contains cached `$user`
+
+$cache->remember(static fn() => $user);
+// or
+$cache->remember($user);
 // Contains cached `$user`
 
 $cache->get();
