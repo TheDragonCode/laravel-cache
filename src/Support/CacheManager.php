@@ -46,7 +46,7 @@ class CacheManager implements Store
 
     public function remember(string $key, $value, int $seconds)
     {
-        return $this->put($key, $value, $seconds);
+        return $this->instance()->remember($key, $value, $seconds);
     }
 
     public function forget(string $key): void

@@ -84,7 +84,7 @@ class Cache
 
     public function remember($value)
     {
-        return $this->put($value);
+        return $this->manager()->remember($this->getKey(), $value, $this->ttl);
     }
 
     public function forget(): void

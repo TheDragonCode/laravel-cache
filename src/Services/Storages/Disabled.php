@@ -8,10 +8,15 @@ class Disabled extends Store
 {
     public function get(string $key, $default = null)
     {
-        return $default;
+        return $this->call($default);
     }
 
     public function put(string $key, $value, int $seconds)
+    {
+        return $this->get($key, $value);
+    }
+
+    public function remember(string $key, $value, int $seconds)
     {
         return $this->get($key, $value);
     }

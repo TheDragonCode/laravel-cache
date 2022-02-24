@@ -15,8 +15,6 @@ trait Call
      */
     protected function call($callback = null)
     {
-        $callback = $this->resolve($callback);
-
         return $this->isCallable($callback) ? $callback() : $callback;
     }
 
@@ -29,11 +27,6 @@ trait Call
         return function () use ($value) {
             return $value;
         };
-    }
-
-    protected function resolve($value)
-    {
-        return $this->isArrayable($value) ? $this->toArray($value) : $value;
     }
 
     protected function isCallable($value): bool
