@@ -72,6 +72,6 @@ trait Arrayable
             return true;
         }
 
-        return (bool) (Instance::of($value, Closure::class) && method_exists($value, 'toArray'));
+        return Instance::of($value, Closure::class) && method_exists($value, 'toArray');
     }
 }

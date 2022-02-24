@@ -24,10 +24,19 @@ class TaggedStore extends Store
             return $this->cache()->get($key);
         }
 
-        return $default;
+        return $this->call($default);
     }
 
     public function put(string $key, $value, int $seconds)
+    {
+        $value = $this->call($value);
+
+        $this->cache()->put($key, $value, $seconds);
+
+        return $value;
+    }
+
+    public function remember(string $key, $value, int $seconds)
     {
         $value = $this->makeCallable($value);
 

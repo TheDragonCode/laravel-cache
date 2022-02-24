@@ -25,8 +25,11 @@ class FileTest extends BaseTest
 
         $this->assertSame($this->value, $this->cache()->get());
 
-        $this->assertSame($this->value, $this->cache()->put(microtime()));
-        $this->assertSame($this->value, $this->cache()->put(microtime()));
+        $time1 = microtime();
+        $this->assertSame($time1, $this->cache()->put($time1));
+
+        $time2 = microtime();
+        $this->assertSame($time2, $this->cache()->put($time2));
     }
 
     public function testRemember()

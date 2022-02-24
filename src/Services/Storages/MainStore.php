@@ -19,6 +19,15 @@ class MainStore extends Store
 
     public function put(string $key, $value, int $seconds)
     {
+        $value = $this->call($value);
+
+        Cache::put($key, $value, $seconds);
+
+        return $value;
+    }
+
+    public function remember(string $key, $value, int $seconds)
+    {
         $value = $this->makeCallable($value);
 
         return Cache::remember($key, $seconds, $value);

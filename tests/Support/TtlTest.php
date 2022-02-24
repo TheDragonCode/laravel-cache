@@ -80,11 +80,11 @@ class TtlTest extends TestCase
 
     public function testObjectAsObject()
     {
-        //$this->assertSame(18000, Ttl::fromMinutes(new CustomObject()));
-        //$this->assertSame(300, Ttl::fromSeconds(new CustomObject()));
-        //
-        //$this->assertSame(24000, Ttl::fromMinutes(new DragonCodeArrayable()));
-        //$this->assertSame(400, Ttl::fromSeconds(new DragonCodeArrayable()));
+        $this->assertSame(18000, Ttl::fromMinutes(new CustomObject()));
+        $this->assertSame(300, Ttl::fromSeconds(new CustomObject()));
+
+        $this->assertSame(24000, Ttl::fromMinutes(new DragonCodeArrayable()));
+        $this->assertSame(400, Ttl::fromSeconds(new DragonCodeArrayable()));
 
         $this->assertSame(216000, Ttl::fromMinutes(new IlluminateArrayable()));
         $this->assertSame(3600, Ttl::fromSeconds(new IlluminateArrayable()));
