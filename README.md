@@ -20,7 +20,7 @@ Or manually update `require` block of `composer.json` and run `composer update`.
 ```json
 {
     "require": {
-        "dragon-code/laravel-cache": "^2.12"
+        "dragon-code/laravel-cache": "^3.0"
     }
 }
 ```

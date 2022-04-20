@@ -7,7 +7,7 @@ namespace DragonCode\Cache\Support;
 use ArrayObject;
 use DragonCode\Cache\Concerns\Arrayable;
 use DragonCode\Contracts\DataTransferObject\DataTransferObject;
-use DragonCode\Support\Facades\Helpers\Ables\Stringable;
+use DragonCode\Support\Facades\Helpers\Str;
 
 class Tag
 {
@@ -18,7 +18,7 @@ class Tag
      *
      * @return array
      */
-    public function get($tags): array
+    public function get(mixed $tags): array
     {
         $tags = $this->toArray($tags);
 
@@ -27,13 +27,11 @@ class Tag
 
     protected function map(array $tags): array
     {
-        return $this->arrayMap($tags, function (string $tag) {
-            return $this->slug($tag);
-        });
+        return $this->arrayMap($tags, fn (string $tag) => $this->slug($tag));
     }
 
     protected function slug(string $tag): string
     {
-        return (string) Stringable::of($tag)->trim()->slug();
+        return Str::of($tag)->trim()->slug()->toString();
     }
 }

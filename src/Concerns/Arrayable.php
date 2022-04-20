@@ -8,10 +8,9 @@ use ArrayAccess;
 use ArrayObject;
 use Closure;
 use DragonCode\Contracts\Support\Arrayable as DragonCodeArrayable;
-use DragonCode\Support\Facades\Helpers\Ables\Arrayable as Helper;
 use DragonCode\Support\Facades\Helpers\Arr;
-use DragonCode\Support\Facades\Helpers\Instance;
-use DragonCode\Support\Facades\Helpers\Reflection;
+use DragonCode\Support\Facades\Instances\Instance;
+use DragonCode\Support\Facades\Instances\Reflection;
 use DragonCode\Support\Helpers\Ables\Arrayable as ArrayableHelper;
 use Illuminate\Contracts\Support\Arrayable as IlluminateArrayable;
 
@@ -19,10 +18,10 @@ trait Arrayable
 {
     protected function arrayMap(array $values, callable $callback): array
     {
-        return Helper::of($values)
+        return Arr::of($values)
             ->map(function ($value) {
                 if ($this->isArrayable($value)) {
-                    return Arr::toArray($value);
+                    return $this->toArray($value);
                 }
 
                 if (is_object($value)) {
@@ -32,17 +31,15 @@ trait Arrayable
                 return $value;
             })
             ->flatten()
-            ->filter(static function ($value) {
-                return ! empty($value) || is_numeric($value);
-            })
+            ->filter(static fn ($value) => ! empty($value) || is_numeric($value))
             ->map($callback)
             ->values()
-            ->get();
+            ->toArray();
     }
 
     protected function toArray($value): array
     {
-        return Arr::toArray($value);
+        return Arr::resolve($value);
     }
 
     protected function isArrayable($value): bool
