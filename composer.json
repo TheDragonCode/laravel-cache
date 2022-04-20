@@ -22,9 +22,9 @@
         "source": "https://github.com/TheDragonCode/laravel-cache"
     },
     "require": {
-        "php": " ^8.0",
+        "php": "^8.0",
         "dragon-code/contracts": "^2.16",
-        "dragon-code/support": " ^6.1",
+        "dragon-code/support": "^6.1",
         "illuminate/support": "^6.0 || ^7.0 || ^8.0 || ^9.0"
     },
     "require-dev": {
