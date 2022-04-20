@@ -7,9 +7,9 @@ namespace DragonCode\Cache\Concerns;
 use Carbon\Carbon;
 use Closure;
 use DateTimeInterface;
-use DragonCode\Contracts\Cache\Ttl as TtlContract;
-use DragonCode\Support\Facades\Helpers\Instance;
-use DragonCode\Support\Facades\Helpers\Is;
+use DragonCode\Contracts\Cache\Ttl;
+use DragonCode\Support\Facades\Instances\Instance;
+use DragonCode\Support\Facades\Types\Is;
 
 trait Has
 {
@@ -30,6 +30,6 @@ trait Has
 
     protected function hasContract($value): bool
     {
-        return Instance::of($value, TtlContract::class);
+        return Instance::of($value, Ttl::class);
     }
 }

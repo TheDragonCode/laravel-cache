@@ -10,11 +10,9 @@ use DragonCode\Contracts\Cache\Ttl;
 
 class AsDateTime implements Ttl
 {
-    protected $value;
-
-    public function __construct(string $value)
-    {
-        $this->value = $value;
+    public function __construct(
+        protected string $value
+    ) {
     }
 
     public function cacheTtl(): DateTimeInterface
