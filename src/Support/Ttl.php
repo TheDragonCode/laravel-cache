@@ -14,7 +14,7 @@ class Ttl
     use Call;
     use Has;
 
-    protected $default = 3600;
+    protected int $default = 3600;
 
     public function fromMinutes($minutes): int
     {
@@ -28,7 +28,7 @@ class Ttl
 
     public function fromDateTime(DateTimeInterface $date_time): int
     {
-        $seconds = Carbon::now()->diffInRealSeconds($date_time, false);
+        $seconds = Carbon::now()->diffInRealSeconds($date_time);
 
         return $this->correct($seconds);
     }
