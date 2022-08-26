@@ -15,7 +15,7 @@ class Key
 
     /**
      * @param string $separator
-     * @param \ArrayObject|array|\DragonCode\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Arrayable $values
+     * @param ArrayObject|array|\DragonCode\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Arrayable $values
      *
      * @return string
      */
