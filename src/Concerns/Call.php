@@ -13,7 +13,7 @@ trait Call
      *
      * @return mixed
      */
-    protected function call($callback = null)
+    protected function call(mixed $callback = null): mixed
     {
         return $this->isCallable($callback) ? $callback() : $callback;
     }

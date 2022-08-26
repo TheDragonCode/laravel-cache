@@ -18,13 +18,11 @@ class CacheManager implements Store
 {
     use Makeable;
 
-    protected $tags = [];
+    protected array $tags = [];
 
-    protected $when = true;
-
-    public function __construct(bool $when = true)
-    {
-        $this->when = $when;
+    public function __construct(
+        protected bool $when = true
+    ) {
     }
 
     public function tags(array $tags): CacheManager
@@ -34,17 +32,17 @@ class CacheManager implements Store
         return $this;
     }
 
-    public function get(string $key, $default = null)
+    public function get(string $key, $default = null): mixed
     {
         return $this->instance()->get($key, $default);
     }
 
-    public function put(string $key, $value, int $seconds)
+    public function put(string $key, $value, int $seconds): mixed
     {
         return $this->instance()->put($key, $value, $seconds);
     }
 
-    public function remember(string $key, $value, int $seconds)
+    public function remember(string $key, $value, int $seconds): mixed
     {
         return $this->instance()->remember($key, $value, $seconds);
     }
@@ -66,16 +64,16 @@ class CacheManager implements Store
 
     protected function instance(): Store
     {
-        switch (true) {
-            case ! $this->when:
-                return Disabled::make();
+        return match (true) {
+            $this->isDisabled() => Disabled::make(),
+            $this->allowTags()  => TaggedStore::make()->tags($this->tags),
+            default             => MainStore::make(),
+        };
+    }
 
-            case $this->allowTags():
-                return TaggedStore::make()->tags($this->tags);
-
-            default:
-                return MainStore::make();
-        }
+    protected function isDisabled(): bool
+    {
+        return ! $this->when;
     }
 
     protected function allowTags(): bool

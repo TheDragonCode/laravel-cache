@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Cache;
 
 class TaggedStore extends Store
 {
-    protected $tags = [];
+    protected array $tags = [];
 
     public function tags(array $tags): self
     {
@@ -18,7 +18,7 @@ class TaggedStore extends Store
         return $this;
     }
 
-    public function get(string $key, $default = null)
+    public function get(string $key, $default = null): mixed
     {
         if ($this->has($key)) {
             return $this->cache()->get($key);
@@ -27,7 +27,7 @@ class TaggedStore extends Store
         return $this->call($default);
     }
 
-    public function put(string $key, $value, int $seconds)
+    public function put(string $key, $value, int $seconds): mixed
     {
         $value = $this->call($value);
 
@@ -36,7 +36,7 @@ class TaggedStore extends Store
         return $value;
     }
 
-    public function remember(string $key, $value, int $seconds)
+    public function remember(string $key, $value, int $seconds): mixed
     {
         $value = $this->makeCallable($value);
 
