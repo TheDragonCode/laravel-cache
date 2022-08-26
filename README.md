@@ -207,6 +207,7 @@ It does not matter in which direction the time shift will be. During processing,
 use Carbon\Carbon;
 use DateTime;
 use DragonCode\Cache\Services\Cache;
+use DragonCode\Cache\Support\Ttl;
 
 $cache = Cache::make()->ttl(10);
 
@@ -217,6 +218,12 @@ $cache = Cache::make()->ttl(fn () => 10);
 $cache = Cache::make()->ttl(Carbon::now()->addDay());
 
 $cache = Cache::make()->ttl(new DateTime('tomorrow'));
+
+$cache = Cache::make()->ttl(Ttl::DAY);
+
+$cache = Cache::make()->ttl(Ttl::WEEK);
+
+$cache = Cache::make()->ttl(Ttl::MONTH);
 ```
 
 ##### As Seconds
