@@ -18,17 +18,17 @@ class Cache
 {
     use Makeable;
 
-    protected $ttl = 86400;
+    protected int $ttl = 86400;
 
-    protected $tags = [];
+    protected array $tags = [];
 
-    protected $key;
+    protected mixed $key;
 
-    protected $key_hash;
+    protected string $key_hash = '';
 
-    protected $when = true;
+    protected bool $when = true;
 
-    protected $auth;
+    protected array|string|null $auth = null;
 
     public function when(bool $when = true): Cache
     {
@@ -67,7 +67,7 @@ class Cache
         return $this;
     }
 
-    public function get()
+    public function get(): mixed
     {
         return $this->manager()->get($this->getKey());
     }
@@ -77,12 +77,12 @@ class Cache
      *
      * @return mixed
      */
-    public function put($value)
+    public function put(mixed $value): mixed
     {
         return $this->manager()->put($this->getKey(), $value, $this->ttl);
     }
 
-    public function remember($value)
+    public function remember(mixed $value): mixed
     {
         return $this->manager()->remember($this->getKey(), $value, $this->ttl);
     }

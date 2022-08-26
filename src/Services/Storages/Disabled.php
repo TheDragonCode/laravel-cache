@@ -6,17 +6,17 @@ namespace DragonCode\Cache\Services\Storages;
 
 class Disabled extends Store
 {
-    public function get(string $key, $default = null)
+    public function get(string $key, $default = null): mixed
     {
         return $this->call($default);
     }
 
-    public function put(string $key, $value, int $seconds)
+    public function put(string $key, $value, int $seconds): mixed
     {
         return $this->get($key, $value);
     }
 
-    public function remember(string $key, $value, int $seconds)
+    public function remember(string $key, $value, int $seconds): mixed
     {
         return $this->get($key, $value);
     }

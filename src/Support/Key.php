@@ -6,7 +6,8 @@ namespace DragonCode\Cache\Support;
 
 use ArrayObject;
 use DragonCode\Cache\Concerns\Arrayable;
-use DragonCode\Contracts\DataTransferObject\DataTransferObject;
+use DragonCode\Contracts\Support\Arrayable as DragonArrayable;
+use Illuminate\Contracts\Support\Arrayable as IlluminateArrayable;
 
 class Key
 {
@@ -14,11 +15,11 @@ class Key
 
     /**
      * @param string $separator
-     * @param array|\DragonCode\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Arrayable|ArrayObject|DataTransferObject $values
+     * @param \ArrayObject|array|\DragonCode\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Arrayable $values
      *
      * @return string
      */
-    public function get(string $separator, $values): string
+    public function get(string $separator, ArrayObject|array|DragonArrayable|IlluminateArrayable $values): string
     {
         $values = $this->toArray($values);
 
