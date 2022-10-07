@@ -6,6 +6,7 @@ namespace DragonCode\Cache\Concerns;
 
 use ArrayAccess;
 use ArrayObject;
+use Carbon\Carbon;
 use Closure;
 use DragonCode\Contracts\Support\Arrayable as DragonCodeArrayable;
 use DragonCode\Support\Facades\Helpers\Arr;
@@ -39,7 +40,10 @@ trait Arrayable
 
     protected function toArray($value): array
     {
-        return Arr::resolve($value);
+        return Arr::of(Arr::wrap($value))
+            ->map(fn ($value) => Instance::of($value, Carbon::class) ? $value->toIso8601String() : $value)
+            ->resolve()
+            ->toArray();
     }
 
     protected function isArrayable($value): bool
