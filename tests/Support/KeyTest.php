@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Support;
 
+use Carbon\Carbon;
 use DragonCode\Cache\Facades\Support\Key;
 use Tests\Fixtures\Concerns\Dtoable;
 use Tests\Fixtures\Dto\CustomDto;
@@ -115,6 +116,18 @@ class KeyTest extends TestCase
         $key = Key::get(':', [User::class, 'foo', 'bar']);
 
         $expected = 'e07e8d069dbdfde3b73552938ec82f0a:acbd18db4cc2f85cedef654fccc4a4d8:37b51d194a7513e45b56f6524f2d51f2';
+
+        $this->assertSame($expected, $key);
+    }
+
+    public function testCarbon()
+    {
+        $key = Key::get(':', [
+            Carbon::parse('2022-10-07 14:00:00'),
+            Carbon::parse('2022-10-07 15:00:00'),
+        ]);
+
+        $expected = '1391beb7fd700594df5a1d09d0afe677:72d97f016fa1dda7e212de874853ae28';
 
         $this->assertSame($expected, $key);
     }

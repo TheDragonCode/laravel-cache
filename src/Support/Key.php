@@ -30,9 +30,7 @@ class Key
 
     protected function hash(array $values): array
     {
-        return $this->arrayMap($values, static function ($value) {
-            return md5((string) $value);
-        });
+        return $this->arrayMap($values, static fn ($value) => md5((string) $value));
     }
 
     protected function compile(array $values, string $separator): string
