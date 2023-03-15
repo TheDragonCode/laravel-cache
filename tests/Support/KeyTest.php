@@ -136,12 +136,14 @@ class KeyTest extends TestCase
 
     public function testFormRequest()
     {
-        $key = Key::get(':',
+        $key = Key::get(
+            ':',
             $this->formRequest([
                 'foo' => 'Foo',
                 'bar' => 'Bar',
                 'baz' => 'Baz',
-            ]));
+            ])
+        );
 
         $expected = '1356c67d7ad1638d816bfb822dd2c25d:ddc35f88fa71b6ef142ae61f35364653';
 
