@@ -14,6 +14,7 @@ use DragonCode\Support\Facades\Instances\Instance;
 use DragonCode\Support\Facades\Instances\Reflection;
 use DragonCode\Support\Helpers\Ables\Arrayable as ArrayableHelper;
 use Illuminate\Contracts\Support\Arrayable as IlluminateArrayable;
+use Illuminate\Foundation\Http\FormRequest;
 
 trait Arrayable
 {
@@ -42,6 +43,7 @@ trait Arrayable
     {
         return Arr::of(Arr::wrap($value))
             ->map(fn ($value) => Instance::of($value, Carbon::class) ? $value->toIso8601String() : $value)
+            ->map(fn ($value) => Instance::of($value, FormRequest::class) ? $value->validated() : $value)
             ->resolve()
             ->toArray();
     }

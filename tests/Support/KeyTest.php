@@ -6,6 +6,7 @@ namespace Tests\Support;
 
 use Carbon\Carbon;
 use DragonCode\Cache\Facades\Support\Key;
+use Tests\Concerns\Requestable;
 use Tests\Fixtures\Concerns\Dtoable;
 use Tests\Fixtures\Dto\CustomDto;
 use Tests\Fixtures\Dto\DtoObject;
@@ -16,6 +17,7 @@ use Tests\TestCase;
 class KeyTest extends TestCase
 {
     use Dtoable;
+    use Requestable;
 
     protected $value = [
         'foo' => 'Foo',
@@ -128,6 +130,20 @@ class KeyTest extends TestCase
         ]);
 
         $expected = '1391beb7fd700594df5a1d09d0afe677:72d97f016fa1dda7e212de874853ae28';
+
+        $this->assertSame($expected, $key);
+    }
+
+    public function testFormRequest()
+    {
+        $key = Key::get(':',
+            $this->formRequest([
+                'foo' => 'Foo',
+                'bar' => 'Bar',
+                'baz' => 'Baz',
+            ]));
+
+        $expected = '1356c67d7ad1638d816bfb822dd2c25d:ddc35f88fa71b6ef142ae61f35364653';
 
         $this->assertSame($expected, $key);
     }

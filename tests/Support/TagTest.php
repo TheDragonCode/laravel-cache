@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Support;
 
 use DragonCode\Cache\Facades\Support\Tag;
+use Tests\Concerns\Requestable;
 use Tests\Fixtures\Concerns\Dtoable;
 use Tests\Fixtures\Dto\CustomDto;
 use Tests\Fixtures\Dto\DtoObject;
@@ -14,6 +15,7 @@ use Tests\TestCase;
 class TagTest extends TestCase
 {
     use Dtoable;
+    use Requestable;
 
     protected $value = [
         'foo' => 'Foo',
@@ -81,6 +83,19 @@ class TagTest extends TestCase
         ]);
 
         $expected = ['qwe', 'rty', 'foo', 'bar', 'wasd', 'foo'];
+
+        $this->assertSame($expected, $key);
+    }
+
+    public function testFormRequest()
+    {
+        $key = Tag::get($this->formRequest([
+            'foo' => 'Foo',
+            'bar' => 'Bar',
+            'baz' => 'Baz',
+        ]));
+
+        $expected = ['foo', 'bar'];
 
         $this->assertSame($expected, $key);
     }
