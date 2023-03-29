@@ -1,6 +1,6 @@
 ## Laravel Cache
 
-<img src="https://preview.dragon-code.pro/TheDragonCode/laravel-cache.svg?brand=laravel" alt="Laravel Cache"/>
+<img src="https://preview.dragon-code.pro/the-dragon-code/laravel-cache.svg?brand=laravel" alt="Laravel Cache"/>
 
 [![Stable Version][badge_stable]][link_packagist]
 [![Unstable Version][badge_unstable]][link_packagist]
