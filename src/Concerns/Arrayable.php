@@ -6,6 +6,7 @@ namespace DragonCode\Cache\Concerns;
 
 use ArrayAccess;
 use ArrayObject;
+use BackedEnum;
 use Carbon\Carbon;
 use Closure;
 use DragonCode\Contracts\Support\Arrayable as DragonCodeArrayable;
@@ -44,7 +45,7 @@ trait Arrayable
         return Arr::of(Arr::wrap($value))
             ->map(fn ($value) => Instance::of($value, Carbon::class) ? $value->toIso8601String() : $value)
             ->map(fn ($value) => Instance::of($value, FormRequest::class) ? $value->validated() : $value)
-            ->map(fn ($value) => Instance::of($value, \BackedEnum::class) ? ($value->value ?? $value->name) : $value)
+            ->map(fn ($value) => Instance::of($value, BackedEnum::class) ? ($value->value ?? $value->name) : $value)
             ->resolve()
             ->toArray();
     }
