@@ -6,10 +6,13 @@ namespace Tests\Support;
 
 use Carbon\Carbon;
 use DragonCode\Cache\Facades\Support\Key;
+use DragonCode\Support\Facades\Application\Version;
 use Tests\Concerns\Requestable;
 use Tests\Fixtures\Concerns\Dtoable;
 use Tests\Fixtures\Dto\CustomDto;
 use Tests\Fixtures\Dto\DtoObject;
+use Tests\Fixtures\Enums\WithoutValueEnum;
+use Tests\Fixtures\Enums\WithValueEnum;
 use Tests\Fixtures\Models\User;
 use Tests\Fixtures\Simple\CustomObject;
 use Tests\TestCase;
@@ -146,6 +149,21 @@ class KeyTest extends TestCase
         );
 
         $expected = '1356c67d7ad1638d816bfb822dd2c25d:ddc35f88fa71b6ef142ae61f35364653';
+
+        $this->assertSame($expected, $key);
+    }
+
+    public function testEnum()
+    {
+        if (Version::of('8.1.0')->lt(phpversion())) {
+            $this->assertTrue(true);
+
+            return;
+        }
+
+        $key = Key::get(':', [WithoutValueEnum::foo, WithValueEnum::bar]);
+
+        $expected = 'acbd18db4cc2f85cedef654fccc4a4d8:37b51d194a7513e45b56f6524f2d51f2';
 
         $this->assertSame($expected, $key);
     }

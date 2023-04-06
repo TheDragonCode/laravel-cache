@@ -5,10 +5,13 @@ declare(strict_types=1);
 namespace Tests\Support;
 
 use DragonCode\Cache\Facades\Support\Tag;
+use DragonCode\Support\Facades\Application\Version;
 use Tests\Concerns\Requestable;
 use Tests\Fixtures\Concerns\Dtoable;
 use Tests\Fixtures\Dto\CustomDto;
 use Tests\Fixtures\Dto\DtoObject;
+use Tests\Fixtures\Enums\WithoutValueEnum;
+use Tests\Fixtures\Enums\WithValueEnum;
 use Tests\Fixtures\Simple\CustomObject;
 use Tests\TestCase;
 
@@ -94,6 +97,21 @@ class TagTest extends TestCase
             'bar' => 'Bar',
             'baz' => 'Baz',
         ]));
+
+        $expected = ['foo', 'bar'];
+
+        $this->assertSame($expected, $key);
+    }
+
+    public function testEnum()
+    {
+        if (Version::of('8.1.0')->lt(phpversion())) {
+            $this->assertTrue(true);
+
+            return;
+        }
+
+        $key = Tag::get([WithoutValueEnum::foo, WithValueEnum::bar]);
 
         $expected = ['foo', 'bar'];
 
