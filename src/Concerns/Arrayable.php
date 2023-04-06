@@ -44,6 +44,7 @@ trait Arrayable
         return Arr::of(Arr::wrap($value))
             ->map(fn ($value) => Instance::of($value, Carbon::class) ? $value->toIso8601String() : $value)
             ->map(fn ($value) => Instance::of($value, FormRequest::class) ? $value->validated() : $value)
+            ->map(fn ($value) => Instance::of($value, \BackedEnum::class) ? ($value->value ?? $value->name) : $value)
             ->resolve()
             ->toArray();
     }
