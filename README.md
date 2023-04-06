@@ -1,6 +1,6 @@
-## Laravel Cache
+## Smart Cache for Laravel
 
-<img src="https://preview.dragon-code.pro/the-dragon-code/laravel-cache.svg?brand=laravel" alt="Laravel Cache"/>
+<img src="https://preview.dragon-code.pro/the-dragon-code/smart-cache.svg?brand=laravel" alt="Laravel Cache"/>
 
 [![Stable Version][badge_stable]][link_packagist]
 [![Unstable Version][badge_unstable]][link_packagist]
@@ -9,7 +9,7 @@
 
 ## Installation
 
-To get the latest version of `Laravel Cache`, simply require the project using [Composer](https://getcomposer.org):
+To get the latest version of `Smart Cache`, simply require the project using [Composer](https://getcomposer.org):
 
 ```bash
 $ composer require dragon-code/laravel-cache
