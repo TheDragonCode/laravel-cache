@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Cache\When\Dto;
 
-use Tests\Cache\When\BaseTest;
+use Tests\Cache\When\Base;
 use Tests\Fixtures\Concerns\Dtoable;
 
-class RedisTest extends BaseTest
+class RedisTest extends Base
 {
     use Dtoable;
 

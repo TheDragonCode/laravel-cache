@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Cache\NotWhen\Callables;
 
-use Tests\Cache\NotWhen\BaseTest;
+use Tests\Cache\NotWhen\Base;
 
-class FileTest extends BaseTest
+class FileTest extends Base
 {
     protected $cache = 'file';
 

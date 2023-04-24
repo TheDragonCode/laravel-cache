@@ -6,7 +6,7 @@ namespace Tests\Cache\NotWhen;
 
 use Tests\TestCase;
 
-abstract class BaseTest extends TestCase
+abstract class Base extends TestCase
 {
     protected $when = false;
 }

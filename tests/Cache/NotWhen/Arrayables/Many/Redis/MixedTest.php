@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Cache\NotWhen\Arrayables\Many\Redis;
 
-use Tests\Cache\NotWhen\BaseTest;
+use Tests\Cache\NotWhen\Base;
 use Tests\Fixtures\Many\MixedArrayable;
 
-class MixedTest extends BaseTest
+class MixedTest extends Base
 {
     protected $cache = 'redis';
 

@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Tests\Cache\NotWhen\Callables;
 
 use DragonCode\Cache\Services\Cache;
-use Tests\Cache\NotWhen\BaseTest;
+use Tests\Cache\NotWhen\Base;
 
-class MultiCallTest extends BaseTest
+class MultiCallTest extends Base
 {
     protected $cache = 'redis';
 

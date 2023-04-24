@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Cache\When\Arrayables\Simple\Arr;
 
-use Tests\Cache\When\BaseTest;
+use Tests\Cache\When\Base;
 use Tests\Fixtures\Simple\IlluminateArrayable;
 
-class IlluminateTest extends BaseTest
+class IlluminateTest extends Base
 {
     protected $value = [
         'foo' => 'Foo',

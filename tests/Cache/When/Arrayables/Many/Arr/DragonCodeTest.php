@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Cache\When\Arrayables\Many\Arr;
 
-use Tests\Cache\When\BaseTest;
+use Tests\Cache\When\Base;
 use Tests\Fixtures\Many\DragonCodeArrayable;
 
-class DragonCodeTest extends BaseTest
+class DragonCodeTest extends Base
 {
     protected $value = [
         'foo' => 'Foo',
