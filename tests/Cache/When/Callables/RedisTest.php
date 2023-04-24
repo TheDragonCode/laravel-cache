@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Cache\When\Callables;
 
-use Tests\Cache\When\BaseTest;
+use Tests\Cache\When\Base;
 
-class RedisTest extends BaseTest
+class RedisTest extends Base
 {
     protected $cache = 'redis';
 

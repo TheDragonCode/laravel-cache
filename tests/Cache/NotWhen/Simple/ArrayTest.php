@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Cache\NotWhen\Simple;
 
-use Tests\Cache\NotWhen\BaseTest;
+use Tests\Cache\NotWhen\Base;
 
-class ArrayTest extends BaseTest
+class ArrayTest extends Base
 {
     protected $cache = 'array';
 

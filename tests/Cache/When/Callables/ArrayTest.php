@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Cache\When\Callables;
 
-use Tests\Cache\When\BaseTest;
+use Tests\Cache\When\Base;
 
-class ArrayTest extends BaseTest
+class ArrayTest extends Base
 {
     public function testGet()
     {

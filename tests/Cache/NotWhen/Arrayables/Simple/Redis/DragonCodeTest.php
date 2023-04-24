@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Cache\NotWhen\Arrayables\Simple\Redis;
 
-use Tests\Cache\NotWhen\BaseTest;
+use Tests\Cache\NotWhen\Base;
 use Tests\Fixtures\Simple\DragonCodeArrayable;
 
-class DragonCodeTest extends BaseTest
+class DragonCodeTest extends Base
 {
     protected $cache = 'redis';
 

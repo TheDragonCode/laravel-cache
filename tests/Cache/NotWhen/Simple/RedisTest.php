@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Tests\Cache\NotWhen\Simple;
 
 use Illuminate\Support\Facades\Auth;
-use Tests\Cache\NotWhen\BaseTest;
+use Tests\Cache\NotWhen\Base;
 use Tests\Fixtures\Models\User;
 
-class RedisTest extends BaseTest
+class RedisTest extends Base
 {
     protected $cache = 'redis';
 

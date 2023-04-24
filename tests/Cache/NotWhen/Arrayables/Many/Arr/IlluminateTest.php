@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Cache\NotWhen\Arrayables\Many\Arr;
 
-use Tests\Cache\NotWhen\BaseTest;
+use Tests\Cache\NotWhen\Base;
 use Tests\Fixtures\Many\IlluminateArrayable;
 
-class IlluminateTest extends BaseTest
+class IlluminateTest extends Base
 {
     protected $value = [
         'foo' => 'Foo',

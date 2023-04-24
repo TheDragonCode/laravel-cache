@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Cache\When\Arrayables\Many\Files;
 
-use Tests\Cache\When\BaseTest;
+use Tests\Cache\When\Base;
 use Tests\Fixtures\Many\MixedArrayable;
 
-class MixedTest extends BaseTest
+class MixedTest extends Base
 {
     protected $cache = 'file';
 
