@@ -24,6 +24,8 @@ class Cache
 
     protected mixed $key;
 
+    protected bool $hashing_key = true;
+
     protected string $key_hash = '';
 
     protected bool $when = true;
@@ -56,6 +58,13 @@ class Cache
     public function withAuth(): Cache
     {
         $this->auth = Auth::check() ? [get_class(Auth::user()), Auth::id()] : 'guest';
+
+        return $this;
+    }
+
+    public function hashKey(bool $hash = true): Cache
+    {
+        $this->hashing_key = $hash;
 
         return $this;
     }
@@ -120,6 +129,6 @@ class Cache
             array_unshift($key, $this->auth);
         }
 
-        return $this->key_hash = Key::get(':', $key);
+        return $this->key_hash = Key::get(':', $key, $this->hashing_key);
     }
 }
