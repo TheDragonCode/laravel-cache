@@ -167,4 +167,19 @@ class KeyTest extends TestCase
 
         $this->assertSame($expected, $key);
     }
+
+    public function testWithoutHash()
+    {
+        $keys = [
+            ['foo' => 'Foo'],
+            ['bar' => 'Bar'],
+            [['Baz', 'Qwerty']],
+        ];
+
+        $key = Key::get(':', $keys, false);
+
+        $expected = 'Foo:Bar:Baz:Qwerty';
+
+        $this->assertSame($expected, $key);
+    }
 }
