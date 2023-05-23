@@ -24,7 +24,11 @@ class Key
 
     protected function hash(array $values, bool $hash = true): array
     {
-        return $this->arrayMap($values, static fn ($value) => $hash ? md5((string) $value) : (string) $value);
+        return $this->arrayMap($values, static function (mixed $value) use ($hash) {
+            $value = is_bool($value) ? (int) $value : $value;
+
+            return $hash ? md5((string) $value) : (string) $value;
+        });
     }
 
     protected function compile(array $values, string $separator): string
