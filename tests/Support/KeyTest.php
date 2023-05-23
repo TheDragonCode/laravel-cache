@@ -58,6 +58,15 @@ class KeyTest extends TestCase
         $this->assertSame($expected, $key);
     }
 
+    public function testBoolean()
+    {
+        $key = Key::get(':', [true, false]);
+
+        $expected = 'c4ca4238a0b923820dcc509a6f75849b:cfcd208495d565ef66e7dff9f98764da';
+
+        $this->assertSame($expected, $key);
+    }
+
     public function testCombine()
     {
         $key = Key::get(':', [1, 'Foo', [['Bar', 'Baz']]]);
@@ -109,9 +118,9 @@ class KeyTest extends TestCase
 
     public function testEmpties()
     {
-        $key = Key::get(':', [null, '', 0, []]);
+        $key = Key::get(':', [null, '', 0, [], false]);
 
-        $expected = 'cfcd208495d565ef66e7dff9f98764da';
+        $expected = 'cfcd208495d565ef66e7dff9f98764da:cfcd208495d565ef66e7dff9f98764da';
 
         $this->assertSame($expected, $key);
     }

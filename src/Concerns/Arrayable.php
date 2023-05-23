@@ -34,7 +34,7 @@ trait Arrayable
                 return $value;
             })
             ->flatten()
-            ->filter(static fn ($value) => ! empty($value) || is_numeric($value))
+            ->filter(static fn ($value) => ! empty($value) || is_numeric($value) || is_bool($value))
             ->map($callback)
             ->values()
             ->toArray();
