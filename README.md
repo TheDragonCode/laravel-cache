@@ -194,6 +194,52 @@ $cache->forget();
 // Will remove the key from the cache.
 ```
 
+#### Method Call Chain
+
+Sometimes in the process of working with a cache, it becomes necessary to call some code between certain actions, and in this case the `call` method will come to the rescue:
+
+```php
+use DragonCode\Cache\Services\Cache;
+
+$cache = Cache::make()->key('foo');
+$warmUp = false;
+
+$cache
+    ->call(fn (Cache $cache) => $cache->forget(), $warmUp)
+    ->call(fn () => $someService->someMethod())
+    ->remember('foo')
+```
+
+In addition, the `forget` method now returns an instance of the `Cache` object, so it can be used like this:
+
+```php
+use DragonCode\Cache\Services\Cache;
+
+$cache = Cache::make()->key('foo');
+
+$cache
+    ->forget()
+    ->call(fn () => $someService->someMethod())
+    ->remember('foo')
+```
+
+Previously, you had to use the following sequence:
+
+```php
+use DragonCode\Cache\Services\Cache;
+
+$cache = Cache::make()->key('foo');
+$warmUp = false;
+
+if ($warmUp) {
+    $cache->forget();
+}
+
+$someService->someMethod()
+
+$cache->remember('foo')
+```
+
 #### Custom TTL
 
 By default, the cache will be written for 1 day.
