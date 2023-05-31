@@ -13,7 +13,7 @@
 To get the latest version of `Smart Cache`, simply require the project using [Composer](https://getcomposer.org):
 
 ```bash
-$ composer require dragon-code/laravel-cache
+composer require dragon-code/laravel-cache
 ```
 
 Or manually update `require` block of `composer.json` and run `composer update`.
@@ -21,7 +21,7 @@ Or manually update `require` block of `composer.json` and run `composer update`.
 ```json
 {
     "require": {
-        "dragon-code/laravel-cache": "^3.0"
+        "dragon-code/laravel-cache": "^3.7"
     }
 }
 ```
@@ -49,9 +49,9 @@ Cache::make()->key($arr2)->tags($arr3);
 Cache::make()->key($arr2)->tags($arr3);
 Cache::make()->key($arr4)->tags($arr4);
 
-Cache::make()->key([$arr1, $arr2, $arr3, $arr4, 'foo', 'bar'])->tags([$arr1, $arr2, $arr3, $arr4, 'foo', 'bar']);
-Cache::make()->key([$arr1, $arr2, $arr3, $arr4, 'foo', 'bar'])->tags([$arr1, $arr2, $arr3, $arr4, 'foo', 'bar']);
-Cache::make()->key([$arr1, $arr2, $arr3, $arr4, 'foo', 'bar'])->tags([$arr1, $arr2, $arr3, $arr4, 'foo', 'bar']);
+Cache::make()
+    ->key([$arr1, $arr2, $arr3, $arr4, 'foo', 'bar'])
+    ->tags([$arr1, $arr2, $arr3, $arr4, 'foo', 'bar']);
 ```
 
 Unpacking and processing of objects occurs as follows:
@@ -89,7 +89,7 @@ For example:
 ```php
 use DragonCode\Cache\Services\Cache;
 
-$cache = Cache::make()->key('foo', 'bar', [null, 'baz', 'baq']);
+Cache::make()->key('foo', 'bar', [null, 'baz', 'baq']);
 
 // Key is `acbd18db4cc2f85cedef654fccc4a4d8:37b51d194a7513e45b56f6524f2d51f2:73feffa4b7f6bb68e44cf984c85f6e88:b47951d522316fdd8811b23fc9c2f583`
 ```
@@ -119,11 +119,10 @@ In some cases, it is necessary to bind the cache to certain users. To do this, w
 use DragonCode\Cache\Services\Cache;
 use Illuminate\Support\Facades\Auth;
 
-// before
-return Cache::make()->key(get_class(Auth::user()), Auth::id(), 'foo', 'bar');
+Cache::make()->withAuth()->key('foo', 'bar');
 
-// after
-return Cache::make()->withAuth()->key('foo', 'bar');
+// instead of
+Cache::make()->key(get_class(Auth::user()), Auth::id(), 'foo', 'bar');
 ```
 
 When processing requests with a call to the withAuth method, the binding will be carried out not only by identifier, but also by reference to the model class, since a project can
@@ -207,7 +206,7 @@ $warmUp = false;
 $cache
     ->call(fn (Cache $cache) => $cache->forget(), $warmUp)
     ->call(fn () => $someService->someMethod())
-    ->remember('foo')
+    ->remember('foo');
 ```
 
 In addition, the `forget` method now returns an instance of the `Cache` object, so it can be used like this:
@@ -220,7 +219,7 @@ $cache = Cache::make()->key('foo');
 $cache
     ->forget()
     ->call(fn () => $someService->someMethod())
-    ->remember('foo')
+    ->remember('foo');
 ```
 
 Previously, you had to use the following sequence:
@@ -237,7 +236,7 @@ if ($warmUp) {
 
 $someService->someMethod()
 
-$cache->remember('foo')
+$cache->remember('foo');
 ```
 
 #### Custom TTL
@@ -256,21 +255,16 @@ use DateTime;
 use DragonCode\Cache\Services\Cache;
 use DragonCode\Cache\Support\Ttl;
 
-$cache = Cache::make()->ttl(10);
+Cache::make()->ttl(10);
+Cache::make()->ttl('10');
+Cache::make()->ttl(fn () => 10);
 
-$cache = Cache::make()->ttl('10');
+Cache::make()->ttl(Carbon::now()->addDay());
+Cache::make()->ttl(new DateTime('tomorrow'));
 
-$cache = Cache::make()->ttl(fn () => 10);
-
-$cache = Cache::make()->ttl(Carbon::now()->addDay());
-
-$cache = Cache::make()->ttl(new DateTime('tomorrow'));
-
-$cache = Cache::make()->ttl(Ttl::DAY);
-
-$cache = Cache::make()->ttl(Ttl::WEEK);
-
-$cache = Cache::make()->ttl(Ttl::MONTH);
+Cache::make()->ttl(Ttl::DAY);
+Cache::make()->ttl(Ttl::WEEK);
+Cache::make()->ttl(Ttl::MONTH);
 ```
 
 ##### As Seconds
@@ -280,15 +274,12 @@ use Carbon\Carbon;
 use DateTime;
 use DragonCode\Cache\Services\Cache;
 
-$cache = Cache::make()->ttl(10, false);
+Cache::make()->ttl(10, false);
+Cache::make()->ttl('10', false);
+Cache::make()->ttl(fn () => 10, false);
 
-$cache = Cache::make()->ttl('10', false);
-
-$cache = Cache::make()->ttl(fn () => 10, false);
-
-$cache = Cache::make()->ttl(Carbon::now()->addDay(), false);
-
-$cache = Cache::make()->ttl(new DateTime('tomorrow'), false);
+Cache::make()->ttl(Carbon::now()->addDay(), false);
+Cache::make()->ttl(new DateTime('tomorrow'), false);
 ```
 
 ##### By Objects And Custom Strings
@@ -303,14 +294,14 @@ After that you can use the following construction:
 use DragonCode\Cache\Services\Cache;
 use Tests\Fixtures\Simple\CustomObject;
 
-$cache = Cache::make()->ttl(CustomObject::class);
-$cache = Cache::make()->ttl(new CustomObject());
-$cache = Cache::make()->ttl('custom_key');
+Cache::make()->ttl(CustomObject::class);
+Cache::make()->ttl(new CustomObject());
+Cache::make()->ttl('custom_key');
 
 // You can also specify that these values are in seconds, not minutes:
-$cache = Cache::make()->ttl(CustomObject::class, false);
-$cache = Cache::make()->ttl(new CustomObject(), false);
-$cache = Cache::make()->ttl('custom_key', false);
+Cache::make()->ttl(CustomObject::class, false);
+Cache::make()->ttl(new CustomObject(), false);
+Cache::make()->ttl('custom_key', false);
 ```
 
 If the value is not found, the [default value](config/cache.php) will be taken, which you can also override in the [configuration file](config/cache.php).
@@ -345,16 +336,16 @@ class Foo implements Ttl
     }
 }
 
-$cache = Cache::make()->ttl(new Foo('foo'));
+Cache::make()->ttl(new Foo('foo'));
 // TTL is 7380 seconds
 
-$cache = Cache::make()->ttl(new Foo('bar'));
+Cache::make()->ttl(new Foo('bar'));
 // TTL is 27360 seconds
 
-$cache = Cache::make()->ttl(new Foo('foo'), false);
+Cache::make()->ttl(new Foo('foo'), false);
 // TTL is 123 seconds
 
-$cache = Cache::make()->ttl(new Foo('bar'), false);
+Cache::make()->ttl(new Foo('bar'), false);
 // TTL is 456 seconds
 ```
 
