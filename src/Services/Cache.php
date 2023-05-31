@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace DragonCode\Cache\Services;
 
+use Closure;
 use DragonCode\Cache\Facades\Support\Key;
 use DragonCode\Cache\Facades\Support\Tag;
 use DragonCode\Cache\Facades\Support\Ttl;
 use DragonCode\Cache\Support\CacheManager;
 use DragonCode\Support\Concerns\Makeable;
+use DragonCode\Support\Facades\Instances\Call;
 use Illuminate\Support\Facades\Auth;
 
 /**
@@ -96,9 +98,11 @@ class Cache
         return $this->manager()->remember($this->getKey(), $value, $this->ttl);
     }
 
-    public function forget(): void
+    public function forget(): static
     {
         $this->manager()->forget($this->getKey());
+
+        return $this;
     }
 
     public function has(): bool
@@ -109,6 +113,15 @@ class Cache
     public function doesntHave(): bool
     {
         return $this->manager()->doesntHave($this->getKey());
+    }
+
+    public function call(Closure $callback, mixed $when = true): static
+    {
+        if (Call::value($when)) {
+            Call::value($callback, $this);
+        }
+
+        return $this;
     }
 
     protected function manager(): CacheManager
