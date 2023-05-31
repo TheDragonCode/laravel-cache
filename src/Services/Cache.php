@@ -10,6 +10,7 @@ use DragonCode\Cache\Facades\Support\Tag;
 use DragonCode\Cache\Facades\Support\Ttl;
 use DragonCode\Cache\Support\CacheManager;
 use DragonCode\Support\Concerns\Makeable;
+use DragonCode\Support\Facades\Instances\Call;
 use Illuminate\Support\Facades\Auth;
 
 /**
@@ -116,8 +117,8 @@ class Cache
 
     public function call(Closure $callback, mixed $when = true): static
     {
-        if (value($when)) {
-            value($callback, $this);
+        if (Call::value($when)) {
+            Call::value($callback, $this);
         }
 
         return $this;
