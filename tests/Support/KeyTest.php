@@ -20,6 +20,7 @@ use Tests\TestCase;
 class KeyTest extends TestCase
 {
     use Dtoable;
+
     use Requestable;
 
     protected $value = [

@@ -18,6 +18,7 @@ use Tests\TestCase;
 class TagTest extends TestCase
 {
     use Dtoable;
+
     use Requestable;
 
     protected $value = [

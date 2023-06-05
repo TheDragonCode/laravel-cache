@@ -11,6 +11,7 @@ use DragonCode\Support\Concerns\Makeable;
 abstract class Store implements BaseStore
 {
     use Call;
+
     use Makeable;
 
     public function doesntHave(string $key): bool

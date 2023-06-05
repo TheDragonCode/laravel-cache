@@ -12,6 +12,7 @@ use DragonCode\Cache\Concerns\Has;
 class Ttl
 {
     use Call;
+
     use Has;
 
     public const DAY = 60 * 24;
