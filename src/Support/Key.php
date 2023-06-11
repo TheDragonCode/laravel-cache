@@ -13,7 +13,7 @@ class Key
 {
     use Arrayable;
 
-    public function get(string $separator, ArrayObject|array|DragonArrayable|IlluminateArrayable $values, bool $hash = true): string
+    public function get(string $separator, array|ArrayObject|DragonArrayable|IlluminateArrayable $values, bool $hash = true): string
     {
         $values = $this->toArray($values);
 

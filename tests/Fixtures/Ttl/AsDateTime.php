@@ -12,8 +12,7 @@ class AsDateTime implements Ttl
 {
     public function __construct(
         protected string $value
-    ) {
-    }
+    ) {}
 
     public function cacheTtl(): DateTimeInterface
     {

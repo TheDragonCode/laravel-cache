@@ -12,14 +12,11 @@ use DragonCode\Cache\Concerns\Has;
 class Ttl
 {
     use Call;
-
     use Has;
 
-    public const DAY = 60 * 24;
-
+    public const DAY   = 60 * 24;
     public const MONTH = 60 * 24 * 30;
-
-    public const WEEK = 60 * 24 * 7;
+    public const WEEK  = 60 * 24 * 7;
 
     protected int $default = 3600;
 

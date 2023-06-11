@@ -21,9 +21,7 @@ class Disabled extends Store
         return $this->get($key, $value);
     }
 
-    public function forget(string $key): void
-    {
-    }
+    public function forget(string $key): void {}
 
     public function has(string $key): bool
     {

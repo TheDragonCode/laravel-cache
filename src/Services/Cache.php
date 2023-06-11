@@ -83,11 +83,6 @@ class Cache
         return $this->manager()->get($this->getKey());
     }
 
-    /**
-     * @param mixed $value
-     *
-     * @return mixed
-     */
     public function put(mixed $value): mixed
     {
         return $this->manager()->put($this->getKey(), $value, $this->ttl);

@@ -15,7 +15,6 @@ use Tests\Fixtures\Simple\DragonCodeArrayable;
 abstract class TestCase extends BaseTestCase
 {
     use RefreshCache;
-
     use Userable;
 
     protected $cache = 'array';

@@ -14,9 +14,7 @@ class Tag
     use Arrayable;
 
     /**
-     * @param array|\DragonCode\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Arrayable|ArrayObject|DataTransferObject $tags
-     *
-     * @return array
+     * @param  array|\DragonCode\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Arrayable|ArrayObject|DataTransferObject  $tags
      */
     public function get(mixed $tags): array
     {

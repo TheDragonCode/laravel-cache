@@ -9,9 +9,7 @@ trait Call
     use Arrayable;
 
     /**
-     * @param mixed $callback
-     *
-     * @return mixed
+     * @param  mixed  $callback
      */
     protected function call(mixed $callback = null): mixed
     {

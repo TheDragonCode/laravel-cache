@@ -22,8 +22,7 @@ class CacheManager implements Store
 
     public function __construct(
         protected bool $when = true
-    ) {
-    }
+    ) {}
 
     public function tags(array $tags): CacheManager
     {
