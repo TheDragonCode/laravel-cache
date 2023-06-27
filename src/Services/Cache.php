@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace DragonCode\Cache\Services;
 
+use BackedEnum;
 use Closure;
 use DragonCode\Cache\Facades\Support\Key;
 use DragonCode\Cache\Facades\Support\Tag;
@@ -30,17 +31,19 @@ class Cache
 
     protected string $key_hash = '';
 
-    protected bool|object|string $when = true;
+    protected bool $when = true;
 
     protected array|string|null $auth = null;
 
-    public function when(bool|object|string $when = true): Cache
+    public function when(mixed $when = true): Cache
     {
-        $this->when = match (true) {
-            is_string($when) => config('cache.enabled.' . $when, true),
-            is_object($when) => config('cache.enabled.' . get_class($when), true),
-            default          => $when
+        $key = match (true) {
+            $when instanceof BackedEnum => $when->value ?? $when->name ?? true,
+            is_object($when)            => get_class($when),
+            default                     => $when
         };
+
+        $this->when = is_bool($key) ? $key : (bool) config('cache.enabled.' . $key, true);
 
         return $this;
     }

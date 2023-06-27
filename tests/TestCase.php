@@ -22,7 +22,7 @@ abstract class TestCase extends BaseTestCase
 
     protected int $ttl = 60;
 
-    protected bool|object|string $when;
+    protected mixed $when;
 
     protected array $tags = ['qwerty', 'cache'];
 

@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 class ObjectTest extends TestCase
 {
-    protected bool|object|string $when = true;
+    protected mixed $when = true;
 
     public function testExists()
     {
@@ -18,7 +18,7 @@ class ObjectTest extends TestCase
 
         config(['cache.enabled.' . CustomObject::class => true]);
 
-        $this->assertFalse($this->cache()->has());
+        $this->assertTrue($this->cache()->doesntHave());
 
         $this->cache()->put($this->value);
 
@@ -29,7 +29,7 @@ class ObjectTest extends TestCase
     {
         $this->when = new CustomObject();
 
-        $this->assertFalse($this->cache()->has());
+        $this->assertTrue($this->cache()->doesntHave());
 
         $this->cache()->put($this->value);
 
@@ -42,7 +42,7 @@ class ObjectTest extends TestCase
 
         config(['cache.enabled.' . stdClass::class => true]);
 
-        $this->assertFalse($this->cache()->has());
+        $this->assertTrue($this->cache()->doesntHave());
 
         $this->cache()->put($this->value);
 
@@ -53,7 +53,7 @@ class ObjectTest extends TestCase
     {
         $this->when = (object) ['foo' => 'bar'];
 
-        $this->assertFalse($this->cache()->has());
+        $this->assertTrue($this->cache()->doesntHave());
 
         $this->cache()->put($this->value);
 
