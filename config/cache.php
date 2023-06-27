@@ -10,6 +10,8 @@ return [
         // App\Models\News::class     => 3600,
         // App\Services\Custom::class => 1800,
         //
+        // 'stdClass' => 600,
+        //
         // 'foo' => 300,
         // 'bar' => 600,
     ],
