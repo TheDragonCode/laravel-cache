@@ -88,6 +88,9 @@ class TtlTest extends TestCase
 
         $this->assertSame(216000, Ttl::fromMinutes(new IlluminateArrayable()));
         $this->assertSame(3600, Ttl::fromSeconds(new IlluminateArrayable()));
+
+        $this->assertSame(36000, Ttl::fromMinutes((object) ['foo' => 'Foo']));
+        $this->assertSame(600, Ttl::fromSeconds((object) ['foo' => 'Foo']));
     }
 
     public function testContract()

@@ -297,11 +297,13 @@ use Tests\Fixtures\Simple\CustomObject;
 Cache::make()->ttl(CustomObject::class);
 Cache::make()->ttl(new CustomObject());
 Cache::make()->ttl('custom_key');
+Cache::make()->ttl((object) ['foo' => 'Foo']);
 
 // You can also specify that these values are in seconds, not minutes:
 Cache::make()->ttl(CustomObject::class, false);
 Cache::make()->ttl(new CustomObject(), false);
 Cache::make()->ttl('custom_key', false);
+Cache::make()->ttl((object) ['foo' => 'Foo'], false);
 ```
 
 If the value is not found, the [default value](config/cache.php) will be taken, which you can also override in the [configuration file](config/cache.php).

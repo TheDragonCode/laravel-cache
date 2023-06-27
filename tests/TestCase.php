@@ -7,6 +7,7 @@ namespace Tests;
 use DragonCode\Cache\ServiceProvider;
 use DragonCode\Cache\Services\Cache;
 use Orchestra\Testbench\TestCase as BaseTestCase;
+use stdClass;
 use Tests\Concerns\RefreshCache;
 use Tests\Concerns\Userable;
 use Tests\Fixtures\Simple\CustomObject;
@@ -51,6 +52,8 @@ abstract class TestCase extends BaseTestCase
         $config->set('cache.ttl', [
             CustomObject::class        => 300,
             DragonCodeArrayable::class => 400,
+
+            stdClass::class => 600,
 
             'custom' => 600,
         ]);
