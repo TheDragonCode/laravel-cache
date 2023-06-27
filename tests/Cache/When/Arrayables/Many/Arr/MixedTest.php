@@ -9,7 +9,7 @@ use Tests\Fixtures\Many\MixedArrayable;
 
 class MixedTest extends Base
 {
-    protected $value = [
+    protected mixed $value = [
         'foo' => 'Foo',
         'bar' => 'Bar',
         'baz' => [

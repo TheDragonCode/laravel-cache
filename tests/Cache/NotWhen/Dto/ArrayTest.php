@@ -11,7 +11,7 @@ class ArrayTest extends Base
 {
     use Dtoable;
 
-    protected $value = [
+    protected mixed $value = [
         'foo' => 'Foo',
         'bar' => 'Bar',
     ];

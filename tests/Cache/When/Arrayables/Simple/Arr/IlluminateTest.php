@@ -9,7 +9,7 @@ use Tests\Fixtures\Simple\IlluminateArrayable;
 
 class IlluminateTest extends Base
 {
-    protected $value = [
+    protected mixed $value = [
         'foo' => 'Foo',
         'bar' => 'Bar',
     ];

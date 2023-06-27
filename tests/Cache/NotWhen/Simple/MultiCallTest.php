@@ -9,7 +9,7 @@ use Tests\Cache\NotWhen\Base;
 
 class MultiCallTest extends Base
 {
-    protected $cache = 'redis';
+    protected string $cache = 'redis';
 
     public function testGet()
     {

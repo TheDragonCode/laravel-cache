@@ -8,5 +8,5 @@ use Tests\TestCase;
 
 abstract class Base extends TestCase
 {
-    protected $when = false;
+    protected bool|object|string $when = false;
 }

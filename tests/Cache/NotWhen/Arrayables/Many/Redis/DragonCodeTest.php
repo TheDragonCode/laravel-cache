@@ -9,9 +9,9 @@ use Tests\Fixtures\Many\DragonCodeArrayable;
 
 class DragonCodeTest extends Base
 {
-    protected $cache = 'redis';
+    protected string $cache = 'redis';
 
-    protected $value = [
+    protected mixed $value = [
         'foo' => 'Foo',
         'bar' => 'Bar',
         'baz' => [

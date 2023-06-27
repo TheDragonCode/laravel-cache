@@ -8,7 +8,7 @@ use Tests\Cache\When\Base;
 
 class RedisTest extends Base
 {
-    protected $cache = 'redis';
+    protected string $cache = 'redis';
 
     public function testGet()
     {

@@ -9,9 +9,9 @@ use Tests\Fixtures\Many\MixedArrayable;
 
 class MixedTest extends Base
 {
-    protected $cache = 'file';
+    protected string $cache = 'file';
 
-    protected $value = [
+    protected mixed $value = [
         'foo' => 'Foo',
         'bar' => 'Bar',
         'baz' => [
