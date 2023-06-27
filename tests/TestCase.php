@@ -17,19 +17,19 @@ abstract class TestCase extends BaseTestCase
     use RefreshCache;
     use Userable;
 
-    protected $cache = 'array';
+    protected string $cache = 'array';
 
-    protected $ttl = 60;
+    protected int $ttl = 60;
 
-    protected $when;
+    protected bool|object|string $when;
 
-    protected $tags = ['qwerty', 'cache'];
+    protected array $tags = ['qwerty', 'cache'];
 
-    protected $keys = ['Foo', 'Bar', 'Baz'];
+    protected array $keys = ['Foo', 'Bar', 'Baz'];
 
-    protected $value = 'Foo';
+    protected mixed $value = 'Foo';
 
-    protected $value_second = 'Bar';
+    protected string $value_second = 'Bar';
 
     protected function getPackageProviders($app): array
     {

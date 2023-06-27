@@ -8,7 +8,7 @@ use Tests\Cache\NotWhen\Base;
 
 class FileTest extends Base
 {
-    protected $cache = 'file';
+    protected string $cache = 'file';
 
     public function testGet()
     {

@@ -11,9 +11,9 @@ class RedisTest extends Base
 {
     use Dtoable;
 
-    protected $cache = 'redis';
+    protected string $cache = 'redis';
 
-    protected $value = [
+    protected mixed $value = [
         'foo' => 'Foo',
         'bar' => 'Bar',
     ];

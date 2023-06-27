@@ -30,13 +30,17 @@ class Cache
 
     protected string $key_hash = '';
 
-    protected bool $when = true;
+    protected bool|object|string $when = true;
 
     protected array|string|null $auth = null;
 
-    public function when(bool $when = true): Cache
+    public function when(bool|object|string $when = true): Cache
     {
-        $this->when = $when;
+        $this->when = match (true) {
+            is_string($when) => config('cache.enabled.' . $when, true),
+            is_object($when) => config('cache.enabled.' . get_class($when), true),
+            default          => $when
+        };
 
         return $this;
     }

@@ -13,4 +13,15 @@ return [
         // 'foo' => 300,
         // 'bar' => 600,
     ],
+
+    'enabled' => [
+        // App\Models\Page::class     => true,
+        // App\Models\News::class     => true,
+        // App\Services\Custom::class => true,
+        //
+        // 'stdClass' => false,
+        //
+        // 'foo' => false,
+        // 'bar' => false,
+    ],
 ];

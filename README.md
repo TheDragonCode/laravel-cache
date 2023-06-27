@@ -428,6 +428,42 @@ $cache->doesntHave();
 // Returns `true`
 ```
 
+You can also define whether to enable or disable the use of cache storage in the settings.
+
+For example:
+
+```php
+// config/cache.php
+return [
+    'enabled' => [
+        // App\Models\Page::class     => true,
+        //
+        // 'stdClass' => false,
+        //
+        // 'foo' => false,
+    ],
+];
+```
+
+```php
+use App\Services\Some;use DragonCode\Cache\Services\Cache;
+
+// as string
+$cache = Cache::make()->when('foo');
+
+// as class-string
+$cache = Cache::make()->when(Some::class);
+$cache = Cache::make()->when(static::class);
+$cache = Cache::make()->when(self::class);
+
+// as class
+$cache = Cache::make()->when(new Some);
+$cache = Cache::make()->when($this);
+
+// as stdClass
+$cache = Cache::make()->when((object)['foo' => 'Foo']);
+```
+
 ## License
 
 This package's licensed under the [MIT License](LICENSE).

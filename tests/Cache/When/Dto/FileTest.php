@@ -11,9 +11,9 @@ class FileTest extends Base
 {
     use Dtoable;
 
-    protected $cache = 'file';
+    protected string $cache = 'file';
 
-    protected $value = [
+    protected mixed $value = [
         'foo' => 'Foo',
         'bar' => 'Bar',
     ];

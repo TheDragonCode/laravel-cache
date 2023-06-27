@@ -9,7 +9,7 @@ use Tests\Fixtures\Simple\DragonCodeArrayable;
 
 class DragonCodeTest extends Base
 {
-    protected $value = [
+    protected mixed $value = [
         'foo' => 'Foo',
         'bar' => 'Bar',
     ];

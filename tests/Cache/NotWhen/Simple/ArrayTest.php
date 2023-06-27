@@ -8,7 +8,7 @@ use Tests\Cache\NotWhen\Base;
 
 class ArrayTest extends Base
 {
-    protected $cache = 'array';
+    protected string $cache = 'array';
 
     public function testGet()
     {

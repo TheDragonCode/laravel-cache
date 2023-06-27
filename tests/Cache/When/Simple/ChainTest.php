@@ -9,7 +9,7 @@ use Tests\Cache\When\Base;
 
 class ChainTest extends Base
 {
-    protected $cache = 'redis';
+    protected string $cache = 'redis';
 
     public function testMain()
     {
