@@ -21,7 +21,7 @@ Or manually update `require` block of `composer.json` and run `composer update`.
 ```json
 {
     "require": {
-        "dragon-code/laravel-cache": "^3.7"
+        "dragon-code/laravel-cache": "^3.9"
     }
 }
 ```
@@ -84,6 +84,11 @@ Since the main problem of working with the cache's key compilation, this package
 
 By passing values to the `keys` method, we get a ready-made key at the output.
 
+The hash is formed by the value `key=value`, which allows avoiding collisions when passing identical objects.
+
+In the case of passing nested arrays, the key is formed according to the principle `key1.key2=value`, where `key1`
+and `key2` are the keys of each nested array.
+
 For example:
 
 ```php
@@ -91,7 +96,7 @@ use DragonCode\Cache\Services\Cache;
 
 Cache::make()->key('foo', 'bar', [null, 'baz', 'baq']);
 
-// Key is `acbd18db4cc2f85cedef654fccc4a4d8:37b51d194a7513e45b56f6524f2d51f2:73feffa4b7f6bb68e44cf984c85f6e88:b47951d522316fdd8811b23fc9c2f583`
+// Key is `d76f2bde023f5602ae837d01f4ec1876:660a13c00e04c0d3ffb4dbf02a84a07a:6fc3659bd986e86534c6587caf5f431a:bd62cbee62e027d0be4b1656781edcbf`
 ```
 
 This means that when writing to the cache, the tree view will be used.
@@ -101,14 +106,44 @@ For example:
 ```php
 use DragonCode\Cache\Services\Cache;
 
-Cache::make()->key('foo', 'foo')->put('foo');
-Cache::make()->key('foo', 'bar')->put('bar');
-Cache::make()->key('baz')->put('baz');
+Cache::make()->key('foo', 'foo')->put('Foo');
+Cache::make()->key('foo', 'bar')->put('Bar');
+Cache::make()->key('baz')->put('Baz');
 
-// acbd18db4cc2f85cedef654fccc4a4d8:
-//     acbd18db4cc2f85cedef654fccc4a4d8: foo
-//     37b51d194a7513e45b56f6524f2d51f2: bar
-// 73feffa4b7f6bb68e44cf984c85f6e88: baz
+// d76f2bde023f5602ae837d01f4ec1876:
+//     086f76c144511e1198c29a261e87ca50: Foo
+//     660a13c00e04c0d3ffb4dbf02a84a07a: Bar
+// 1b9829f3bd21835a15735f3a65cc75e9: Baz
+```
+
+#### Disable key hashing
+
+In some cases, you need to disable the use of the key hashing mechanism.
+To do this, simply call the `hashKey(false)` method:
+
+```php
+use DragonCode\Cache\Services\Cache;
+
+Cache::make()->key('foo', 'foo')->hashKey(false)->put('Foo');
+Cache::make()->key('foo', 'bar')->hashKey(false)->put('Bar');
+Cache::make()->key('baz')->hashKey(false)->put('Baz');
+
+// 0=foo:
+//     1=foo: Foo
+//     1=bar: Bar
+// 0=baz: Baz
+```
+
+```php
+use DragonCode\Cache\Services\Cache;
+
+Cache::make()->key([
+            ['foo' => 'Foo'],
+            ['bar' => 'Bar'],
+            [['Baz', 'Qwerty']],
+])->hashKey(false)->put('Baz');
+
+// 0.foo=Foo:1.bar=Bar:2.0.0=Baz:2.0.1=Qwerty
 ```
 
 ### With Authentication
@@ -125,7 +160,8 @@ Cache::make()->withAuth()->key('foo', 'bar');
 Cache::make()->key(get_class(Auth::user()), Auth::id(), 'foo', 'bar');
 ```
 
-When processing requests with a call to the withAuth method, the binding will be carried out not only by identifier, but also by reference to the model class, since a project can
+When processing requests with a call to the withAuth method, the binding will be carried out not only by identifier, but
+also by reference to the model class, since a project can
 have several models with the possibility of authorization.
 
 For example, `App\Models\Employee`, `App\Models\User`.
@@ -195,7 +231,8 @@ $cache->forget();
 
 #### Method Call Chain
 
-Sometimes in the process of working with a cache, it becomes necessary to call some code between certain actions, and in this case the `call` method will come to the rescue:
+Sometimes in the process of working with a cache, it becomes necessary to call some code between certain actions, and in
+this case the `call` method will come to the rescue:
 
 ```php
 use DragonCode\Cache\Services\Cache;
@@ -306,12 +343,15 @@ Cache::make()->ttl('custom_key', false);
 Cache::make()->ttl((object) ['foo' => 'Foo'], false);
 ```
 
-If the value is not found, the [default value](config/cache.php) will be taken, which you can also override in the [configuration file](config/cache.php).
+If the value is not found, the [default value](config/cache.php) will be taken, which you can also override in
+the [configuration file](config/cache.php).
 
 ##### With Contract
 
-Starting with version [`2.9.0`](https://github.com/TheDragonCode/laravel-cache/releases/tag/v2.9.0), we added the ability to dynamically specify TTLs in objects. To do this, you
-need to implement the `DragonCode\Contracts\Cache\Ttl` contract into your object and add a method that returns one of the following types of variables: `DateTimeInterface`
+Starting with version [`2.9.0`](https://github.com/TheDragonCode/laravel-cache/releases/tag/v2.9.0), we added the
+ability to dynamically specify TTLs in objects. To do this, you
+need to implement the `DragonCode\Contracts\Cache\Ttl` contract into your object and add a method that returns one of
+the following types of variables: `DateTimeInterface`
 , `Carbon\Carbon`, `string`
 or `integer`.
 
@@ -380,7 +420,8 @@ $cache->forget();
 // Will remove the key from the cache.
 ```
 
-To retrieve a tagged cache item, pass the same ordered list of tags to the tags method and then call the get method with the key you wish to retrieve:
+To retrieve a tagged cache item, pass the same ordered list of tags to the tags method and then call the get method with
+the key you wish to retrieve:
 
 ```php
 use DragonCode\Cache\Services\Cache;

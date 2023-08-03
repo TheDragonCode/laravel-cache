@@ -101,15 +101,14 @@ class RedisTest extends Base
         $this->assertTrue($this->cache()->doesntHave());
         $this->assertTrue($this->cache()->withAuth()->doesntHave());
 
-        $this->cache()->put($this->value);
         $this->cache()->withAuth()->put($this->value_second);
 
-        $this->assertFalse($this->cache()->doesntHave());
+        $this->assertTrue($this->cache()->doesntHave());
         $this->assertTrue($this->cache()->withAuth()->has());
 
         $key = [User::class, $this->user_id, 'Foo', 'Bar', 'Baz'];
 
         $this->assertSame($this->value_second, $this->cache()->withAuth()->get());
-        $this->assertSame($this->value_second, $this->cache([], $key)->get());
+        $this->assertNull($this->cache([], $key)->get());
     }
 }

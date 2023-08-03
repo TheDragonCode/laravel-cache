@@ -13,8 +13,11 @@ class Key
 {
     use Arrayable;
 
-    public function get(string $separator, array|ArrayObject|DragonArrayable|IlluminateArrayable $values, bool $hash = true): string
-    {
+    public function get(
+        string $separator,
+        array|ArrayObject|DragonArrayable|IlluminateArrayable $values,
+        bool $hash = true
+    ): string {
         $values = $this->toArray($values);
 
         $hashed = $this->hash($values, $hash);
@@ -24,11 +27,7 @@ class Key
 
     protected function hash(array $values, bool $hash = true): array
     {
-        return $this->arrayMap($values, static function (mixed $value) use ($hash) {
-            $value = is_bool($value) ? (int) $value : $value;
-
-            return $hash ? md5((string) $value) : (string) $value;
-        });
+        return $this->arrayFlattenKeysMap($values, fn (mixed $value) => $hash ? md5($value) : $value);
     }
 
     protected function compile(array $values, string $separator): string
