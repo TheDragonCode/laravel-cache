@@ -22,7 +22,7 @@ trait Arrayable
     protected function arrayMap(array $values, callable $callback): array
     {
         return Arr::of($values)
-            ->map(function ($value) {
+            ->map(function (mixed $value) {
                 if ($this->isArrayable($value)) {
                     return $this->toArray($value);
                 }
@@ -38,6 +38,36 @@ trait Arrayable
             ->map($callback)
             ->values()
             ->toArray();
+    }
+
+    protected function arrayFlattenKeysMap(array $values, callable $callback): array
+    {
+        return Arr::of($values)
+            ->flattenKeys()
+            ->filter(static fn ($value) => ! empty($value) || is_numeric($value) || is_bool($value))
+            ->map(fn (mixed $value, mixed $key) => $callback($key . '=' . $value))
+            ->toArray();
+    }
+
+    protected function flattenKeys(mixed $array, string $delimiter = '.', ?string $prefix = null): array
+    {
+        $result = [];
+
+        foreach ($array as $key => $value) {
+            $new_key = ! empty($prefix) ? $prefix . $delimiter . $key : $key;
+
+            if (is_array($value)) {
+                $values = $this->flattenKeys($value, $delimiter, $new_key);
+
+                $result = array_merge($result, $values);
+
+                continue;
+            }
+
+            $result[$new_key] = $value;
+        }
+
+        return $result;
     }
 
     protected function toArray($value): array
