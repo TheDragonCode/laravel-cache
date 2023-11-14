@@ -43,6 +43,13 @@ class TaggedStore extends Store
         return $this->cache()->remember($key, $seconds, $value);
     }
 
+    public function rememberForever(string $key, $value): mixed
+    {
+        $value = $this->makeCallable($value);
+
+        return $this->cache()->rememberForever($key, $value);
+    }
+
     public function forget(string $key): void
     {
         $this->cache()->forget($key);

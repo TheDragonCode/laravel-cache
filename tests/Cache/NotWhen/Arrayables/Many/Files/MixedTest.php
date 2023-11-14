@@ -51,6 +51,15 @@ class MixedTest extends Base
         $this->assertNull($this->cache()->get());
     }
 
+    public function testRememberForever()
+    {
+        $item = new MixedArrayable();
+
+        $this->assertSame($item, $this->cache()->rememberForever($item));
+
+        $this->assertNull($this->cache()->get());
+    }
+
     public function testForget()
     {
         $this->assertNull($this->cache()->get());

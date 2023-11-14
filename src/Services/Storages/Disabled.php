@@ -21,6 +21,11 @@ class Disabled extends Store
         return $this->get($key, $value);
     }
 
+    public function rememberForever(string $key, $value): mixed
+    {
+        return $this->get($key, $value);
+    }
+
     public function forget(string $key): void {}
 
     public function has(string $key): bool

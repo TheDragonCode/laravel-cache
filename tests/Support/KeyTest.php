@@ -31,8 +31,8 @@ class KeyTest extends TestCase
     {
         $key = Key::get(':', ['Foo', 'Bar', 'Baz']);
 
-        $expected =
-            '17358f5eb750c32289df798e7766e830:64db6856f253b7bf17202a3dd3254fc1:05797d9d2d667864e94e07ba8df60840';
+        $expected
+            = '17358f5eb750c32289df798e7766e830:64db6856f253b7bf17202a3dd3254fc1:05797d9d2d667864e94e07ba8df60840';
 
         $this->assertSame($expected, $key);
     }
@@ -41,8 +41,8 @@ class KeyTest extends TestCase
     {
         $key = Key::get(':', [1, 2, 3]);
 
-        $expected =
-            'd944267ac25276f12cb03fc698810d94:7b2fb106352b24c6dd644a8cdf200295:d8526ab50063e2025ef690f730cd5542';
+        $expected
+            = 'd944267ac25276f12cb03fc698810d94:7b2fb106352b24c6dd644a8cdf200295:d8526ab50063e2025ef690f730cd5542';
 
         $this->assertSame($expected, $key);
     }
@@ -154,8 +154,8 @@ class KeyTest extends TestCase
     {
         $key = Key::get(':', [User::class, 'foo', 'bar']);
 
-        $expected =
-            '87789eae95facc4a5bfdeb957b860942:086f76c144511e1198c29a261e87ca50:2b72000f7b07c51cbbe0e7f85a19597e';
+        $expected
+            = '87789eae95facc4a5bfdeb957b860942:086f76c144511e1198c29a261e87ca50:2b72000f7b07c51cbbe0e7f85a19597e';
 
         $this->assertSame($expected, $key);
     }

@@ -46,6 +46,11 @@ class CacheManager implements Store
         return $this->instance()->remember($key, $value, $seconds);
     }
 
+    public function rememberForever(string $key, $value): mixed
+    {
+        return $this->instance()->rememberForever($key, $value);
+    }
+
     public function forget(string $key): void
     {
         $this->instance()->forget($key);
