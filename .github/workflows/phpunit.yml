@@ -40,7 +40,7 @@ jobs:
                 uses: actions/checkout@v4
 
             -   name: Setup Redis
-                uses: zhulik/redis-action@1.1.0
+                uses: shogo82148/actions-setup-redis@v1
 
             -   name: Setup PHP
                 uses: shivammathur/setup-php@v2
