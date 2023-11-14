@@ -8,9 +8,6 @@ trait Call
 {
     use Arrayable;
 
-    /**
-     * @param  mixed  $callback
-     */
     protected function call(mixed $callback = null): mixed
     {
         return $this->isCallable($callback) ? $callback() : $callback;
