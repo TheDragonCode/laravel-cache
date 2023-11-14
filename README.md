@@ -185,6 +185,11 @@ $cache->remember(static fn() => 'Some value');
 $cache->remember('Some value');
 // Contains cached `Some value`
 
+$cache->rememberForever(static fn() => 'Some value');
+// or
+$cache->rememberForever('Some value');
+// Contains cached `Some value`
+
 $cache->get();
 // Returns cached `Some value`
 
@@ -214,6 +219,11 @@ $cache->put($user);
 $cache->remember(static fn() => $user);
 // or
 $cache->remember($user);
+// Contains cached `$user`
+
+$cache->rememberForever(static fn() => $user);
+// or
+$cache->rememberForever($user);
 // Contains cached `$user`
 
 $cache->get();
