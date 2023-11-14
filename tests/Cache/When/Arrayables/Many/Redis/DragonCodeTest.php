@@ -61,6 +61,19 @@ class DragonCodeTest extends Base
         $this->assertNull($this->cache(['cache'])->get());
     }
 
+    public function testRememberForever()
+    {
+        $item = new DragonCodeArrayable();
+
+        $this->assertSame(serialize($item), serialize($this->cache()->rememberForever($item)));
+
+        $this->assertSame(serialize($item), serialize($this->cache()->get()));
+        $this->assertSame(serialize($item), serialize($this->cache(['qwerty', 'cache'])->get()));
+
+        $this->assertNull($this->cache(['qwerty'])->get());
+        $this->assertNull($this->cache(['cache'])->get());
+    }
+
     public function testForget()
     {
         $this->assertNull($this->cache()->get());

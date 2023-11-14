@@ -97,6 +97,11 @@ class Cache
         return $this->manager()->remember($this->getKey(), $value, $this->ttl);
     }
 
+    public function rememberForever(mixed $value): mixed
+    {
+        return $this->manager()->rememberForever($this->getKey(), $value);
+    }
+
     public function forget(): static
     {
         $this->manager()->forget($this->getKey());

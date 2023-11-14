@@ -33,6 +33,13 @@ class MainStore extends Store
         return Cache::remember($key, $seconds, $value);
     }
 
+    public function rememberForever(string $key, $value): mixed
+    {
+        $value = $this->makeCallable($value);
+
+        return Cache::rememberForever($key, $value);
+    }
+
     public function forget(string $key): void
     {
         Cache::forget($key);

@@ -46,7 +46,7 @@
     ],
     "require": {
         "php": "^8.0",
-        "dragon-code/contracts": "^2.16",
+        "dragon-code/contracts": "^2.21",
         "dragon-code/support": "^6.11.3",
         "illuminate/support": ">=6.0 <11.0"
     },

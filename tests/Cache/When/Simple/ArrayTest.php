@@ -40,6 +40,16 @@ class ArrayTest extends Base
         $this->assertSame($this->value, $this->cache()->remember(microtime()));
     }
 
+    public function testRememberForever()
+    {
+        $this->assertSame($this->value, $this->cache()->rememberForever($this->value));
+
+        $this->assertSame($this->value, $this->cache()->get());
+
+        $this->assertSame($this->value, $this->cache()->remember(microtime()));
+        $this->assertSame($this->value, $this->cache()->remember(microtime()));
+    }
+
     public function testForget()
     {
         $this->assertNull($this->cache()->get());
