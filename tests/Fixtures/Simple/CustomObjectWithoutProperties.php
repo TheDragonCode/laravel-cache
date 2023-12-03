@@ -4,6 +4,4 @@ declare(strict_types=1);
 
 namespace Tests\Fixtures\Simple;
 
-class CustomObjectWithoutProperties
-{
-}
+class CustomObjectWithoutProperties {}
