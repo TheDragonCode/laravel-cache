@@ -15,6 +15,7 @@ use Tests\Fixtures\Enums\WithoutValueEnum;
 use Tests\Fixtures\Enums\WithValueEnum;
 use Tests\Fixtures\Models\User;
 use Tests\Fixtures\Simple\CustomObject;
+use Tests\Fixtures\Simple\CustomObjectWithoutProperties;
 use Tests\TestCase;
 
 class KeyTest extends TestCase
@@ -103,13 +104,13 @@ class KeyTest extends TestCase
         $this->assertSame($expected, $key);
     }
 
-    public function testCustomObject()
+    public function testCustomObjects()
     {
-        $key = Key::get(':', [new CustomObject()]);
+        $key1 = Key::get(':', [new CustomObject()]);
+        $key2 = Key::get(':', [new CustomObjectWithoutProperties()]);
 
-        $expected = 'b58721335d52d66a9486072fe3383ccf';
-
-        $this->assertSame($expected, $key);
+        $this->assertSame('b58721335d52d66a9486072fe3383ccf', $key1);
+        $this->assertSame('9be04f864d3649e49e892638361d5d49', $key2);
     }
 
     public function testMultiObjectArrays()

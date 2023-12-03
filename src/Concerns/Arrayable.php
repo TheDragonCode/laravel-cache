@@ -76,6 +76,7 @@ trait Arrayable
             ->map(fn ($value) => Instance::of($value, Carbon::class) ? $value->toIso8601String() : $value)
             ->map(fn ($value) => Instance::of($value, FormRequest::class) ? $value->validated() : $value)
             ->map(fn ($value) => Instance::of($value, BackedEnum::class) ? ($value->value ?? $value->name) : $value)
+            ->map(fn ($value) => is_object($value) ? (Arr::resolve($value) ?: get_class($value)) : $value)
             ->resolve()
             ->toArray();
     }
