@@ -49,4 +49,9 @@ class MainStore extends Store
     {
         return Cache::has($key);
     }
+
+    public function flush(): void
+    {
+        Cache::flush();
+    }
 }

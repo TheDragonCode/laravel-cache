@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Cache\NotWhen\Simple;
 
+use DragonCode\Cache\Services\Cache;
 use Tests\Cache\NotWhen\Base;
 
 class ArrayTest extends Base
@@ -49,6 +50,22 @@ class ArrayTest extends Base
         $this->cache()->forget();
 
         $this->assertNull($this->cache()->get());
+    }
+
+    public function testFlush()
+    {
+        $tags  = Cache::make()->tags('foo', 'bar');
+        $cache = (clone $tags)->key('qwerty');
+
+        $this->assertNull($cache->get());
+
+        $cache->put('asd');
+
+        $this->assertSame('asd', $cache->get());
+
+        $tags->flush();
+
+        $this->assertNull($cache->get());
     }
 
     public function testHas()

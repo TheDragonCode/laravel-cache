@@ -60,6 +60,11 @@ class TaggedStore extends Store
         return $this->cache()->has($key);
     }
 
+    public function flush(): void
+    {
+        $this->cache()->flush();
+    }
+
     protected function cache(): TaggedCache
     {
         return Cache::tags($this->tags);
