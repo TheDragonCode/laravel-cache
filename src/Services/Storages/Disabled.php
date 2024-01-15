@@ -32,4 +32,6 @@ class Disabled extends Store
     {
         return false;
     }
+
+    public function flush(): void {}
 }

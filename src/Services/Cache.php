@@ -109,6 +109,13 @@ class Cache
         return $this;
     }
 
+    public function flush(): static
+    {
+        $this->manager()->flush();
+
+        return $this;
+    }
+
     public function has(): bool
     {
         return $this->manager()->has($this->getKey());

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Cache\When\Simple;
 
+use DragonCode\Cache\Services\Cache;
 use Illuminate\Support\Facades\Auth;
 use Tests\Cache\When\Base;
 use Tests\Fixtures\Models\User;
@@ -70,6 +71,22 @@ class RedisTest extends Base
         $this->assertNull($this->cache(['qwerty', 'cache'])->get());
         $this->assertNull($this->cache(['qwerty'])->get());
         $this->assertNull($this->cache(['cache'])->get());
+    }
+
+    public function testFlush()
+    {
+        $tags  = Cache::make()->tags('foo', 'bar');
+        $cache = (clone $tags)->key('qwerty');
+
+        $this->assertNull($cache->get());
+
+        $cache->put('asd');
+
+        $this->assertSame('asd', $cache->get());
+
+        $tags->flush();
+
+        $this->assertNull($cache->get());
     }
 
     public function testHas()

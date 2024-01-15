@@ -66,6 +66,11 @@ class CacheManager implements Store
         return ! $this->has($key);
     }
 
+    public function flush(): void
+    {
+        $this->instance()->flush();
+    }
+
     protected function instance(): Store
     {
         return match (true) {

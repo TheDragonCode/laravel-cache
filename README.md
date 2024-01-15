@@ -21,7 +21,7 @@ Or manually update `require` block of `composer.json` and run `composer update`.
 ```json
 {
     "require": {
-        "dragon-code/laravel-cache": "^3.9"
+        "dragon-code/laravel-cache": "^3.11"
     }
 }
 ```
@@ -201,6 +201,9 @@ $cache->doesntHave();
 
 $cache->forget();
 // Will remove the key from the cache.
+
+$cache->flush();
+// Clears keys or tags by value
 ```
 
 ```php
@@ -237,6 +240,9 @@ $cache->doesntHave();
 
 $cache->forget();
 // Will remove the key from the cache.
+
+$cache->flush();
+// Clears keys or tags by value
 ```
 
 #### Method Call Chain
@@ -428,6 +434,9 @@ $cache->doesntHave();
 
 $cache->forget();
 // Will remove the key from the cache.
+
+$cache->flush();
+// Clears keys or tags by value
 ```
 
 To retrieve a tagged cache item, pass the same ordered list of tags to the tags method and then call the get method with
@@ -451,6 +460,9 @@ $cache->tags('actor')->get();
 
 $cache->tags('author')->get();
 // Returns `null`
+
+$cache->tags('author')->flush();
+// Clears keys or tags by value
 ```
 
 > See the official Laravel [documentation](https://laravel.com/docs/cache#accessing-tagged-cache-items).
