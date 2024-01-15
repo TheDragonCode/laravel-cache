@@ -79,5 +79,10 @@
                 "DragonCode\\Cache\\ServiceProvider"
             ]
         }
+    },
+    "scripts": {
+        "test": [
+            "php vendor/bin/phpunit"
+        ]
     }
 }
