@@ -28,9 +28,9 @@ abstract class TestCase extends BaseTestCase
 
     protected array $keys = ['Foo', 'Bar', 'Baz'];
 
-    protected mixed $value = 'Foo';
+    protected mixed $value = 'value';
 
-    protected string $value_second = 'Bar';
+    protected string $value_second = 'Foo';
 
     protected function getPackageProviders($app): array
     {
