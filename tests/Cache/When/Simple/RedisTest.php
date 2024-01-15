@@ -73,20 +73,47 @@ class RedisTest extends Base
         $this->assertNull($this->cache(['cache'])->get());
     }
 
-    public function testFlush()
+    public function testFlushByKeys()
     {
-        $tags  = Cache::make()->tags('foo', 'bar');
-        $cache = (clone $tags)->key('qwerty');
+        $cache1 = Cache::make()->key('foo');
+        $cache2 = Cache::make()->key('bar');
 
-        $this->assertNull($cache->get());
+        $this->assertNull($cache1->get());
+        $this->assertNull($cache2->get());
 
-        $cache->put('asd');
+        $cache1->put('qwe');
+        $cache2->put('rty');
 
-        $this->assertSame('asd', $cache->get());
+        $this->assertSame('qwe', $cache1->get());
+        $this->assertSame('rty', $cache2->get());
 
-        $tags->flush();
+        $cache1->flush();
 
-        $this->assertNull($cache->get());
+        $this->assertNull($cache1->get());
+        $this->assertNull($cache2->get());
+    }
+
+    public function testFlushByTags()
+    {
+        $tags1 = Cache::make()->tags('some1');
+        $tags2 = Cache::make()->tags('some2');
+
+        $cache1 = (clone $tags1)->key('foo');
+        $cache2 = (clone $tags2)->key('bar');
+
+        $this->assertNull($cache1->get());
+        $this->assertNull($cache2->get());
+
+        $cache1->put('qwe');
+        $cache2->put('rty');
+
+        $this->assertSame('qwe', $cache1->get());
+        $this->assertSame('rty', $cache2->get());
+
+        $tags1->flush();
+
+        $this->assertNull($cache1->get());
+        $this->assertSame('rty', $cache2->get());
     }
 
     public function testHas()

@@ -52,20 +52,47 @@ class FileTest extends Base
         $this->assertNull($this->cache()->get());
     }
 
-    public function testFlush()
+    public function testFlushByKeys()
     {
-        $tags  = Cache::make()->tags('foo', 'bar');
-        $cache = (clone $tags)->key('qwerty');
+        $cache1 = Cache::make()->when($this->when)->key('foo');
+        $cache2 = Cache::make()->when($this->when)->key('bar');
 
-        $this->assertNull($cache->get());
+        $this->assertNull($cache1->get());
+        $this->assertNull($cache2->get());
 
-        $cache->put('asd');
+        $cache1->put('qwe');
+        $cache2->put('rty');
 
-        $this->assertSame('asd', $cache->get());
+        $this->assertNull($cache1->get());
+        $this->assertNull($cache2->get());
 
-        $tags->flush();
+        $cache1->flush();
 
-        $this->assertNull($cache->get());
+        $this->assertNull($cache1->get());
+        $this->assertNull($cache2->get());
+    }
+
+    public function testFlushByTags()
+    {
+        $tags1 = Cache::make()->when($this->when)->tags('some1');
+        $tags2 = Cache::make()->when($this->when)->tags('some2');
+
+        $cache1 = (clone $tags1)->key('foo');
+        $cache2 = (clone $tags2)->key('bar');
+
+        $this->assertNull($cache1->get());
+        $this->assertNull($cache2->get());
+
+        $cache1->put('qwe');
+        $cache2->put('rty');
+
+        $this->assertNull($cache1->get());
+        $this->assertNull($cache2->get());
+
+        $tags1->flush();
+
+        $this->assertNull($cache1->get());
+        $this->assertNull($cache2->get());
     }
 
     public function testHas()
