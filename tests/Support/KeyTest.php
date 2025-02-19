@@ -33,7 +33,7 @@ class KeyTest extends TestCase
         $key = Key::get(':', ['Foo', 'Bar', 'Baz']);
 
         $expected
-            = '17358f5eb750c32289df798e7766e830:64db6856f253b7bf17202a3dd3254fc1:05797d9d2d667864e94e07ba8df60840';
+            = '066844617672172f2ae39d2d5913ef4c:bcba27d6e802f5996451ba64a228b6c6:d7ecefa0b151a97860dc4484f7f8fa4f';
 
         $this->assertSame($expected, $key);
     }
@@ -43,7 +43,7 @@ class KeyTest extends TestCase
         $key = Key::get(':', [1, 2, 3]);
 
         $expected
-            = 'd944267ac25276f12cb03fc698810d94:7b2fb106352b24c6dd644a8cdf200295:d8526ab50063e2025ef690f730cd5542';
+            = 'c86e3110a6d26fe560ae738cb6e8b35a:ff31a4bdf27d72cd226daa17502de42f:514c9ac227530b28cef0ec15f1078cf3';
 
         $this->assertSame($expected, $key);
     }
@@ -57,10 +57,10 @@ class KeyTest extends TestCase
         ]);
 
         $expected = implode(':', [
-            'b58721335d52d66a9486072fe3383ccf',
-            'f61f09aec2b68da240f6680a6fc88c6a',
-            'a13960759cc35a02e91fafb356f491c6',
-            '70f48dde06f86de7fae03486c277f597',
+            '787f1b60e54c7c9840578e809a5bb483',
+            'c3df2edd586890488af77f9d1b76624c',
+            '630b6a6167f3c10da0087deddfb0bc78',
+            '23ce8e493c657f862a59d405d5ae4a22',
         ]);
 
         $this->assertSame($expected, $key);
@@ -71,8 +71,8 @@ class KeyTest extends TestCase
         $key = Key::get(':', [true, false]);
 
         $expected = implode(':', [
-            'd944267ac25276f12cb03fc698810d94',
-            'bcb8c4703eae71d5d05c0a6eec1f7daa',
+            'c86e3110a6d26fe560ae738cb6e8b35a',
+            '7fefa631bfe2475ff417717268a34195',
         ]);
 
         $this->assertSame($expected, $key);
@@ -83,10 +83,10 @@ class KeyTest extends TestCase
         $key = Key::get(':', [1, 'Foo', [['Bar', 'Baz']]]);
 
         $expected = implode(':', [
-            'd944267ac25276f12cb03fc698810d94',
-            '5bfe89f7c2ace87ef1c208c3d95fc1b6',
-            'a6426f0db8f32e1156366c7ffe317a6c',
-            '6e30ad368454c1fdd71d181f47314222',
+            'c86e3110a6d26fe560ae738cb6e8b35a',
+            '832eed4c5bf858df13ee59b67aa75b1d',
+            'd10414ec90de1e952a615a2c3d656268',
+            'f16e7b1ceb2ae177dea9829b29e101c9',
         ]);
 
         $this->assertSame($expected, $key);
@@ -97,8 +97,8 @@ class KeyTest extends TestCase
         $key = Key::get(':', $this->dto());
 
         $expected = implode(':', [
-            'b58721335d52d66a9486072fe3383ccf',
-            '8a5c22700ece9adc6c0265fa4af575f1',
+            '787f1b60e54c7c9840578e809a5bb483',
+            '0e64b00cd661261763e451808a05677e',
         ]);
 
         $this->assertSame($expected, $key);
@@ -109,8 +109,8 @@ class KeyTest extends TestCase
         $key1 = Key::get(':', [new CustomObject()]);
         $key2 = Key::get(':', [new CustomObjectWithoutProperties()]);
 
-        $this->assertSame('b58721335d52d66a9486072fe3383ccf', $key1);
-        $this->assertSame('9be04f864d3649e49e892638361d5d49', $key2);
+        $this->assertSame('787f1b60e54c7c9840578e809a5bb483', $key1);
+        $this->assertSame('f9c1f3c1439cb8459d9025a9e597b7c9', $key2);
     }
 
     public function testMultiObjectArrays()
@@ -128,12 +128,12 @@ class KeyTest extends TestCase
         // qwe:rty:Foo:Bar:WASD:Foo
 
         $expected = implode(':', [
-            '6ced27e919d8e040c44929d72fffb681',
-            'b619de70b824374bf86438df3b059bca',
-            'bc5ea0aa608c8e0ef8175083e334abff',
-            '89f5d16cceb669516a0d37c6f2d47df8',
-            '4d1c034a3e1f42f73339950f3a416c46',
-            'eb499c88d41a72f17278348308b4bae8',
+            '00a922fefaabdc276830745c624b6d04',
+            'b1c6c02a6b5e40c95e7787f631ff6948',
+            'b2dd9e7a3140ce9496ac559a0f4412b4',
+            '08607c1a9f3d6989110f468d49ed2a53',
+            'd78af385c25b9903f9f95ba1823a1b8f',
+            '7d25a0a73048ee2de0f7c9a1d1e240d9',
         ]);
 
         $this->assertSame($expected, $key);
@@ -144,8 +144,8 @@ class KeyTest extends TestCase
         $key = Key::get(':', [null, '', 0, [], false]);
 
         $expected = implode(':', [
-            '2d4bab7f33ac57126deb8cde12a0c2ae',
-            '3e3a3e1902376d96020b11c67bec7a08',
+            '43d447ef566417fd13017147aa70f410',
+            '0f39f9a21e0c7acb31e59ef0559557dd',
         ]);
 
         $this->assertSame($expected, $key);
@@ -156,7 +156,7 @@ class KeyTest extends TestCase
         $key = Key::get(':', [User::class, 'foo', 'bar']);
 
         $expected
-            = '87789eae95facc4a5bfdeb957b860942:086f76c144511e1198c29a261e87ca50:2b72000f7b07c51cbbe0e7f85a19597e';
+            = 'cbd255cf79e6ffc7245d84ec28e86873:3eaad76f0a1e8fe159522d2873cd102f:bf7ab0d983046b032fc9c22b17179bff';
 
         $this->assertSame($expected, $key);
     }
@@ -168,7 +168,7 @@ class KeyTest extends TestCase
             Carbon::parse('2022-10-07 15:00:00'),
         ]);
 
-        $expected = '67f1a84c86633483bea1d2080767711c:aeab04bbac549fe6268a7e12ef761165';
+        $expected = '7485b8d070b3891642636988ae60923c:0dc51b5eaafc5968afc8c81e5b8d50f3';
 
         $this->assertSame($expected, $key);
     }
@@ -185,8 +185,8 @@ class KeyTest extends TestCase
         );
 
         $expected = implode(':', [
-            'b58721335d52d66a9486072fe3383ccf',
-            '8a5c22700ece9adc6c0265fa4af575f1',
+            '787f1b60e54c7c9840578e809a5bb483',
+            '0e64b00cd661261763e451808a05677e',
         ]);
 
         $this->assertSame($expected, $key);
@@ -203,8 +203,8 @@ class KeyTest extends TestCase
         $key = Key::get(':', [WithoutValueEnum::foo, WithValueEnum::bar]);
 
         $expected = implode(':', [
-            '33e35b61ea46b126d2a6bf81acda8724',
-            '660a13c00e04c0d3ffb4dbf02a84a07a',
+            'f44e232cceb317df905da38294debd48',
+            '9072f0509e45df294401beab989eb873',
         ]);
 
         $this->assertSame($expected, $key);
