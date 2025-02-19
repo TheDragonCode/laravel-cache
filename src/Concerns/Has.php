@@ -7,7 +7,6 @@ namespace DragonCode\Cache\Concerns;
 use Carbon\Carbon;
 use Closure;
 use DateTimeInterface;
-use DragonCode\Contracts\Cache\Ttl;
 use DragonCode\Support\Facades\Instances\Instance;
 use DragonCode\Support\Facades\Types\Is;
 
@@ -26,10 +25,5 @@ trait Has
     protected function hasObject($value): bool
     {
         return Is::object($value);
-    }
-
-    protected function hasContract($value): bool
-    {
-        return Instance::of($value, Ttl::class);
     }
 }

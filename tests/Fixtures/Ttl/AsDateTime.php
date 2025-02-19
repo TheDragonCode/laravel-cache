@@ -6,9 +6,8 @@ namespace Tests\Fixtures\Ttl;
 
 use DateTime;
 use DateTimeInterface;
-use DragonCode\Contracts\Cache\Ttl;
 
-class AsDateTime implements Ttl
+class AsDateTime
 {
     public function __construct(
         protected string $value

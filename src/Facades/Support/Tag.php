@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace DragonCode\Cache\Facades\Support;
 
 use DragonCode\Cache\Support\Tag as Support;
-use DragonCode\Contracts\DataTransferObject\DataTransferObject;
-use DragonCode\Contracts\Support\Arrayable;
+use DragonCode\SimpleDataTransferObject\DataTransferObject;
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static array get(array|Arrayable|\Illuminate\Contracts\Support\Arrayable|\ArrayObject|DataTransferObject $tags)
+ * @method static array get(array|Arrayable|\ArrayObject|DataTransferObject $tags)
  */
 class Tag extends Facade
 {

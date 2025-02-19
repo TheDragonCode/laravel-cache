@@ -6,7 +6,6 @@ namespace DragonCode\Cache\Support;
 
 use ArrayObject;
 use DragonCode\Cache\Concerns\Arrayable;
-use DragonCode\Contracts\Support\Arrayable as DragonArrayable;
 use Illuminate\Contracts\Support\Arrayable as IlluminateArrayable;
 
 class Key
@@ -15,7 +14,7 @@ class Key
 
     public function get(
         string $separator,
-        array|ArrayObject|DragonArrayable|IlluminateArrayable $values,
+        array|ArrayObject|IlluminateArrayable $values,
         bool $hash = true
     ): string {
         $values = $this->toArray($values);

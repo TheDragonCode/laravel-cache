@@ -6,15 +6,15 @@ namespace DragonCode\Cache\Support;
 
 use DragonCode\Cache\Services\Storages\Disabled;
 use DragonCode\Cache\Services\Storages\MainStore;
+use DragonCode\Cache\Services\Storages\Store;
 use DragonCode\Cache\Services\Storages\TaggedStore;
-use DragonCode\Contracts\Cache\Store;
 use DragonCode\Support\Concerns\Makeable;
 use Illuminate\Support\Facades\Cache;
 
 /**
  * @method static CacheManager make(bool $when = true)
  */
-class CacheManager implements Store
+class CacheManager extends Store
 {
     use Makeable;
 
@@ -59,11 +59,6 @@ class CacheManager implements Store
     public function has(string $key): bool
     {
         return $this->instance()->has($key);
-    }
-
-    public function doesntHave(string $key): bool
-    {
-        return ! $this->has($key);
     }
 
     public function flush(): void

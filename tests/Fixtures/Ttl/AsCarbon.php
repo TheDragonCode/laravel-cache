@@ -5,16 +5,12 @@ declare(strict_types=1);
 namespace Tests\Fixtures\Ttl;
 
 use Carbon\Carbon;
-use DragonCode\Contracts\Cache\Ttl;
 
-class AsCarbon implements Ttl
+class AsCarbon
 {
-    protected $value;
-
-    public function __construct(string $value)
-    {
-        $this->value = $value;
-    }
+    public function __construct(
+        protected string $value
+    ) {}
 
     public function cacheTtl(): Carbon
     {

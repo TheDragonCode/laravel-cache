@@ -9,7 +9,6 @@ use ArrayObject;
 use BackedEnum;
 use Carbon\Carbon;
 use Closure;
-use DragonCode\Contracts\Support\Arrayable as DragonCodeArrayable;
 use DragonCode\Support\Facades\Helpers\Arr;
 use DragonCode\Support\Facades\Instances\Instance;
 use DragonCode\Support\Facades\Instances\Reflection;
@@ -97,12 +96,10 @@ trait Arrayable
 
         if (
             Instance::of($value, [
-                DragonCodeArrayable::class,
-                IlluminateArrayable::class,
                 ArrayableHelper::class,
+                IlluminateArrayable::class,
                 ArrayObject::class,
                 ArrayAccess::class,
-                DragonCodeArrayable::class,
             ])
         ) {
             return true;

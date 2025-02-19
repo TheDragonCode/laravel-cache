@@ -6,7 +6,7 @@ namespace DragonCode\Cache\Support;
 
 use ArrayObject;
 use DragonCode\Cache\Concerns\Arrayable;
-use DragonCode\Contracts\DataTransferObject\DataTransferObject;
+use DragonCode\SimpleDataTransferObject\DataTransferObject;
 use DragonCode\Support\Facades\Helpers\Str;
 
 class Tag
@@ -14,7 +14,7 @@ class Tag
     use Arrayable;
 
     /**
-     * @param  array|\DragonCode\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Arrayable|ArrayObject|DataTransferObject  $tags
+     * @param  array|\Illuminate\Contracts\Support\Arrayable|ArrayObject|DataTransferObject  $tags
      */
     public function get(mixed $tags): array
     {

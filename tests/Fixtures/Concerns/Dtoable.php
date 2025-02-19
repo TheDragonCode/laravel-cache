@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Fixtures\Concerns;
 
-use DragonCode\Contracts\DataTransferObject\DataTransferObject;
+use DragonCode\SimpleDataTransferObject\DataTransferObject;
 use Tests\Fixtures\Dto\DtoObject;
 
 trait Dtoable
