@@ -93,18 +93,18 @@ class TtlTest extends TestCase
         $this->assertSame(600, Ttl::fromSeconds((object) ['foo' => 'Foo']));
     }
 
-    public function testContract()
+    public function testInstances(): void
     {
-        $this->assertSame(3600, Ttl::fromMinutes(new AsCarbon('foo')));
-        $this->assertSame(7200, Ttl::fromSeconds(new AsCarbon('bar')));
+        $this->assertSame(3600, Ttl::fromMinutes((new AsCarbon('foo'))->cacheTtl()));
+        $this->assertSame(7200, Ttl::fromSeconds((new AsCarbon('bar'))->cacheTtl()));
 
-        $this->assertSame(3600, Ttl::fromMinutes(new AsDateTime('foo')));
-        $this->assertSame(7200, Ttl::fromSeconds(new AsDateTime('bar')));
+        $this->assertSame(3600, Ttl::fromMinutes((new AsDateTime('foo'))->cacheTtl()));
+        $this->assertSame(7200, Ttl::fromSeconds((new AsDateTime('bar'))->cacheTtl()));
 
-        $this->assertSame(600, Ttl::fromMinutes(new AsInteger('foo')));
-        $this->assertSame(20, Ttl::fromSeconds(new AsInteger('bar')));
+        $this->assertSame(600, Ttl::fromMinutes((new AsInteger('foo'))->cacheTtl()));
+        $this->assertSame(20, Ttl::fromSeconds((new AsInteger('bar'))->cacheTtl()));
 
-        $this->assertSame(600, Ttl::fromMinutes(new AsString('foo')));
-        $this->assertSame(20, Ttl::fromSeconds(new AsString('bar')));
+        $this->assertSame(600, Ttl::fromMinutes((new AsString('foo'))->cacheTtl()));
+        $this->assertSame(20, Ttl::fromSeconds((new AsString('bar'))->cacheTtl()));
     }
 }

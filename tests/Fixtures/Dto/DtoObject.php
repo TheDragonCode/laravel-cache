@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Fixtures\Dto;
 
-use DragonCode\SimpleDataTransferObject\DataTransferObject;
+use Illuminate\Contracts\Support\Arrayable;
 
-class DtoObject extends DataTransferObject
+class DtoObject implements Arrayable
 {
     public $foo;
 
@@ -15,4 +15,25 @@ class DtoObject extends DataTransferObject
     protected $baz;
 
     protected $baq;
+
+    public static function make(array $values): DtoObject
+    {
+        $object = new static();
+
+        foreach ($values as $key => $value) {
+            if (property_exists($object, $key)) {
+                $object->{$key} = $value;
+            }
+        }
+
+        return $object;
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'foo' => $this->foo,
+            'bar' => $this->bar,
+        ];
+    }
 }
