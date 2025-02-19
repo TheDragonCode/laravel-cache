@@ -1,37 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit
-        xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        backupGlobals="false"
-        backupStaticAttributes="false"
-        bootstrap="vendor/autoload.php"
-        colors="true"
-        convertErrorsToExceptions="true"
-        convertNoticesToExceptions="false"
-        convertWarningsToExceptions="false"
-        processIsolation="false"
-        stopOnError="false"
-        stopOnFailure="false"
-        verbose="true"
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         bootstrap="vendor/autoload.php"
+         colors="true"
+         cacheResult="false"
 >
-    <coverage processUncoveredFiles="true">
-        <include>
-            <directory suffix=".php">./src</directory>
-        </include>
+    <coverage>
         <report>
-            <clover outputFile="build/logs/clover.xml"/>
-            <html outputDirectory="build/logs/coverage"/>
-            <text outputFile="build/logs/coverage.txt"/>
+            <clover outputFile="build/logs/clover.xml" />
+            <html outputDirectory="build/logs/coverage" />
+            <text outputFile="build/logs/coverage.txt" />
         </report>
     </coverage>
     <php>
-        <env name="APP_KEY" value="AckfSECXIvnK5r28GVIWUAxmbBSjTsmF"/>
-        <env name="REDIS_HOST" value="127.0.0.1"/>
-        <env name="REDIS_PORT" value="6379"/>
+        <env name="APP_KEY" value="AckfSECXIvnK5r28GVIWUAxmbBSjTsmF" />
+        <env name="REDIS_HOST" value="127.0.0.1" />
+        <env name="REDIS_PORT" value="6379" />
     </php>
     <testsuites>
         <testsuite name="Test Suite">
-            <directory suffix="Test.php">./tests</directory>
+            <directory>./tests</directory>
         </testsuite>
     </testsuites>
+    <source>
+        <include>
+            <directory>./src</directory>
+        </include>
+    </source>
 </phpunit>

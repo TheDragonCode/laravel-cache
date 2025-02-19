@@ -32,7 +32,7 @@ class Ttl
 
     public function fromDateTime(DateTimeInterface $date_time): int
     {
-        $seconds = Carbon::now()->diffInRealSeconds($date_time);
+        $seconds = Carbon::now()->diffInSeconds($date_time);
 
         return $this->correct($seconds);
     }

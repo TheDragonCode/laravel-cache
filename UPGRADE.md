@@ -4,11 +4,11 @@
 
 ### PHP 8.2 Required
 
-Laravel Cache now required PHP 8.2.0 or greater.
+`Laravel Cache` now required PHP 8.2.0 or greater.
 
-### Laravel 10+ Required
+### Laravel 11+ Required
 
-Laravel Cache now required Laravel Framework 10 or greater.
+`Laravel Cache` now required Laravel Framework 11 or greater.
 
 ### Composer Dependencies
 
