@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Fixtures\Many;
 
-use DragonCode\Contracts\Support\Arrayable;
+use Illuminate\Contracts\Support\Arrayable;
 use Tests\Fixtures\Simple\DragonCodeArrayable as Simple;
 
 class DragonCodeArrayable implements Arrayable

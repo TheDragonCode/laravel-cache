@@ -39,10 +39,6 @@ class Ttl
 
     protected function get($value, int $multiplier = 1): int
     {
-        if ($this->hasObject($value) && $this->hasContract($value)) {
-            $value = $value->cacheTtl();
-        }
-
         if ($this->hasDateTime($value)) {
             return $this->fromDateTime($value);
         }
