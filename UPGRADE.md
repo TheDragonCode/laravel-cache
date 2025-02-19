@@ -6,6 +6,10 @@
 
 Laravel Cache now required PHP 8.2.0 or greater.
 
+### Laravel 10+ Required
+
+Laravel Cache now required Laravel Framework 10 or greater.
+
 ### Composer Dependencies
 
 You should update the following dependency in your application's composer.json file:

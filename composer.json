@@ -33,15 +33,15 @@
         }
     ],
     "require": {
-        "php": "^8.0",
+        "php": "^8.2",
         "dragon-code/support": "^6.11.3",
-        "illuminate/contracts": "^10.0||^11.0",
-        "illuminate/support": ">=6.0 <12.0"
+        "illuminate/contracts": "^10.0 || ^11.0",
+        "illuminate/support": "^10.0 || ^11.0"
     },
     "require-dev": {
         "nesbot/carbon": "^2.62",
-        "orchestra/testbench": ">=4.0 <10.0",
-        "phpunit/phpunit": "^8.5 || ^9.6 || ^10.0"
+        "orchestra/testbench": "^9.0 || ^10.0",
+        "phpunit/phpunit": "^10.0"
     },
     "conflict": {
         "andrey-helldar/cache": "*"
@@ -50,12 +50,12 @@
     "prefer-stable": true,
     "autoload": {
         "psr-4": {
-            "DragonCode\\Cache\\": "src"
+            "DragonCode\\Cache\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests"
+            "Tests\\": "tests/"
         }
     },
     "config": {
