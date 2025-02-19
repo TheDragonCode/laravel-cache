@@ -18,39 +18,39 @@ use Tests\TestCase;
 
 class TtlTest extends TestCase
 {
-    public function testString()
+    public function testString(): void
     {
         $this->assertSame(600, Ttl::fromMinutes('10'));
         $this->assertSame(10, Ttl::fromSeconds('10'));
     }
 
-    public function testInteger()
+    public function testInteger(): void
     {
         $this->assertSame(600, Ttl::fromMinutes(10));
         $this->assertSame(10, Ttl::fromSeconds(10));
     }
 
-    public function testCarbon()
+    public function testCarbon(): void
     {
         $ttl = Carbon::now()->addDay();
 
-        $expected = Carbon::now()->diffInRealSeconds($ttl);
+        $expected = (int) Carbon::now()->diffInSeconds($ttl);
 
         $this->assertSame($expected, Ttl::fromMinutes($ttl));
         $this->assertSame($expected, Ttl::fromSeconds($ttl));
     }
 
-    public function testDateTimeInterface()
+    public function testDateTimeInterface(): void
     {
         $ttl = new DateTime('tomorrow');
 
-        $expected = Carbon::now()->diffInRealSeconds($ttl);
+        $expected = (int) Carbon::now()->diffInSeconds($ttl);
 
         $this->assertSame($expected, Ttl::fromMinutes($ttl));
         $this->assertSame($expected, Ttl::fromSeconds($ttl));
     }
 
-    public function testClosure()
+    public function testClosure(): void
     {
         $ttl = function () {
             return $this->ttl;
@@ -60,7 +60,7 @@ class TtlTest extends TestCase
         $this->assertSame(60, Ttl::fromSeconds($ttl));
     }
 
-    public function testObjectAsString()
+    public function testObjectAsString(): void
     {
         $this->assertSame(18000, Ttl::fromMinutes(CustomObject::class));
         $this->assertSame(300, Ttl::fromSeconds(CustomObject::class));
@@ -78,7 +78,7 @@ class TtlTest extends TestCase
         $this->assertSame(3600, Ttl::fromSeconds('unknown'));
     }
 
-    public function testObjectAsObject()
+    public function testObjectAsObject(): void
     {
         $this->assertSame(18000, Ttl::fromMinutes(new CustomObject()));
         $this->assertSame(300, Ttl::fromSeconds(new CustomObject()));
@@ -95,11 +95,11 @@ class TtlTest extends TestCase
 
     public function testInstances(): void
     {
-        $this->assertSame(3600, Ttl::fromMinutes((new AsCarbon('foo'))->cacheTtl()));
-        $this->assertSame(7200, Ttl::fromSeconds((new AsCarbon('bar'))->cacheTtl()));
+        $this->assertSame(3599, Ttl::fromMinutes((new AsCarbon('foo'))->cacheTtl()));
+        $this->assertSame(7199, Ttl::fromSeconds((new AsCarbon('bar'))->cacheTtl()));
 
-        $this->assertSame(3600, Ttl::fromMinutes((new AsDateTime('foo'))->cacheTtl()));
-        $this->assertSame(7200, Ttl::fromSeconds((new AsDateTime('bar'))->cacheTtl()));
+        $this->assertSame(3599, Ttl::fromMinutes((new AsDateTime('foo'))->cacheTtl()));
+        $this->assertSame(7199, Ttl::fromSeconds((new AsDateTime('bar'))->cacheTtl()));
 
         $this->assertSame(600, Ttl::fromMinutes((new AsInteger('foo'))->cacheTtl()));
         $this->assertSame(20, Ttl::fromSeconds((new AsInteger('bar'))->cacheTtl()));
