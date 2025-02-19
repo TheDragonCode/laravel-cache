@@ -12,6 +12,11 @@ You should update the following dependency in your application's composer.json f
 
 - `dragon-code/laravel-cache` to `^4.0`
 
+The support of the following dependencies has been removed:
+
+- `dragon-code/contracts`
+- `dragon-code/simple-dto`
+
 ### Application Structure
 
 The use of the dependence of the contracts `dragon-code/contracts` was removed.

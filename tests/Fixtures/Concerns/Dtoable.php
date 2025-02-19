@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace Tests\Fixtures\Concerns;
 
-use DragonCode\SimpleDataTransferObject\DataTransferObject;
 use Tests\Fixtures\Dto\DtoObject;
 
 trait Dtoable
 {
-    protected function dto(): DataTransferObject
+    protected function dto(): DtoObject
     {
         return DtoObject::make(array_merge($this->value, [
             'baz' => 'Baz',
