@@ -27,7 +27,7 @@ class Key
 
     protected function hash(array $values, bool $hash = true): array
     {
-        return $this->arrayFlattenKeysMap($values, fn (mixed $value) => $hash ? md5($value) : $value);
+        return $this->arrayFlattenKeysMap($values, fn (mixed $value) => $hash ? hash('xxh128', $value) : $value);
     }
 
     protected function compile(array $values, string $separator): string
