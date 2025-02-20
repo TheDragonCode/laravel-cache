@@ -16,7 +16,7 @@ class ServiceProvider extends BaseServiceProvider
     protected function bootConfig(): void
     {
         $this->publishes([
-            __DIR__ . '/../config/cache.php' => config_path('cache.php'),
+            __DIR__ . '/../config/cache.php' => $this->app->configPath('cache.php'),
         ], 'config');
     }
 }

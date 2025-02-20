@@ -11,6 +11,8 @@ use DragonCode\Cache\Services\Storages\TaggedStore;
 use DragonCode\Support\Concerns\Makeable;
 use Illuminate\Support\Facades\Cache;
 
+use function method_exists;
+
 /**
  * @method static CacheManager make(bool $when = true)
  */

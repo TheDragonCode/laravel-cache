@@ -16,6 +16,15 @@ use DragonCode\Support\Helpers\Ables\Arrayable as ArrayableHelper;
 use Illuminate\Contracts\Support\Arrayable as IlluminateArrayable;
 use Illuminate\Foundation\Http\FormRequest;
 
+use function array_merge;
+use function get_class;
+use function is_array;
+use function is_bool;
+use function is_numeric;
+use function is_object;
+use function is_string;
+use function method_exists;
+
 trait Arrayable
 {
     protected function arrayMap(array $values, callable $callback): array
@@ -44,7 +53,7 @@ trait Arrayable
         return Arr::of($values)
             ->flattenKeys()
             ->filter(static fn ($value) => ! empty($value) || is_numeric($value) || is_bool($value))
-            ->map(fn (mixed $value, mixed $key) => $callback($key . '=' . $value))
+            ->map(static fn (mixed $value, mixed $key) => $callback($key . '=' . $value))
             ->toArray();
     }
 
@@ -72,10 +81,12 @@ trait Arrayable
     protected function toArray($value): array
     {
         return Arr::of(Arr::wrap($value))
-            ->map(fn ($value) => Instance::of($value, Carbon::class) ? $value->toIso8601String() : $value)
-            ->map(fn ($value) => Instance::of($value, FormRequest::class) ? $value->validated() : $value)
-            ->map(fn ($value) => Instance::of($value, BackedEnum::class) ? ($value->value ?? $value->name) : $value)
-            ->map(fn ($value) => is_object($value) ? (Arr::resolve($value) ?: get_class($value)) : $value)
+            ->map(static fn ($value) => Instance::of($value, Carbon::class) ? $value->toIso8601String() : $value)
+            ->map(static fn ($value) => Instance::of($value, FormRequest::class) ? $value->validated() : $value)
+            ->map(
+                static fn ($value) => Instance::of($value, BackedEnum::class) ? ($value->value ?? $value->name) : $value
+            )
+            ->map(static fn ($value) => is_object($value) ? (Arr::resolve($value) ?: get_class($value)) : $value)
             ->resolve()
             ->toArray();
     }

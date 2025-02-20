@@ -13,6 +13,12 @@ use DragonCode\Support\Concerns\Makeable;
 use DragonCode\Support\Facades\Instances\Call;
 use Illuminate\Support\Facades\Auth;
 
+use function array_unshift;
+use function config;
+use function get_class;
+use function is_object;
+use function is_string;
+
 /**
  * @method static Cache make()
  */

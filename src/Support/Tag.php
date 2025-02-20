@@ -17,9 +17,9 @@ class Tag
      */
     public function get(mixed $tags): array
     {
-        $tags = $this->toArray($tags);
-
-        return $this->map($tags);
+        return $this->map(
+            $this->toArray($tags)
+        );
     }
 
     protected function map(array $tags): array

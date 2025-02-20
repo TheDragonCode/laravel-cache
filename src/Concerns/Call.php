@@ -4,29 +4,26 @@ declare(strict_types=1);
 
 namespace DragonCode\Cache\Concerns;
 
+use function function_exists;
+use function is_callable;
+use function is_string;
+
 trait Call
 {
     use Arrayable;
 
     protected function call(mixed $callback = null): mixed
     {
-        return $this->isCallable($callback) && ! $this->isFunction($callback) ? $callback() : $callback;
+        return is_callable($callback) && ! $this->isFunction($callback) ? $callback() : $callback;
     }
 
     protected function makeCallable($value): callable
     {
-        if ($this->isCallable($value) && ! $this->isFunction($value)) {
+        if (is_callable($value) && ! $this->isFunction($value)) {
             return $value;
         }
 
-        return function () use ($value) {
-            return $value;
-        };
-    }
-
-    protected function isCallable($value): bool
-    {
-        return is_callable($value);
+        return static fn () => $value;
     }
 
     protected function isFunction($value): bool
