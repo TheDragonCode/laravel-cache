@@ -18,12 +18,6 @@ class Ttl
     use Call;
     use Has;
 
-    /** @deprecated  */
-    public const DAY = 60 * 24;
-
-    public const MONTH = 60 * 24 * 30;
-    public const WEEK  = 60 * 24 * 7;
-
     protected int $default = 3600;
 
     public function fromMinutes($minutes): int
