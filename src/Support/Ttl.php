@@ -9,12 +9,18 @@ use DateTimeInterface;
 use DragonCode\Cache\Concerns\Call;
 use DragonCode\Cache\Concerns\Has;
 
+use function abs;
+use function config;
+use function get_class;
+
 class Ttl
 {
     use Call;
     use Has;
 
-    public const DAY   = 60 * 24;
+    /** @deprecated  */
+    public const DAY = 60 * 24;
+
     public const MONTH = 60 * 24 * 30;
     public const WEEK  = 60 * 24 * 7;
 
