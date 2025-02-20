@@ -30,3 +30,9 @@ This means that the `DragonCode\Contracts\*` contracts will no longer be working
 ### Replaces Namespaces
 
 - `DragonCode\Contracts\Support\Arrayable` replace with `Illuminate\Contracts\Support\Arrayable`
+
+## Low Impact Changes
+
+### TTL Time Constants
+
+Constants `DAY`, `MONTH` and `WEEK` was deleted from `DragonCode\Cache\Support\Ttl` class.

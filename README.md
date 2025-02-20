@@ -317,10 +317,6 @@ Cache::make()->ttl(fn () => 10);
 
 Cache::make()->ttl(Carbon::now()->addDay());
 Cache::make()->ttl(new DateTime('tomorrow'));
-
-Cache::make()->ttl(Ttl::DAY);
-Cache::make()->ttl(Ttl::WEEK);
-Cache::make()->ttl(Ttl::MONTH);
 ```
 
 ##### As Seconds
