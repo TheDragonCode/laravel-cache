@@ -34,7 +34,7 @@ class Cache
 
     protected bool $hashing_key = true;
 
-    protected string $key_hash = '';
+    protected string $keyHash = '';
 
     protected bool|object|string $when = true;
 
@@ -51,9 +51,9 @@ class Cache
         return $this;
     }
 
-    public function ttl($value, bool $is_minutes = true): Cache
+    public function ttl($value, bool $isMinutes = true): Cache
     {
-        $this->ttl = $is_minutes
+        $this->ttl = $isMinutes
             ? Ttl::fromMinutes($value)
             : Ttl::fromSeconds($value);
 
@@ -149,8 +149,8 @@ class Cache
 
     protected function getKey(): string
     {
-        if (! empty($this->key_hash)) {
-            return $this->key_hash;
+        if (! empty($this->keyHash)) {
+            return $this->keyHash;
         }
 
         $key = $this->key;

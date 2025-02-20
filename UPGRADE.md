@@ -36,3 +36,8 @@ This means that the `DragonCode\Contracts\*` contracts will no longer be working
 ### TTL Time Constants
 
 Constants `DAY`, `MONTH` and `WEEK` was deleted from `DragonCode\Cache\Support\Ttl` class.
+
+### Properties
+
+1. The case of the properties of the properties from `snake_case` with `camelCase` is changed.
+2. The `hashing_key` property of `DragonCode\Cache\Services\Cache` class was renamed with `useHash`.

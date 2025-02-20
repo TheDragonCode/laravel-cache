@@ -30,9 +30,9 @@ class Ttl
         return $this->get($seconds);
     }
 
-    public function fromDateTime(DateTimeInterface $date_time): int
+    public function fromDateTime(DateTimeInterface $dateTime): int
     {
-        $seconds = Carbon::now()->diffInSeconds($date_time);
+        $seconds = Carbon::now()->diffInSeconds($dateTime);
 
         return $this->correct($seconds);
     }
