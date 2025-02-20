@@ -20,10 +20,14 @@ Or manually update `require` block of `composer.json` and run `composer update`.
 ```json
 {
     "require": {
-        "dragon-code/laravel-cache": "^3.11"
+        "dragon-code/laravel-cache": "^4.0"
     }
 }
 ```
+
+## Upgrade Guide
+
+Information on upgrade from version 3 to 4 is located in the [UPGRADE.md](UPGRADE.md) file. 
 
 ## Using
 
@@ -360,51 +364,6 @@ Cache::make()->ttl((object) ['foo' => 'Foo'], false);
 
 If the value is not found, the [default value](config/cache.php) will be taken, which you can also override in
 the [configuration file](config/cache.php).
-
-##### With Contract
-
-Starting with version [`2.9.0`](https://github.com/TheDragonCode/laravel-cache/releases/tag/v2.9.0), we added the
-ability to dynamically specify TTLs in objects. To do this, you
-need to implement the `DragonCode\Contracts\Cache\Ttl` contract into your object and add a method that returns one of
-the following types of variables: `DateTimeInterface`
-, `Carbon\Carbon`, `string`
-or `integer`.
-
-This method will allow you to dynamically specify the TTL depending on the code being executed.
-
-For example:
-
-```php
-use DragonCode\Cache\Services\Cache;
-use DragonCode\Contracts\Cache\Ttl;
-
-class Foo implements Ttl
-{
-    protected $value;
-
-    public function __construct(string $value)
-    {
-        $this->value = $value;
-    }
-
-    public function cacheTtl(): int
-    {
-        return $this->value === 'foo' ? 123 : 456;
-    }
-}
-
-Cache::make()->ttl(new Foo('foo'));
-// TTL is 7380 seconds
-
-Cache::make()->ttl(new Foo('bar'));
-// TTL is 27360 seconds
-
-Cache::make()->ttl(new Foo('foo'), false);
-// TTL is 123 seconds
-
-Cache::make()->ttl(new Foo('bar'), false);
-// TTL is 456 seconds
-```
 
 #### Tagged
 
