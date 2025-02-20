@@ -32,7 +32,7 @@ class Cache
 
     protected mixed $key;
 
-    protected bool $hashing_key = true;
+    protected bool $useHash = true;
 
     protected string $keyHash = '';
 
@@ -76,7 +76,7 @@ class Cache
 
     public function hashKey(bool $hash = true): Cache
     {
-        $this->hashing_key = $hash;
+        $this->useHash = $hash;
 
         return $this;
     }
@@ -159,6 +159,6 @@ class Cache
             array_unshift($key, $this->auth);
         }
 
-        return $this->key_hash = Key::get(':', $key, $this->hashing_key);
+        return $this->keyHash = Key::get(':', $key, $this->useHash);
     }
 }
