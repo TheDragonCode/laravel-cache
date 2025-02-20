@@ -35,12 +35,12 @@
     "require": {
         "php": "^8.2",
         "dragon-code/support": "^6.11.3",
-        "illuminate/contracts": "^11.0",
-        "illuminate/support": "^11.0"
+        "illuminate/contracts": "^11.0 || ^12.0",
+        "illuminate/support": "^11.0 || ^12.0"
     },
     "require-dev": {
         "nesbot/carbon": "^2.62 || ^3.0",
-        "orchestra/testbench": "^9.0",
+        "orchestra/testbench": "^9.0 || ^10.0",
         "phpunit/phpunit": "^11.0"
     },
     "conflict": {
