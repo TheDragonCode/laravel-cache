@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Cache\NotWhen\Arrayables\Many\Redis;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\Cache\NotWhen\Base;
 use Tests\Fixtures\Many\MixedArrayable;
 
@@ -48,6 +49,24 @@ class MixedTest extends Base
 
         $this->assertNull($this->cache(['qwerty'])->get());
         $this->assertNull($this->cache(['cache'])->get());
+    }
+
+    #[DataProvider('booleanData')]
+    public function testFlexible(bool $isTrue)
+    {
+        $item = new MixedArrayable();
+
+        $interval = $isTrue
+            ? $this->positiveTtlInterval
+            : $this->negativeTtlInterval;
+
+        $this->assertSame($item, $this->cache()->flexible($interval)->remember($item));
+
+        $this->assertNull($this->cache()->flexible($interval)->get());
+        $this->assertNull($this->cache(['qwerty', 'cache'])->flexible($interval)->get());
+
+        $this->assertNull($this->cache(['qwerty'])->flexible($interval)->get());
+        $this->assertNull($this->cache(['cache'])->flexible($interval)->get());
     }
 
     public function testRemember()

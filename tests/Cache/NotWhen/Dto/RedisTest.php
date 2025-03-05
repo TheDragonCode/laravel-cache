@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Cache\NotWhen\Dto;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\Cache\NotWhen\Base;
 use Tests\Fixtures\Concerns\Dtoable;
 
@@ -42,6 +43,24 @@ class RedisTest extends Base
 
         $this->assertNull($this->cache(['qwerty'])->get());
         $this->assertNull($this->cache(['cache'])->get());
+    }
+
+    #[DataProvider('booleanData')]
+    public function testFlexible(bool $isTrue)
+    {
+        $item = $this->dto();
+
+        $interval = $isTrue
+            ? $this->positiveTtlInterval
+            : $this->negativeTtlInterval;
+
+        $this->assertSame($item, $this->cache()->flexible($interval)->remember($item));
+
+        $this->assertNull($this->cache()->flexible($interval)->get());
+        $this->assertNull($this->cache(['qwerty', 'cache'])->flexible($interval)->get());
+
+        $this->assertNull($this->cache(['qwerty'])->flexible($interval)->get());
+        $this->assertNull($this->cache(['cache'])->flexible($interval)->get());
     }
 
     public function testRemember()

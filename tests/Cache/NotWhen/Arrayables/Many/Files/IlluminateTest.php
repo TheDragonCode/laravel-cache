@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Cache\NotWhen\Arrayables\Many\Files;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\Cache\NotWhen\Base;
 use Tests\Fixtures\Many\IlluminateArrayable;
 
@@ -36,6 +37,20 @@ class IlluminateTest extends Base
         $this->assertSame($item, $this->cache()->put($item));
 
         $this->assertNull($this->cache()->get());
+    }
+
+    #[DataProvider('booleanData')]
+    public function testFlexible(bool $isTrue)
+    {
+        $item = new IlluminateArrayable();
+
+        $interval = $isTrue
+            ? $this->positiveTtlInterval
+            : $this->negativeTtlInterval;
+
+        $this->assertSame($item, $this->cache()->flexible($interval)->remember($item));
+
+        $this->assertNull($this->cache()->flexible($interval)->get());
     }
 
     public function testRemember()

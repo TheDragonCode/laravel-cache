@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Cache\NotWhen\Simple;
 
 use DragonCode\Cache\Services\Cache;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\Cache\NotWhen\Base;
 
 class ArrayTest extends Base
@@ -25,6 +26,18 @@ class ArrayTest extends Base
         $this->assertSame($this->value, $this->cache()->put($this->value));
 
         $this->assertNull($this->cache()->get());
+    }
+
+    #[DataProvider('booleanData')]
+    public function testFlexible(bool $isTrue)
+    {
+        $interval = $isTrue
+            ? $this->positiveTtlInterval
+            : $this->negativeTtlInterval;
+
+        $this->assertSame($this->value, $this->cache()->flexible($interval)->remember($this->value));
+
+        $this->assertNull($this->cache()->flexible($interval)->get());
     }
 
     public function testRemember()
