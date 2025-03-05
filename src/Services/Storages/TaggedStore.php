@@ -36,6 +36,13 @@ class TaggedStore extends Store
         return $value;
     }
 
+    public function flexible(string $key, $value, int $seconds, int $interval): mixed
+    {
+        $value = $this->makeCallable($value);
+
+        return Cache::flexible($key, [$seconds, $interval], $value);
+    }
+
     public function remember(string $key, $value, int $seconds): mixed
     {
         $value = $this->makeCallable($value);

@@ -16,6 +16,11 @@ class Disabled extends Store
         return $this->get($key, $value);
     }
 
+    public function flexible(string $key, $value, int $seconds, int $interval): mixed
+    {
+        return $this->get($key, $value);
+    }
+
     public function remember(string $key, $value, int $seconds): mixed
     {
         return $this->get($key, $value);

@@ -43,6 +43,15 @@ class CacheManager extends Store
         return $this->instance()->put($key, $value, $seconds);
     }
 
+    public function flexible(string $key, $value, int $seconds, int $interval): mixed
+    {
+        if ($interval < 0) {
+            $interval = $seconds - $interval;
+        }
+
+        return $this->instance()->flexible($key, $value, $seconds, $interval);
+    }
+
     public function remember(string $key, $value, int $seconds): mixed
     {
         return $this->instance()->remember($key, $value, $seconds);
