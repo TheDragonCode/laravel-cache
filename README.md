@@ -27,7 +27,7 @@ Or manually update `require` block of `composer.json` and run `composer update`.
 
 ## Upgrade Guide
 
-Information on upgrade from version 3 to 4 is located in the [UPGRADE.md](UPGRADE.md) file. 
+Information on upgrade from version 3 to 4 is located in the [UPGRADE](UPGRADE.md) file. 
 
 ## Using
 
