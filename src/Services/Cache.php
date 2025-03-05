@@ -111,9 +111,6 @@ class Cache
      *
      * @see https://laravel.com/docs/12.x/cache#swr
      *
-     * @param  int  $interval
-     * @param  bool  $isMinutes
-     *
      * @return $this
      */
     public function flexible(int $interval, bool $isMinutes = true): Cache

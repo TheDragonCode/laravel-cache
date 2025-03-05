@@ -6,7 +6,6 @@ namespace Tests\Cache\NotWhen\Arrayables\Simple\Arr;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\Cache\NotWhen\Base;
-use Tests\Fixtures\Simple\DragonCodeArrayable;
 use Tests\Fixtures\Simple\IlluminateArrayable;
 
 class IlluminateTest extends Base
