@@ -22,6 +22,10 @@ abstract class TestCase extends BaseTestCase
 
     protected int $ttl = 60;
 
+    protected int $positiveTtlInterval = 50;
+
+    protected int $negativeTtlInterval = -10;
+
     protected bool|object|string $when;
 
     protected array $tags = ['qwerty', 'cache'];
@@ -31,6 +35,14 @@ abstract class TestCase extends BaseTestCase
     protected mixed $value = 'value';
 
     protected string $value_second = 'Foo';
+
+    public static function booleanData(): array
+    {
+        return [
+            'true'  => [true],
+            'false' => [false],
+        ];
+    }
 
     protected function getPackageProviders($app): array
     {

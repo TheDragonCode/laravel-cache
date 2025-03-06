@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Cache\NotWhen\Dto;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\Cache\NotWhen\Base;
 use Tests\Fixtures\Concerns\Dtoable;
 
@@ -32,6 +33,20 @@ class FileTest extends Base
         $item = $this->dto();
 
         $this->assertSame($item, $this->cache()->put($item));
+
+        $this->assertNull($this->cache()->get());
+    }
+
+    #[DataProvider('booleanData')]
+    public function testFlexible(bool $isTrue)
+    {
+        $item = $this->dto();
+
+        $interval = $isTrue
+            ? $this->positiveTtlInterval
+            : $this->negativeTtlInterval;
+
+        $this->assertSame($item, $this->cache()->flexible($interval)->remember($item));
 
         $this->assertNull($this->cache()->get());
     }

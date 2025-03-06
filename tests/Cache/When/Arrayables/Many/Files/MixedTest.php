@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Cache\When\Arrayables\Many\Files;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\Cache\When\Base;
 use Tests\Fixtures\Many\MixedArrayable;
 
@@ -40,6 +41,19 @@ class MixedTest extends Base
         $item = new MixedArrayable();
 
         $this->assertSame(serialize($item), serialize($this->cache()->put($item)));
+        $this->assertSame(serialize($item), serialize($this->cache()->get()));
+    }
+
+    #[DataProvider('booleanData')]
+    public function testFlexible(bool $isTrue)
+    {
+        $item = new MixedArrayable();
+
+        $interval = $isTrue
+            ? $this->positiveTtlInterval
+            : $this->negativeTtlInterval;
+
+        $this->assertSame(serialize($item), serialize($this->cache()->flexible($interval)->remember($item)));
         $this->assertSame(serialize($item), serialize($this->cache()->get()));
     }
 

@@ -28,6 +28,8 @@ class Cache
 
     protected int $ttl = 86400;
 
+    protected ?int $ttlInterval = null;
+
     protected array $tags = [];
 
     protected mixed $key;
@@ -88,6 +90,44 @@ class Cache
         return $this;
     }
 
+    /**
+     * It sets the time for stale of the key for its background update.
+     *
+     * > Note:
+     * >
+     * > This method works only in tandem with the `remember()` method.
+     *
+     * A positive value indicates the lifetime of the key before it stale.
+     * For example,
+     * ```
+     * Cache::flexible('some', [60, 300], fn () => ...)
+     * ```
+     *
+     * A negative value indicates the time the key will expire.
+     * For example,
+     * ```
+     * Cache::flexible('some', [300 - 60, 300], fn () => ...)
+     * ```
+     *
+     * If you specify 0, then 15% of the remaining time will be taken as the interval.
+     * For example,
+     * ```
+     * Cache::flexible('some', [(300 - 15% = 255), 300], fn () => ...)
+     * ```
+     *
+     * By default, `0`.
+     *
+     * @see https://laravel.com/docs/12.x/cache#swr
+     *
+     * @return $this
+     */
+    public function flexible(int $interval = 0, bool $isMinutes = true): Cache
+    {
+        $this->ttlInterval = $isMinutes ? $interval * 60 : $interval;
+
+        return $this;
+    }
+
     public function get(): mixed
     {
         return $this->manager()->get($this->getKey());
@@ -100,7 +140,9 @@ class Cache
 
     public function remember(mixed $value): mixed
     {
-        return $this->manager()->remember($this->getKey(), $value, $this->ttl);
+        return $this->ttlInterval === null
+            ? $this->manager()->remember($this->getKey(), $value, $this->ttl)
+            : $this->manager()->flexible($this->getKey(), $value, $this->ttl, $this->ttlInterval);
     }
 
     public function rememberForever(mixed $value): mixed

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Cache\When\Simple;
 
 use DragonCode\Cache\Services\Cache;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\Cache\When\Base;
 
 class FileTest extends Base
@@ -31,6 +32,21 @@ class FileTest extends Base
 
         $time2 = microtime();
         $this->assertSame($time2, $this->cache()->put($time2));
+    }
+
+    #[DataProvider('booleanData')]
+    public function testFlexible(bool $isTrue)
+    {
+        $interval = $isTrue
+            ? $this->positiveTtlInterval
+            : $this->negativeTtlInterval;
+
+        $this->assertSame($this->value, $this->cache()->flexible($interval)->remember($this->value));
+
+        $this->assertSame($this->value, $this->cache()->get());
+
+        $this->assertSame($this->value, $this->cache()->remember(microtime()));
+        $this->assertSame($this->value, $this->cache()->remember(microtime()));
     }
 
     public function testRemember()

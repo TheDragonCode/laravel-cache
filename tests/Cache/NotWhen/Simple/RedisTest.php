@@ -6,6 +6,7 @@ namespace Tests\Cache\NotWhen\Simple;
 
 use DragonCode\Cache\Services\Cache;
 use Illuminate\Support\Facades\Auth;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\Cache\NotWhen\Base;
 use Tests\Fixtures\Models\User;
 
@@ -29,6 +30,22 @@ class RedisTest extends Base
     public function testPut()
     {
         $this->assertSame($this->value, $this->cache()->put($this->value));
+
+        $this->assertNull($this->cache()->get());
+        $this->assertNull($this->cache(['qwerty', 'cache'])->get());
+
+        $this->assertNull($this->cache(['qwerty'])->get());
+        $this->assertNull($this->cache(['cache'])->get());
+    }
+
+    #[DataProvider('booleanData')]
+    public function testFlexible(bool $isTrue)
+    {
+        $interval = $isTrue
+            ? $this->positiveTtlInterval
+            : $this->negativeTtlInterval;
+
+        $this->assertSame($this->value, $this->cache()->flexible($interval)->remember($this->value));
 
         $this->assertNull($this->cache()->get());
         $this->assertNull($this->cache(['qwerty', 'cache'])->get());

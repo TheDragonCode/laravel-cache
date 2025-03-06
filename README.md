@@ -176,7 +176,12 @@ For example, `App\Models\Employee`, `App\Models\User`.
 ```php
 use DragonCode\Cache\Services\Cache;
 
-$cache = Cache::make()->key('foo', 'bar', ['baz', 'baq']);
+$cache = Cache::make()
+    ->key('foo', 'bar', ['baz', 'baq'])
+    ->ttl(200, true);
+    // When `true` is equal to 200 minutes.
+    // When `false` is equal to 200 seconds.
+    // By default, `true`
 
 $cache->put(static fn() => 'Some value');
 // or
@@ -192,6 +197,21 @@ $cache->rememberForever(static fn() => 'Some value');
 // or
 $cache->rememberForever('Some value');
 // Contains cached `Some value`
+
+// Uses the functionality of the `Cache::flexible()` method
+$cache->flexible(50)->remember('Some value');
+// equals `Cache::flexible($key, [50, 200], fn () => 'Some value')`
+
+$cache->flexible(-50)->remember('Some value');
+// equals `Cache::flexible($key, [150, 200], fn () => 'Some value')`
+
+$cache->flexible(0)->remember('Some value'); // By default, `0`
+// equals `Cache::flexible($key, [170, 200], fn () => 'Some value')`
+// (200 - 15%) = 170
+
+$cache->flexible(50, true); // 50 minutes
+$cache->flexible(50, false); // 50 seconds
+$cache->flexible(0, false); // the `true/false` modifier is not used
 
 $cache->get();
 // Returns cached `Some value`
@@ -231,6 +251,9 @@ $cache->rememberForever(static fn() => $user);
 // or
 $cache->rememberForever($user);
 // Contains cached `$user`
+
+$cache->flexible()->remember($user);
+// Returns User model with flexibility
 
 $cache->get();
 // Returns User model
