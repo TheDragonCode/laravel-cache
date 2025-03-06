@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Cache\When\Arrayables\Many\Redis;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\Cache\When\Base;
 use Tests\Fixtures\Many\DragonCodeArrayable;
 
@@ -40,6 +41,24 @@ class DragonCodeTest extends Base
         $item = new DragonCodeArrayable();
 
         $this->assertSame(serialize($item), serialize($this->cache()->put($item)));
+
+        $this->assertSame(serialize($item), serialize($this->cache()->get()));
+        $this->assertSame(serialize($item), serialize($this->cache(['qwerty', 'cache'])->get()));
+
+        $this->assertNull($this->cache(['qwerty'])->get());
+        $this->assertNull($this->cache(['cache'])->get());
+    }
+
+    #[DataProvider('booleanData')]
+    public function testFlexible(bool $isTrue)
+    {
+        $item = new DragonCodeArrayable();
+
+        $interval = $isTrue
+            ? $this->positiveTtlInterval
+            : $this->negativeTtlInterval;
+
+        $this->assertSame(serialize($item), serialize($this->cache()->flexible($interval)->remember($item)));
 
         $this->assertSame(serialize($item), serialize($this->cache()->get()));
         $this->assertSame(serialize($item), serialize($this->cache(['qwerty', 'cache'])->get()));

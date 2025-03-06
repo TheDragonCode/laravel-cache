@@ -48,7 +48,7 @@ class DragonCodeTest extends Base
 
         $this->assertSame($item, $this->cache()->flexible($interval)->remember($item));
 
-        $this->assertNull($this->cache()->flexible($interval)->get());
+        $this->assertNull($this->cache()->get());
     }
 
     public function testRemember()

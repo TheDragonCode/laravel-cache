@@ -37,7 +37,7 @@ class ArrayTest extends Base
 
         $this->assertSame($this->value, $this->cache()->flexible($interval)->remember($this->value));
 
-        $this->assertNull($this->cache()->flexible($interval)->get());
+        $this->assertNull($this->cache()->get());
     }
 
     public function testRemember()

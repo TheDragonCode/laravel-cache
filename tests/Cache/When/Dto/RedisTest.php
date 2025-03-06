@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Cache\When\Dto;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\Cache\When\Base;
 use Tests\Fixtures\Concerns\Dtoable;
 
@@ -38,6 +39,24 @@ class RedisTest extends Base
         $item = $this->dto();
 
         $this->assertSame(serialize($item), serialize($this->cache()->put($item)));
+
+        $this->assertSame(serialize($item), serialize($this->cache()->get()));
+        $this->assertSame(serialize($item), serialize($this->cache(['qwerty', 'cache'])->get()));
+
+        $this->assertNull($this->cache(['qwerty'])->get());
+        $this->assertNull($this->cache(['cache'])->get());
+    }
+
+    #[DataProvider('booleanData')]
+    public function testFlexible(bool $isTrue)
+    {
+        $item = $this->dto();
+
+        $interval = $isTrue
+            ? $this->positiveTtlInterval
+            : $this->negativeTtlInterval;
+
+        $this->assertSame(serialize($item), serialize($this->cache()->flexible($interval)->remember($item)));
 
         $this->assertSame(serialize($item), serialize($this->cache()->get()));
         $this->assertSame(serialize($item), serialize($this->cache(['qwerty', 'cache'])->get()));

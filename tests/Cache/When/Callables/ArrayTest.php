@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Cache\When\Callables;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\Cache\When\Base;
 
 class ArrayTest extends Base
@@ -27,6 +28,21 @@ class ArrayTest extends Base
         };
 
         $this->assertSame($this->value, $this->cache()->put($item));
+        $this->assertSame($this->value, $this->cache()->get());
+    }
+
+    #[DataProvider('booleanData')]
+    public function testFlexible(bool $isTrue)
+    {
+        $item = function () {
+            return $this->value;
+        };
+
+        $interval = $isTrue
+            ? $this->positiveTtlInterval
+            : $this->negativeTtlInterval;
+
+        $this->assertSame($this->value, $this->cache()->flexible($interval)->remember($item));
         $this->assertSame($this->value, $this->cache()->get());
     }
 

@@ -54,11 +54,11 @@ class RedisTest extends Base
 
         $this->assertSame($this->value, $this->cache()->flexible($interval)->remember($item));
 
-        $this->assertNull($this->cache()->flexible($interval)->get());
-        $this->assertNull($this->cache(['qwerty', 'cache'])->flexible($interval)->get());
+        $this->assertNull($this->cache()->get());
+        $this->assertNull($this->cache(['qwerty', 'cache'])->get());
 
-        $this->assertNull($this->cache(['qwerty'])->flexible($interval)->get());
-        $this->assertNull($this->cache(['cache'])->flexible($interval)->get());
+        $this->assertNull($this->cache(['qwerty'])->get());
+        $this->assertNull($this->cache(['cache'])->get());
     }
 
     public function testRemember()

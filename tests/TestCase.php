@@ -22,9 +22,9 @@ abstract class TestCase extends BaseTestCase
 
     protected int $ttl = 60;
 
-    protected int $positiveTtlInterval = 5;
+    protected int $positiveTtlInterval = 50;
 
-    protected int $negativeTtlInterval = -5;
+    protected int $negativeTtlInterval = -10;
 
     protected bool|object|string $when;
 
