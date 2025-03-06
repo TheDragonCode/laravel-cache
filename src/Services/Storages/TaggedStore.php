@@ -20,11 +20,8 @@ class TaggedStore extends Store
 
     public function get(string $key, $default = null): mixed
     {
-        if ($this->has($key)) {
-            return $this->cache()->get($key);
-        }
-
-        return $this->call($default);
+        return $this->cache()->get($key)
+            ?? $this->call($default);
     }
 
     public function put(string $key, $value, int $seconds): mixed
@@ -38,23 +35,17 @@ class TaggedStore extends Store
 
     public function flexible(string $key, $value, int $seconds, int $interval): mixed
     {
-        $value = $this->makeCallable($value);
-
-        return Cache::flexible($key, [$seconds, $interval], $value);
+        return $this->cache()->flexible($key, [$interval, $seconds], $this->makeCallable($value));
     }
 
     public function remember(string $key, $value, int $seconds): mixed
     {
-        $value = $this->makeCallable($value);
-
-        return $this->cache()->remember($key, $seconds, $value);
+        return $this->cache()->remember($key, $seconds, $this->makeCallable($value));
     }
 
     public function rememberForever(string $key, $value): mixed
     {
-        $value = $this->makeCallable($value);
-
-        return $this->cache()->rememberForever($key, $value);
+        return $this->cache()->rememberForever($key, $this->makeCallable($value));
     }
 
     public function forget(string $key): void

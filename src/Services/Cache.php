@@ -109,11 +109,19 @@ class Cache
      * Cache::flexible('some', [300 - 60, 300], fn () => ...)
      * ```
      *
+     * If you specify 0, then 15% of the remaining time will be taken as the interval.
+     * For example,
+     * ```
+     * Cache::flexible('some', [(300 - 15% = 255), 300], fn () => ...)
+     * ```
+     *
+     * By default, `0`.
+     *
      * @see https://laravel.com/docs/12.x/cache#swr
      *
      * @return $this
      */
-    public function flexible(int $interval, bool $isMinutes = true): Cache
+    public function flexible(int $interval = 0, bool $isMinutes = true): Cache
     {
         $this->ttlInterval = $isMinutes ? $interval * 60 : $interval;
 

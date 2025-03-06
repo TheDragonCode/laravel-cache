@@ -48,6 +48,9 @@ class CacheManager extends Store
         if ($interval < 0) {
             $interval = $seconds - $interval;
         }
+        elseif ($interval === 0) {
+            $interval = (int) (300 * 0.85);
+        }
 
         return $this->instance()->flexible($key, $value, $seconds, $interval);
     }

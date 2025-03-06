@@ -17,7 +17,7 @@ trait Call
         return is_callable($callback) && ! $this->isFunction($callback) ? $callback() : $callback;
     }
 
-    protected function makeCallable($value): callable
+    protected function makeCallable(mixed $value): callable
     {
         if (is_callable($value) && ! $this->isFunction($value)) {
             return $value;
