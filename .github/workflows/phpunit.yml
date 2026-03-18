@@ -18,11 +18,8 @@ jobs:
         name: PHP ${{ matrix.php }}, Laravel ${{ matrix.laravel }}
 
         steps:
-            -   name: Checkout code
-                uses: actions/checkout@v6
-
-            -   name: Setup Redis
-                uses: shogo82148/actions-setup-redis@v1
+            -   uses: actions/checkout@v6
+            -   uses: shogo82148/actions-setup-redis@v1
 
             -   name: Setup PHP
                 uses: shivammathur/setup-php@v2
