@@ -10,6 +10,10 @@
 [![Github Workflow Status][badge_build]][link_build]
 [![License][badge_license]][link_license]
 
+> [!NOTE]
+> 
+> The `Cache::tags()` method in Laravel 11 is not compatible with PHP 8.5. 
+
 ## Installation
 
 To get the latest version of `Smart Cache`, simply require the project using [Composer](https://getcomposer.org):
