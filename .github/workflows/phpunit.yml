@@ -21,7 +21,7 @@ jobs:
         name: PHP ${{ matrix.php }}, Laravel ${{ matrix.laravel }}
 
         steps:
-            -   uses: actions/checkout@v6
+            -   uses: actions/checkout@v7
             -   uses: shogo82148/actions-setup-redis@v1
 
             -   name: Setup PHP
